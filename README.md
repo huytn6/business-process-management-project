@@ -24,6 +24,9 @@ This repository contains all the coursework and assignments for the Business Pro
 - Apply advanced technologies in process management
 - Optimize business operational efficiency
 
+### Project Progress Tracking
+📊 [Team Progress Management Sheet](https://docs.google.com/spreadsheets/d/1GITSrIFves2W_c6ibtaolj2n4hK0FYnkTkY6Y6xOSRg/edit?usp=sharing)
+
 ### Technologies Used
 *Will be updated during project development*
 
@@ -34,4 +37,4 @@ This repository contains all the coursework and assignments for the Business Pro
 All contributions from team members are welcome. Please refer to the guidelines for commits and pull requests.
 
 ---
-*This project is conducted as part of coursework at University of Information Technology (UIT)*" 
+*This project is conducted by all team members from class LT.K2025.2.CNTT - UIT*" 
