@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2260" height="670" viewBox="0 0 2260 670" font-family="Arial, sans-serif">
+<defs><marker id="arw" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7.5" markerHeight="7.5" orient="auto-start-reverse"><path d="M1 1 L9 5 L1 9" fill="none" stroke="#33475b" stroke-width="1.4"/></marker><marker id="arwd" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7.5" markerHeight="7.5" orient="auto-start-reverse"><path d="M1 1 L9 5 L1 9" fill="none" stroke="#6b5b17" stroke-width="1.4"/></marker></defs>
+<rect x="0" y="0" width="2260" height="670" fill="#ffffff"/>
+<rect x="20" y="45" width="2130" height="570" fill="none" stroke="#33475b" stroke-width="1.6"/>
+<rect x="20" y="45" width="20" height="570" fill="#33475b"/>
+<text x="33" y="330.0" transform="rotate(-90 33 330.0)" text-anchor="middle" font-size="13" font-weight="bold" fill="#ffffff">Viettel Post — Giai đoạn 2: Vận chuyển &amp; Khai thác đích</text>
+<rect x="40" y="75" width="2110" height="170" fill="none" stroke="#c3ccd8" stroke-width="1"/>
+<rect x="40" y="75" width="28" height="170" fill="#eef2f7" stroke="#c3ccd8" stroke-width="1"/>
+<text x="54" y="160.0" transform="rotate(-90 54 160.0)" text-anchor="middle" font-size="11.5" font-weight="bold" fill="#33475b">Đội vận tải liên tỉnh</text>
+<rect x="40" y="245" width="2110" height="250" fill="none" stroke="#c3ccd8" stroke-width="1"/>
+<rect x="40" y="245" width="28" height="250" fill="#eef2f7" stroke="#c3ccd8" stroke-width="1"/>
+<text x="54" y="370.0" transform="rotate(-90 54 370.0)" text-anchor="middle" font-size="11.5" font-weight="bold" fill="#33475b">TT khai thác đích (Inbound &amp; Sorting)</text>
+<rect x="40" y="495" width="2110" height="120" fill="none" stroke="#c3ccd8" stroke-width="1"/>
+<rect x="40" y="495" width="28" height="120" fill="#eef2f7" stroke="#c3ccd8" stroke-width="1"/>
+<text x="54" y="555.0" transform="rotate(-90 54 555.0)" text-anchor="middle" font-size="11.5" font-weight="bold" fill="#33475b">Bưu cục đích</text>
+<path d="M 120 120 L 270 120" fill="none" stroke="#33475b" stroke-width="1.3" marker-end="url(#arw)"/>
+<path d="M 430 120 L 527 120 L 527 300 L 624 300" fill="none" stroke="#33475b" stroke-width="1.3" marker-end="url(#arw)"/>
+<path d="M 784 300 L 821 300" fill="none" stroke="#33475b" stroke-width="1.3" marker-end="url(#arw)"/>
+<path d="M 865 300 L 929 300 L 929 380 L 993 380" fill="none" stroke="#33475b" stroke-width="1.3" marker-end="url(#arw)"/>
+<rect x="899.0" y="364.0" width="60" height="15" fill="#ffffff"/>
+<text x="929.0" y="375.0" text-anchor="middle" font-size="10.5" fill="#b0281a" font-weight="bold">Không khớp</text>
+<path d="M 865 300 L 929 300 L 929 230 L 993 230" fill="none" stroke="#33475b" stroke-width="1.3" marker-end="url(#arw)"/>
+<rect x="899.0" y="214.0" width="60" height="15" fill="#ffffff"/>
+<text x="929.0" y="225.0" text-anchor="middle" font-size="10.5" fill="#b0281a" font-weight="bold">Khớp</text>
+<path d="M 1153 380 L 1174 380 L 1174 300 L 1195 300" fill="none" stroke="#33475b" stroke-width="1.3" marker-end="url(#arw)"/>
+<path d="M 1153 230 L 1174 230 L 1174 300 L 1195 300" fill="none" stroke="#33475b" stroke-width="1.3" marker-end="url(#arw)"/>
+<path d="M 1239 300 L 1367 300" fill="none" stroke="#33475b" stroke-width="1.3" marker-end="url(#arw)"/>
+<path d="M 1527 300 L 1539 300" fill="none" stroke="#33475b" stroke-width="1.3" marker-end="url(#arw)"/>
+<path d="M 1699 300 L 1715 300 L 1715 555 L 1731 555" fill="none" stroke="#33475b" stroke-width="1.3" marker-end="url(#arw)"/>
+<path d="M 1891 555 L 1903 555" fill="none" stroke="#33475b" stroke-width="1.3" marker-end="url(#arw)"/>
+<path d="M 2063 555 L 2095 555" fill="none" stroke="#33475b" stroke-width="1.3" marker-end="url(#arw)"/>
+<path d="M 350 156 L 350 170 L 328 170 L 328 205 L 462 205" fill="none" stroke="#33475b" stroke-width="1.3" marker-end="url(#arw)"/>
+<path d="M 462 205 L 205 205 L 205 120 L 270 120" fill="none" stroke="#33475b" stroke-width="1.3" marker-end="url(#arw)"/>
+<circle cx="104" cy="120" r="16.0" fill="#e8f4ea" stroke="#4b8b5a" stroke-width="1.6"/>
+<text x="104" y="149" text-anchor="middle" font-size="10.5" fill="#33475b">Tiếp nhận bàn</text>
+<text x="104" y="162" text-anchor="middle" font-size="10.5" fill="#33475b">giao từ kho khai</text>
+<text x="104" y="175" text-anchor="middle" font-size="10.5" fill="#33475b">thác gốc</text>
+<rect x="270" y="84" width="160" height="72" rx="8" fill="#e9f0f8" stroke="#3d6ea5" stroke-width="1.4"/>
+<text x="350" y="106" text-anchor="middle" font-size="11.5" fill="#1f3a5f">Vận chuyển giữa 2</text>
+<text x="350" y="120" text-anchor="middle" font-size="11.5" fill="#1f3a5f">hub, giám sát hành</text>
+<text x="350" y="134" text-anchor="middle" font-size="11.5" fill="#1f3a5f">trình qua TMS/NOC</text>
+<rect x="462" y="169" width="160" height="72" rx="8" fill="#e9f0f8" stroke="#3d6ea5" stroke-width="1.4"/>
+<text x="542" y="198" text-anchor="middle" font-size="11.5" fill="#1f3a5f">Điều xe dự phòng / xử</text>
+<text x="542" y="212" text-anchor="middle" font-size="11.5" fill="#1f3a5f">lý sự cố</text>
+<rect x="624" y="264" width="160" height="72" rx="8" fill="#e9f0f8" stroke="#3d6ea5" stroke-width="1.4"/>
+<text x="704" y="293" text-anchor="middle" font-size="11.5" fill="#1f3a5f">Dỡ hàng, đối chiếu</text>
+<text x="704" y="307" text-anchor="middle" font-size="11.5" fill="#1f3a5f">niêm phong &amp; manifest</text>
+<path d="M 843.0 278.0 L 865.0 300.0 L 843.0 322.0 L 821.0 300.0 Z" fill="#fdf3d8" stroke="#c79a2b" stroke-width="1.5"/>
+<text x="843.0" y="305.0" text-anchor="middle" font-size="15" fill="#c79a2b">×</text>
+<text x="843.0" y="272.0" text-anchor="middle" font-size="10.5" font-weight="bold" fill="#33475b">Khớp số liệu?</text>
+<rect x="993" y="344" width="160" height="72" rx="8" fill="#e9f0f8" stroke="#3d6ea5" stroke-width="1.4"/>
+<text x="1073" y="373" text-anchor="middle" font-size="11.5" fill="#1f3a5f">Lập biên bản bất</text>
+<text x="1073" y="387" text-anchor="middle" font-size="11.5" fill="#1f3a5f">thường, báo CSKH</text>
+<rect x="993" y="194" width="160" height="72" rx="8" fill="#e9f0f8" stroke="#3d6ea5" stroke-width="1.4"/>
+<text x="1073" y="216" text-anchor="middle" font-size="11.5" fill="#1f3a5f">Nhập kho, chia chọn</text>
+<text x="1073" y="230" text-anchor="middle" font-size="11.5" fill="#1f3a5f">theo bưu cục phát</text>
+<text x="1073" y="244" text-anchor="middle" font-size="11.5" fill="#1f3a5f">(băng chuyền đích)</text>
+<path d="M 1217.0 278.0 L 1239.0 300.0 L 1217.0 322.0 L 1195.0 300.0 Z" fill="#fdf3d8" stroke="#c79a2b" stroke-width="1.5"/>
+<text x="1217.0" y="305.0" text-anchor="middle" font-size="15" fill="#c79a2b">×</text>
+<rect x="1367" y="264" width="160" height="72" rx="8" fill="#e9f0f8" stroke="#3d6ea5" stroke-width="1.4"/>
+<text x="1447" y="300" text-anchor="middle" font-size="11.5" fill="#1f3a5f">Đóng bao nội tỉnh</text>
+<rect x="1539" y="264" width="160" height="72" rx="8" fill="#e9f0f8" stroke="#3d6ea5" stroke-width="1.4"/>
+<text x="1619" y="293" text-anchor="middle" font-size="11.5" fill="#1f3a5f">Bàn giao xe feeder</text>
+<text x="1619" y="307" text-anchor="middle" font-size="11.5" fill="#1f3a5f">ngắn</text>
+<rect x="1731" y="519" width="160" height="72" rx="8" fill="#e9f0f8" stroke="#3d6ea5" stroke-width="1.4"/>
+<text x="1811" y="548" text-anchor="middle" font-size="11.5" fill="#1f3a5f">Nhận hàng, quét nhập</text>
+<text x="1811" y="562" text-anchor="middle" font-size="11.5" fill="#1f3a5f">kho</text>
+<rect x="1903" y="519" width="160" height="72" rx="8" fill="#e9f0f8" stroke="#3d6ea5" stroke-width="1.4"/>
+<text x="1983" y="548" text-anchor="middle" font-size="11.5" fill="#1f3a5f">Bàn giao bưu tá phát</text>
+<text x="1983" y="562" text-anchor="middle" font-size="11.5" fill="#1f3a5f">hàng</text>
+<circle cx="2111" cy="555" r="16.0" fill="#f6e6e6" stroke="#a33" stroke-width="3.2"/>
+<text x="2111" y="584" text-anchor="middle" font-size="10.5" fill="#33475b">Kết thúc - chuyển</text>
+<text x="2111" y="597" text-anchor="middle" font-size="10.5" fill="#33475b">giao hàng chặng</text>
+<text x="2111" y="610" text-anchor="middle" font-size="10.5" fill="#33475b">cuối</text>
+<circle cx="350" cy="156" r="14.0" fill="#fff" stroke="#c79a2b" stroke-width="1.4"/>
+<circle cx="350" cy="156" r="11.0" fill="none" stroke="#c79a2b" stroke-width="1.2"/>
+<path d="M 350.0 156.0 L 350.0 151.0 M 350.0 156.0 L 354.0 158.0" stroke="#c79a2b" stroke-width="1.1" fill="none"/>
+<rect x="366" y="150" width="205" height="13" fill="#ffffff"/>
+<text x="366" y="160" text-anchor="start" font-size="10.5" font-weight="bold" fill="#b0281a">Cảnh báo bất thường</text>
+<rect x="366" y="163" width="205" height="13" fill="#ffffff"/>
+<text x="366" y="173" text-anchor="start" font-size="10.5" font-weight="bold" fill="#b0281a">(Digital Twin/Camera AI)</text>
+<rect x="9" y="66" width="190" height="14" fill="#ffffff"/>
+<text x="104" y="77" text-anchor="middle" font-size="11" font-weight="bold" fill="#6b5b17">⟵ (Từ Phần 1) Bàn giao hàng hóa + manifest</text>
+<path d="M 104 80 L 104 104" stroke="#6b5b17" stroke-width="1.6" stroke-dasharray="6,4" marker-end="url(#arwd)"/>
+</svg>
