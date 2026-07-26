@@ -4,7 +4,7 @@
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="header" parent="1" style="text;html=1;strokeColor=#1e293b;fillColor=#334155;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#ffffff;fontStyle=1;fontSize=15;" value="QUY TRÌNH QUẢN LÝ HOÀN TRẢ HÀNG &amp; CHĂM SÓC KHÁCH HÀNG – VIETTEL POST (CHUẨN BPMN 2.0)" vertex="1">
+        <mxCell id="header" parent="1" style="text;html=1;strokeColor=#1e293b;fillColor=#334155;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontColor=#ffffff;fontStyle=1;fontSize=15;" value="QUY TRÌNH QUẢN LÝ HOÀN TRẢ HÀNG &amp; CHĂM SÓC KHÁCH HÀNG – VIETTEL POST" vertex="1">
           <mxGeometry height="42" width="2040" x="40" y="20" as="geometry" />
         </mxCell>
         <mxCell id="lane-kh" parent="1" style="swimlane;html=1;startSize=38;horizontal=0;collapsible=0;fillColor=#ffffff;strokeColor=#94a3b8;strokeWidth=1;fontStyle=1;fontSize=13;fontColor=#1e293b;whiteSpace=wrap;" value="KHÁCH HÀNG" vertex="1">
@@ -52,7 +52,12 @@
         <mxCell id="node-cskh-3" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#475569;strokeWidth=1;fontColor=#1e293b;fontSize=12;fontStyle=1;" value="Xác minh nguyên nhân&#xa;sự cố" vertex="1">
           <mxGeometry height="62" width="185" x="880" y="339" as="geometry" />
         </mxCell>
-
+        <mxCell id="node-cskh-4" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#475569;strokeWidth=1;fontColor=#1e293b;fontSize=12;fontStyle=1;" value="Phân loại nhóm&#xa;yêu cầu" vertex="1">
+          <mxGeometry height="62" width="180" x="1135" y="339" as="geometry" />
+        </mxCell>
+        <mxCell id="gw-classify" parent="1" style="rhombus;whiteSpace=wrap;html=1;fillColor=#f8fafc;strokeColor=#475569;strokeWidth=1;fontColor=#1e293b;fontSize=16;fontStyle=1;" value="X" vertex="1">
+          <mxGeometry height="56" width="56" x="1380" y="342" as="geometry" />
+        </mxCell>
         <mxCell id="node-cskh-5" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#475569;strokeWidth=1;fontColor=#1e293b;fontSize=12;fontStyle=1;" value="Giải quyết khiếu nại" vertex="1">
           <mxGeometry height="58" width="180" x="1515" y="270" as="geometry" />
         </mxCell>
@@ -89,7 +94,6 @@
         <mxCell id="node-sys-3" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8fafc;strokeColor=#94a3b8;strokeWidth=1;fontColor=#334155;fontSize=12;fontStyle=1;" value="Lưu trữ hồ sơ&#xa;quy trình" vertex="1">
           <mxGeometry height="62" width="180" x="920" y="969" as="geometry" />
         </mxCell>
-
         <mxCell id="e1" edge="1" parent="1" source="node-start" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#475569;strokeWidth=1.5;endArrow=classic;" target="node-kh-1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
@@ -123,18 +127,24 @@
         <mxCell id="e8-valid" edge="1" parent="1" source="gw-info" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#475569;strokeWidth=1.5;endArrow=classic;labelBackgroundColor=#ffffff;fontColor=#1e293b;fontStyle=1;fontSize=11;" target="node-cskh-3" value="Đầy đủ thông tin">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="e11-return" edge="1" parent="1" source="node-cskh-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#475569;strokeWidth=1.5;endArrow=classic;labelBackgroundColor=#ffffff;fontColor=#1e293b;fontStyle=1;fontSize=11;" target="node-ship-1" value="Hoàn trả hàng">
+        <mxCell id="e9" edge="1" parent="1" source="node-cskh-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#475569;strokeWidth=1.5;endArrow=classic;" target="node-cskh-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e10" edge="1" parent="1" source="node-cskh-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#475569;strokeWidth=1.5;endArrow=classic;" target="gw-classify">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e11-return" edge="1" parent="1" source="gw-classify" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#475569;strokeWidth=1.5;endArrow=classic;labelBackgroundColor=#ffffff;fontColor=#1e293b;fontStyle=1;fontSize=11;" target="node-ship-1" value="Hoàn trả hàng">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
-              <mxPoint x="972" y="470" />
+              <mxPoint x="1408" y="470" />
               <mxPoint x="530" y="470" />
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="e12-complaint" edge="1" parent="1" source="node-cskh-3" style="html=1;strokeColor=#475569;strokeWidth=1.5;endArrow=classic;labelBackgroundColor=#ffffff;fontColor=#1e293b;fontStyle=1;fontSize=11;" target="node-cskh-5" value="Khiếu nại">
+        <mxCell id="e12-complaint" edge="1" parent="1" source="gw-classify" style="html=1;strokeColor=#475569;strokeWidth=1.5;endArrow=classic;labelBackgroundColor=#ffffff;fontColor=#1e293b;fontStyle=1;fontSize=11;" target="node-cskh-5" value="Khiếu nại">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="e13-consult" edge="1" parent="1" source="node-cskh-3" style="html=1;strokeColor=#475569;strokeWidth=1.5;endArrow=classic;labelBackgroundColor=#ffffff;fontColor=#1e293b;fontStyle=1;fontSize=11;" target="node-cskh-6" value="Tư vấn">
+        <mxCell id="e13-consult" edge="1" parent="1" source="gw-classify" style="html=1;strokeColor=#475569;strokeWidth=1.5;endArrow=classic;labelBackgroundColor=#ffffff;fontColor=#1e293b;fontStyle=1;fontSize=11;" target="node-cskh-6" value="Tư vấn">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="e14" edge="1" parent="1" source="node-ship-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#475569;strokeWidth=1.5;endArrow=classic;" target="node-sys-2">
@@ -175,7 +185,6 @@
         <mxCell id="e24" edge="1" parent="1" source="node-kho-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#475569;strokeWidth=1.5;endArrow=classic;" target="node-kho-4">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-
         <mxCell id="e27" edge="1" parent="1" source="node-cskh-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#475569;strokeWidth=1.5;endArrow=classic;" target="node-kh-3">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
