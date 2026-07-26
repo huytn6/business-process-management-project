@@ -22,9 +22,7 @@
         <mxCell id="node-kho-4" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#475569;strokeWidth=1;fontColor=#1e293b;fontSize=12;fontStyle=1;" value="Cập nhật kết quả&#xa;kiểm hàng" vertex="1">
           <mxGeometry height="62" width="180" x="1760" y="759" as="geometry" />
         </mxCell>
-        <mxCell id="lane-system" parent="1" style="swimlane;html=1;startSize=38;horizontal=0;collapsible=0;fillColor=#ffffff;strokeColor=#94a3b8;strokeWidth=1;fontStyle=1;fontSize=13;fontColor=#1e293b;whiteSpace=wrap;" value="HỆ THỐNG" vertex="1">
-          <mxGeometry height="170" width="2040" x="40" y="915" as="geometry" />
-        </mxCell>
+
         <mxCell id="node-start" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#e6f4ea;strokeColor=#2e7d32;strokeWidth=1.5;fontColor=#1b5e20;fontStyle=1;fontSize=11;verticalLabelPosition=bottom;verticalAlign=top;align=center;" value="Yêu cầu hoàn trả&#xa;đã phát sinh" vertex="1">
           <mxGeometry height="50" width="50" x="100" y="129" as="geometry" />
         </mxCell>
@@ -85,24 +83,14 @@
         <mxCell id="node-kho-3" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#475569;strokeWidth=1;fontColor=#1e293b;fontSize=12;fontStyle=1;" value="Hoàn trả hàng&#xa;cho người gửi" vertex="1">
           <mxGeometry height="58" width="180" x="1515" y="825" as="geometry" />
         </mxCell>
-        <mxCell id="node-sys-1" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8fafc;strokeColor=#94a3b8;strokeWidth=1;fontColor=#334155;fontSize=12;fontStyle=1;" value="Lưu thông tin&#xa;yêu cầu" vertex="1">
-          <mxGeometry height="62" width="180" x="200" y="969" as="geometry" />
-        </mxCell>
-        <mxCell id="node-sys-2" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8fafc;strokeColor=#94a3b8;strokeWidth=1;fontColor=#334155;fontSize=12;fontStyle=1;" value="Cập nhật trạng thái&#xa;đơn hàng" vertex="1">
-          <mxGeometry height="62" width="180" x="440" y="969" as="geometry" />
-        </mxCell>
-        <mxCell id="node-sys-3" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8fafc;strokeColor=#94a3b8;strokeWidth=1;fontColor=#334155;fontSize=12;fontStyle=1;" value="Lưu trữ hồ sơ&#xa;quy trình" vertex="1">
-          <mxGeometry height="62" width="180" x="920" y="969" as="geometry" />
-        </mxCell>
+
         <mxCell id="e1" edge="1" parent="1" source="node-start" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#475569;strokeWidth=1.5;endArrow=classic;" target="node-kh-1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="e2" edge="1" parent="1" source="node-kh-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#475569;strokeWidth=1.5;endArrow=classic;" target="node-cskh-1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="e3" edge="1" parent="1" source="node-cskh-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#475569;strokeWidth=1.5;endArrow=classic;" target="node-sys-1">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
+
         <mxCell id="e4" edge="1" parent="1" source="node-cskh-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#475569;strokeWidth=1.5;endArrow=classic;" target="node-cskh-2">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
@@ -147,9 +135,7 @@
         <mxCell id="e13-consult" edge="1" parent="1" source="gw-classify" style="html=1;strokeColor=#475569;strokeWidth=1.5;endArrow=classic;labelBackgroundColor=#ffffff;fontColor=#1e293b;fontStyle=1;fontSize=11;" target="node-cskh-6" value="Tư vấn">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="e14" edge="1" parent="1" source="node-ship-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#475569;strokeWidth=1.5;endArrow=classic;" target="node-sys-2">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
+
         <mxCell id="e15" edge="1" parent="1" source="node-ship-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#475569;strokeWidth=1.5;endArrow=classic;" target="node-ship-2">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
@@ -159,9 +145,7 @@
         <mxCell id="e17" edge="1" parent="1" source="node-ship-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#475569;strokeWidth=1.5;endArrow=classic;" target="node-kho-1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="e18" edge="1" parent="1" source="node-ship-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#475569;strokeWidth=1.5;endArrow=classic;" target="node-sys-3">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
+
         <mxCell id="e19" edge="1" parent="1" source="node-kho-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#475569;strokeWidth=1.5;endArrow=classic;" target="gw-condition">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
