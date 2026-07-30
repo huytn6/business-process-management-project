@@ -1,16 +1,18 @@
-"# Business Process Management System
+# Hệ thống Quản trị Quy trình Nghiệp vụ của Viettel Post
 
-### Course Information
-- **Course:** IE203.F32.LT.CNTT - Hệ thống quản trị quy trình nghiệp vụ
-- **Instructor:** Hà Lê Hoài Trung
+### Thông tin môn học
 
-### Project Overview
-This repository contains all the coursework and assignments for the Business Process Management System course. It serves as a comprehensive collection of our learning materials, project implementations, and academic deliverables throughout the semester.
+- **Môn học:** IE203.F32.LT.CNTT - Hệ thống quản trị quy trình nghiệp vụ
+- **Giảng viên:** Hà Lê Hoài Trung
 
-### Team Members
+### Tổng quan dự án
 
-| No. | Name | Organization | Student ID | Email | Github |
-|-----|------|--------------|------------|-------|--------|
+Repo này chứa toàn bộ thông tin về đồ án cuối kỳ của môn học.
+
+### Thành viên nhóm
+
+| STT | Họ và tên | Đơn vị công tác | Mã số sinh viên | Email | GitHub |
+|-----|-----------|-----------------|-----------------|-------|--------|
 | 1 | Trần Ngọc Huy | VERYPAY | 25410232 | huytn6.it@gmail.com | [@huytn6](https://github.com/huytn6) |
 | 2 | Trần Việt Hải | NFC CARE | 25410198 | tranviethai01@gmail.com | [@tvhai01](https://github.com/tvhai01) |
 | 3 | Đặng Văn Hậu | Saigon Valve | 25410203 | dangvanhaufpt2019@gmail.com | [@dev-snake](https://github.com/dev-snake) |
@@ -19,22 +21,6 @@ This repository contains all the coursework and assignments for the Business Pro
 | 6 | Huỳnh Đại Long | THỊNH PHÁT | 25410246 | hdlong.net@gmail.com | [@hdlongnet](https://github.com/hdlongnet) |
 | 7 | Nguyễn Thanh Huy | Chứng khoán HSC | 25410230 | huyntps99@gmail.com | [@ga291780890](https://github.com/ga291780890) |
 
-### Project Objectives
-- Design and develop a modern BPM system
-- Apply advanced technologies in process management
-- Optimize business operational efficiency
+### Theo dõi tiến độ dự án
 
-### Project Progress Tracking
-📊 [Team Progress Management Sheet](https://docs.google.com/spreadsheets/d/1GITSrIFves2W_c6ibtaolj2n4hK0FYnkTkY6Y6xOSRg/edit?usp=sharing)
-
-### Technologies Used
-*Will be updated during project development*
-
-### Installation and Usage
-*Instructions will be updated during the development process*
-
-### Contributing
-All contributions from team members are welcome. Please refer to the guidelines for commits and pull requests.
-
----
-*This project is conducted by all team members from class LT.K2025.2.CNTT - UIT*" 
+📊 [File theo dõi toàn bộ công việc được giao cho các thành viên](https://docs.google.com/spreadsheets/d/1GITSrIFves2W_c6ibtaolj2n4hK0FYnkTkY6Y6xOSRg/edit?usp=sharing)
