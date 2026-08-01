@@ -1,0 +1,565 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_ViettelPost_Sorting" targetNamespace="http://bpmn.io/schema/bpmn" exporter="bpmn-js (https://demo.bpmn.io)" exporterVersion="18.22.0">
+  <bpmn:message id="Message_FeederArrival" name="Bàn giao bưu gửi và manifest" />
+  <bpmn:message id="Message_LinehaulHandover" name="Bàn giao vận tải liên tỉnh" />
+  <bpmn:collaboration id="Collaboration_ViettelPost">
+    <bpmn:participant id="Participant_Upstream" name="Bưu cục/Điểm tập kết &#38; xe feeder" />
+    <bpmn:participant id="Participant_Hub" name="TRUNG TÂM KHAI THÁC VIETTEL POST" processRef="Process_HubSorting" />
+    <bpmn:participant id="Participant_Carrier" name="Đội vận tải liên tỉnh" />
+    <bpmn:messageFlow id="MessageFlow_In" name="Bàn giao" sourceRef="Participant_Upstream" targetRef="Start_Hub" messageRef="Message_FeederArrival" />
+    <bpmn:messageFlow id="MessageFlow_Out" name="Manifest và bưu gửi" sourceRef="Task_Handover" targetRef="Participant_Carrier" messageRef="Message_LinehaulHandover" />
+  </bpmn:collaboration>
+  <bpmn:process id="Process_HubSorting" name="Phân loại &#38; Chuyển phát trung tâm" isExecutable="false">
+    <bpmn:laneSet id="LaneSet_Hub">
+      <bpmn:lane id="Lane_Outbound" name="Outbound &#38; điều vận">
+        <bpmn:flowNodeRef>Task_Route</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Gateway_Cutoff</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Timer_Wait</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_Bag</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_Verify</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Gateway_Outbound</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_Reconcile</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_Manifest</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_Handover</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>End_Success</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_Exception" name="Khai thác ngoại lệ / an ninh">
+        <bpmn:flowNodeRef>Task_Discrepancy</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>End_Discrepancy</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_Isolate</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>End_Danger</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_ManualSort</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_System" name="DWS &#38; hệ thống chia chọn">
+        <bpmn:flowNodeRef>Task_DWS</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Gateway_Type</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_AutoSort</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Gateway_Result</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_Rework</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Gateway_Merge</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_Inbound" name="Inbound &#38; kiểm soát bàn giao">
+        <bpmn:flowNodeRef>Start_Hub</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_Receive</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Gateway_Match</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_Scan</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Gateway_Barcode</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_Relabel</bpmn:flowNodeRef>
+      </bpmn:lane>
+    </bpmn:laneSet>
+    <bpmn:startEvent id="Start_Hub" name="Xe feeder đến hub">
+      <bpmn:outgoing>F01</bpmn:outgoing>
+      <bpmn:messageEventDefinition id="MessageEventDef_Start" messageRef="Message_FeederArrival" />
+    </bpmn:startEvent>
+    <bpmn:receiveTask id="Task_Receive" name="Nhận bàn giao; kiểm tra seal, số bao/kiện và manifest">
+      <bpmn:incoming>F01</bpmn:incoming>
+      <bpmn:outgoing>F02</bpmn:outgoing>
+    </bpmn:receiveTask>
+    <bpmn:exclusiveGateway id="Gateway_Match" name="Bàn giao khớp?">
+      <bpmn:incoming>F02</bpmn:incoming>
+      <bpmn:outgoing>F03</bpmn:outgoing>
+      <bpmn:outgoing>F04</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:userTask id="Task_Scan" name="Quét mã ghi nhận bưu gửi đến hub">
+      <bpmn:incoming>F03</bpmn:incoming>
+      <bpmn:incoming>F09</bpmn:incoming>
+      <bpmn:outgoing>F06</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:exclusiveGateway id="Gateway_Barcode" name="Mã đọc được?">
+      <bpmn:incoming>F06</bpmn:incoming>
+      <bpmn:outgoing>F07</bpmn:outgoing>
+      <bpmn:outgoing>F08</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:userTask id="Task_Relabel" name="Nhận dạng và in/dán lại nhãn">
+      <bpmn:incoming>F08</bpmn:incoming>
+      <bpmn:outgoing>F09</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:serviceTask id="Task_DWS" name="DWS: quét, cân, đo; kiểm tra/soi chiếu">
+      <bpmn:incoming>F07</bpmn:incoming>
+      <bpmn:outgoing>F10</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:exclusiveGateway id="Gateway_Type" name="Phân nhóm hàng">
+      <bpmn:incoming>F10</bpmn:incoming>
+      <bpmn:outgoing>F11</bpmn:outgoing>
+      <bpmn:outgoing>F16</bpmn:outgoing>
+      <bpmn:outgoing>F18</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:serviceTask id="Task_AutoSort" name="Chia chọn tự động theo tuyến đích">
+      <bpmn:incoming>F11</bpmn:incoming>
+      <bpmn:incoming>F15</bpmn:incoming>
+      <bpmn:outgoing>F12</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:exclusiveGateway id="Gateway_Result" name="Kết quả hợp lệ?">
+      <bpmn:incoming>F12</bpmn:incoming>
+      <bpmn:outgoing>F13</bpmn:outgoing>
+      <bpmn:outgoing>F14</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:userTask id="Task_Rework" name="Xử lý no-read, sai tuyến hoặc lỗi thiết bị">
+      <bpmn:incoming>F14</bpmn:incoming>
+      <bpmn:outgoing>F15</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:exclusiveGateway id="Gateway_Merge">
+      <bpmn:incoming>F13</bpmn:incoming>
+      <bpmn:incoming>F17</bpmn:incoming>
+      <bpmn:outgoing>F20</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:manualTask id="Task_Discrepancy" name="Cách ly lô; lập biên bản sai lệch/hư hỏng">
+      <bpmn:incoming>F04</bpmn:incoming>
+      <bpmn:outgoing>F05</bpmn:outgoing>
+    </bpmn:manualTask>
+    <bpmn:endEvent id="End_Discrepancy" name="Kết thúc xử lý sai lệch">
+      <bpmn:incoming>F05</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:manualTask id="Task_Isolate" name="Cách ly hàng cấm/nguy hiểm; lập biên bản và báo cáo">
+      <bpmn:incoming>F18</bpmn:incoming>
+      <bpmn:outgoing>F19</bpmn:outgoing>
+    </bpmn:manualTask>
+    <bpmn:endEvent id="End_Danger" name="Từ chối/cách ly theo quy định">
+      <bpmn:incoming>F19</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:manualTask id="Task_ManualSort" name="Phân loại thủ công hàng đặc biệt được phép">
+      <bpmn:incoming>F16</bpmn:incoming>
+      <bpmn:outgoing>F17</bpmn:outgoing>
+    </bpmn:manualTask>
+    <bpmn:userTask id="Task_Route" name="Tập kết theo tuyến; xác nhận kế hoạch line-haul">
+      <bpmn:incoming>F20</bpmn:incoming>
+      <bpmn:outgoing>F21</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:exclusiveGateway id="Gateway_Cutoff" name="Đủ điều kiện xuất tuyến?">
+      <bpmn:incoming>F21</bpmn:incoming>
+      <bpmn:incoming>F24</bpmn:incoming>
+      <bpmn:outgoing>F22</bpmn:outgoing>
+      <bpmn:outgoing>F23</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:intermediateCatchEvent id="Timer_Wait" name="Chờ giờ cắt chuyến/xe">
+      <bpmn:incoming>F23</bpmn:incoming>
+      <bpmn:outgoing>F24</bpmn:outgoing>
+      <bpmn:timerEventDefinition id="TimerEventDef_Wait">
+        <bpmn:timeDuration>PT20M</bpmn:timeDuration>
+      </bpmn:timerEventDefinition>
+    </bpmn:intermediateCatchEvent>
+    <bpmn:userTask id="Task_Bag" name="Tạo mã bao/container; quét kiện vào bao và niêm phong">
+      <bpmn:incoming>F22</bpmn:incoming>
+      <bpmn:outgoing>F25</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:userTask id="Task_Verify" name="Đối soát số lượng, khối lượng và số seal">
+      <bpmn:incoming>F25</bpmn:incoming>
+      <bpmn:incoming>F29</bpmn:incoming>
+      <bpmn:outgoing>F26</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:exclusiveGateway id="Gateway_Outbound" name="Đối soát khớp?">
+      <bpmn:incoming>F26</bpmn:incoming>
+      <bpmn:outgoing>F27</bpmn:outgoing>
+      <bpmn:outgoing>F28</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:userTask id="Task_Reconcile" name="Mở kiểm tra, điều chỉnh và đối soát lại">
+      <bpmn:incoming>F28</bpmn:incoming>
+      <bpmn:outgoing>F29</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:userTask id="Task_Manifest" name="Đóng manifest và xếp phương tiện">
+      <bpmn:incoming>F27</bpmn:incoming>
+      <bpmn:outgoing>F30</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sendTask id="Task_Handover" name="Bàn giao, ký nhận và cập nhật rời hub">
+      <bpmn:incoming>F30</bpmn:incoming>
+      <bpmn:outgoing>F31</bpmn:outgoing>
+    </bpmn:sendTask>
+    <bpmn:endEvent id="End_Success" name="Bàn giao vận tải liên tỉnh">
+      <bpmn:incoming>F31</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="F01" sourceRef="Start_Hub" targetRef="Task_Receive" />
+    <bpmn:sequenceFlow id="F02" sourceRef="Task_Receive" targetRef="Gateway_Match" />
+    <bpmn:sequenceFlow id="F03" name="Có" sourceRef="Gateway_Match" targetRef="Task_Scan">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">Có</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="F04" name="Không" sourceRef="Gateway_Match" targetRef="Task_Discrepancy">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">Không</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="F09" sourceRef="Task_Relabel" targetRef="Task_Scan" />
+    <bpmn:sequenceFlow id="F06" sourceRef="Task_Scan" targetRef="Gateway_Barcode" />
+    <bpmn:sequenceFlow id="F07" name="Có" sourceRef="Gateway_Barcode" targetRef="Task_DWS">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">Có</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="F08" name="Không" sourceRef="Gateway_Barcode" targetRef="Task_Relabel">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">Không</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="F10" sourceRef="Task_DWS" targetRef="Gateway_Type" />
+    <bpmn:sequenceFlow id="F11" name="Thông thường" sourceRef="Gateway_Type" targetRef="Task_AutoSort">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">Thông thường</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="F16" name="Đặc biệt được phép" sourceRef="Gateway_Type" targetRef="Task_ManualSort">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">Đặc biệt được phép</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="F18" name="Cấm/nguy hiểm" sourceRef="Gateway_Type" targetRef="Task_Isolate">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">Cấm/nguy hiểm</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="F15" sourceRef="Task_Rework" targetRef="Task_AutoSort" />
+    <bpmn:sequenceFlow id="F12" sourceRef="Task_AutoSort" targetRef="Gateway_Result" />
+    <bpmn:sequenceFlow id="F13" name="Có" sourceRef="Gateway_Result" targetRef="Gateway_Merge">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">Có</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="F14" name="Không" sourceRef="Gateway_Result" targetRef="Task_Rework">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">Không</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="F17" sourceRef="Task_ManualSort" targetRef="Gateway_Merge" />
+    <bpmn:sequenceFlow id="F20" sourceRef="Gateway_Merge" targetRef="Task_Route" />
+    <bpmn:sequenceFlow id="F05" sourceRef="Task_Discrepancy" targetRef="End_Discrepancy" />
+    <bpmn:sequenceFlow id="F19" sourceRef="Task_Isolate" targetRef="End_Danger" />
+    <bpmn:sequenceFlow id="F21" sourceRef="Task_Route" targetRef="Gateway_Cutoff" />
+    <bpmn:sequenceFlow id="F24" sourceRef="Timer_Wait" targetRef="Gateway_Cutoff" />
+    <bpmn:sequenceFlow id="F22" name="Có" sourceRef="Gateway_Cutoff" targetRef="Task_Bag">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">Có</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="F23" name="Không" sourceRef="Gateway_Cutoff" targetRef="Timer_Wait">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">Không</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="F25" sourceRef="Task_Bag" targetRef="Task_Verify" />
+    <bpmn:sequenceFlow id="F29" sourceRef="Task_Reconcile" targetRef="Task_Verify" />
+    <bpmn:sequenceFlow id="F26" sourceRef="Task_Verify" targetRef="Gateway_Outbound" />
+    <bpmn:sequenceFlow id="F27" name="Có" sourceRef="Gateway_Outbound" targetRef="Task_Manifest">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">Có</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="F28" name="Không" sourceRef="Gateway_Outbound" targetRef="Task_Reconcile">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">Không</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="F30" sourceRef="Task_Manifest" targetRef="Task_Handover" />
+    <bpmn:sequenceFlow id="F31" sourceRef="Task_Handover" targetRef="End_Success" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_ViettelPost">
+    <bpmndi:BPMNPlane id="BPMNPlane_ViettelPost" bpmnElement="Collaboration_ViettelPost">
+      <bpmndi:BPMNShape id="Shape_Participant_Upstream" bpmnElement="Participant_Upstream" isHorizontal="true">
+        <dc:Bounds x="150" y="40" width="760" height="90" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_Participant_Hub" bpmnElement="Participant_Hub" isHorizontal="true">
+        <dc:Bounds x="150" y="200" width="4650" height="1440" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_Lane_Inbound" bpmnElement="Lane_Inbound" isHorizontal="true">
+        <dc:Bounds x="180" y="200" width="4620" height="360" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_Lane_System" bpmnElement="Lane_System" isHorizontal="true">
+        <dc:Bounds x="180" y="560" width="4620" height="360" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_Lane_Exception" bpmnElement="Lane_Exception" isHorizontal="true">
+        <dc:Bounds x="180" y="920" width="4620" height="360" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_Lane_Outbound" bpmnElement="Lane_Outbound" isHorizontal="true">
+        <dc:Bounds x="180" y="1280" width="4620" height="360" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_Start_Hub" bpmnElement="Start_Hub">
+        <dc:Bounds x="430" y="350" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="398" y="393" width="100" height="36" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_Task_Receive" bpmnElement="Task_Receive">
+        <dc:Bounds x="510" y="318" width="260" height="100" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_Gateway_Match" bpmnElement="Gateway_Match" isMarkerVisible="true">
+        <dc:Bounds x="830" y="338" width="60" height="60" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="800" y="410" width="120" height="28" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_Task_Scan" bpmnElement="Task_Scan">
+        <dc:Bounds x="970" y="318" width="240" height="100" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_Gateway_Barcode" bpmnElement="Gateway_Barcode" isMarkerVisible="true">
+        <dc:Bounds x="1270" y="338" width="60" height="60" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1240" y="410" width="120" height="28" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_Task_Relabel" bpmnElement="Task_Relabel">
+        <dc:Bounds x="1080" y="455" width="270" height="86" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_Task_DWS" bpmnElement="Task_DWS">
+        <dc:Bounds x="1430" y="678" width="270" height="100" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_Gateway_Type" bpmnElement="Gateway_Type" isMarkerVisible="true">
+        <dc:Bounds x="1770" y="698" width="60" height="60" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1735" y="770" width="130" height="28" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_Task_AutoSort" bpmnElement="Task_AutoSort">
+        <dc:Bounds x="1920" y="678" width="260" height="100" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_Gateway_Result" bpmnElement="Gateway_Result" isMarkerVisible="true">
+        <dc:Bounds x="2240" y="698" width="60" height="60" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2160" y="770" width="125" height="28" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_Task_Rework" bpmnElement="Task_Rework">
+        <dc:Bounds x="2100" y="815" width="290" height="86" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_Gateway_Merge" bpmnElement="Gateway_Merge" isMarkerVisible="true">
+        <dc:Bounds x="2620" y="698" width="60" height="60" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_Task_Discrepancy" bpmnElement="Task_Discrepancy">
+        <dc:Bounds x="820" y="1038" width="290" height="100" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_End_Discrepancy" bpmnElement="End_Discrepancy">
+        <dc:Bounds x="1160" y="1070" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1125" y="1115" width="110" height="42" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_Task_Isolate" bpmnElement="Task_Isolate">
+        <dc:Bounds x="1500" y="1038" width="300" height="100" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_End_Danger" bpmnElement="End_Danger">
+        <dc:Bounds x="1850" y="1070" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1810" y="1115" width="120" height="42" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_Task_ManualSort" bpmnElement="Task_ManualSort">
+        <dc:Bounds x="2100" y="1038" width="310" height="100" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_Task_Route" bpmnElement="Task_Route">
+        <dc:Bounds x="2680" y="1398" width="260" height="100" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_Gateway_Cutoff" bpmnElement="Gateway_Cutoff" isMarkerVisible="true">
+        <dc:Bounds x="3000" y="1418" width="60" height="60" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2970" y="1378" width="125" height="30" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_Timer_Wait" bpmnElement="Timer_Wait">
+        <dc:Bounds x="3012" y="1540" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2980" y="1580" width="105" height="42" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_Task_Bag" bpmnElement="Task_Bag">
+        <dc:Bounds x="3150" y="1398" width="270" height="100" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_Task_Verify" bpmnElement="Task_Verify">
+        <dc:Bounds x="3480" y="1398" width="250" height="100" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_Gateway_Outbound" bpmnElement="Gateway_Outbound" isMarkerVisible="true">
+        <dc:Bounds x="3790" y="1418" width="60" height="60" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="3760" y="1378" width="125" height="30" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_Task_Reconcile" bpmnElement="Task_Reconcile">
+        <dc:Bounds x="3650" y="1540" width="290" height="86" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_Task_Manifest" bpmnElement="Task_Manifest">
+        <dc:Bounds x="3920" y="1398" width="240" height="100" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_Task_Handover" bpmnElement="Task_Handover">
+        <dc:Bounds x="4220" y="1398" width="270" height="100" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_End_Success" bpmnElement="End_Success">
+        <dc:Bounds x="4550" y="1430" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="4510" y="1475" width="120" height="42" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Edge_F01" bpmnElement="F01">
+        <di:waypoint x="466" y="368" />
+        <di:waypoint x="510" y="368" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_F02" bpmnElement="F02">
+        <di:waypoint x="770" y="368" />
+        <di:waypoint x="830" y="368" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_F03" bpmnElement="F03">
+        <di:waypoint x="890" y="368" />
+        <di:waypoint x="970" y="368" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="915" y="340" width="34" height="22" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_F04" bpmnElement="F04">
+        <di:waypoint x="860" y="398" />
+        <di:waypoint x="860" y="990" />
+        <di:waypoint x="965" y="990" />
+        <di:waypoint x="965" y="1038" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="868" y="650" width="58" height="22" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_F09" bpmnElement="F09">
+        <di:waypoint x="1080" y="498" />
+        <di:waypoint x="1030" y="498" />
+        <di:waypoint x="1030" y="418" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_F06" bpmnElement="F06">
+        <di:waypoint x="1210" y="368" />
+        <di:waypoint x="1270" y="368" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_F07" bpmnElement="F07">
+        <di:waypoint x="1330" y="368" />
+        <di:waypoint x="1375" y="368" />
+        <di:waypoint x="1375" y="728" />
+        <di:waypoint x="1430" y="728" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1385" y="580" width="34" height="22" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_F08" bpmnElement="F08">
+        <di:waypoint x="1300" y="398" />
+        <di:waypoint x="1300" y="455" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1390" y="430" width="58" height="22" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_F10" bpmnElement="F10">
+        <di:waypoint x="1700" y="728" />
+        <di:waypoint x="1770" y="728" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_F11" bpmnElement="F11">
+        <di:waypoint x="1830" y="728" />
+        <di:waypoint x="1920" y="728" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1840" y="650" width="100" height="22" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_F16" bpmnElement="F16">
+        <di:waypoint x="1800" y="758" />
+        <di:waypoint x="1800" y="970" />
+        <di:waypoint x="2255" y="970" />
+        <di:waypoint x="2255" y="1038" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1960" y="935" width="130" height="36" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_F18" bpmnElement="F18">
+        <di:waypoint x="1770" y="728" />
+        <di:waypoint x="1725" y="728" />
+        <di:waypoint x="1725" y="970" />
+        <di:waypoint x="1650" y="970" />
+        <di:waypoint x="1650" y="1038" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1580" y="935" width="120" height="24" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_F15" bpmnElement="F15">
+        <di:waypoint x="2100" y="858" />
+        <di:waypoint x="2050" y="858" />
+        <di:waypoint x="2050" y="778" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_F12" bpmnElement="F12">
+        <di:waypoint x="2180" y="728" />
+        <di:waypoint x="2240" y="728" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_F13" bpmnElement="F13">
+        <di:waypoint x="2300" y="728" />
+        <di:waypoint x="2620" y="728" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2445" y="700" width="34" height="22" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_F14" bpmnElement="F14">
+        <di:waypoint x="2270" y="758" />
+        <di:waypoint x="2270" y="815" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2305" y="780" width="58" height="22" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_F17" bpmnElement="F17">
+        <di:waypoint x="2410" y="1088" />
+        <di:waypoint x="2650" y="1088" />
+        <di:waypoint x="2650" y="758" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_F20" bpmnElement="F20">
+        <di:waypoint x="2680" y="728" />
+        <di:waypoint x="2750" y="728" />
+        <di:waypoint x="2750" y="1350" />
+        <di:waypoint x="2810" y="1350" />
+        <di:waypoint x="2810" y="1398" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_F05" bpmnElement="F05">
+        <di:waypoint x="1110" y="1088" />
+        <di:waypoint x="1160" y="1088" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_F19" bpmnElement="F19">
+        <di:waypoint x="1800" y="1088" />
+        <di:waypoint x="1850" y="1088" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_F21" bpmnElement="F21">
+        <di:waypoint x="2940" y="1448" />
+        <di:waypoint x="3000" y="1448" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_F24" bpmnElement="F24">
+        <di:waypoint x="3048" y="1558" />
+        <di:waypoint x="3100" y="1558" />
+        <di:waypoint x="3100" y="1370" />
+        <di:waypoint x="3030" y="1370" />
+        <di:waypoint x="3030" y="1418" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_F22" bpmnElement="F22">
+        <di:waypoint x="3060" y="1448" />
+        <di:waypoint x="3150" y="1448" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="3090" y="1420" width="34" height="22" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_F23" bpmnElement="F23">
+        <di:waypoint x="3030" y="1478" />
+        <di:waypoint x="3030" y="1540" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="3040" y="1505" width="58" height="22" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_F25" bpmnElement="F25">
+        <di:waypoint x="3420" y="1448" />
+        <di:waypoint x="3480" y="1448" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_F29" bpmnElement="F29">
+        <di:waypoint x="3650" y="1583" />
+        <di:waypoint x="3605" y="1583" />
+        <di:waypoint x="3605" y="1498" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_F26" bpmnElement="F26">
+        <di:waypoint x="3730" y="1448" />
+        <di:waypoint x="3790" y="1448" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_F27" bpmnElement="F27">
+        <di:waypoint x="3850" y="1448" />
+        <di:waypoint x="3920" y="1448" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="3870" y="1420" width="34" height="22" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_F28" bpmnElement="F28">
+        <di:waypoint x="3820" y="1478" />
+        <di:waypoint x="3820" y="1540" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="3830" y="1505" width="58" height="22" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_F30" bpmnElement="F30">
+        <di:waypoint x="4160" y="1448" />
+        <di:waypoint x="4220" y="1448" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_F31" bpmnElement="F31">
+        <di:waypoint x="4490" y="1448" />
+        <di:waypoint x="4550" y="1448" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Shape_Participant_Carrier" bpmnElement="Participant_Carrier" isHorizontal="true">
+        <dc:Bounds x="3920" y="1720" width="880" height="90" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Edge_MessageFlow_In" bpmnElement="MessageFlow_In">
+        <di:waypoint x="448" y="130" />
+        <di:waypoint x="448" y="350" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="460" y="220" width="90" height="28" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_MessageFlow_Out" bpmnElement="MessageFlow_Out">
+        <di:waypoint x="4355" y="1498" />
+        <di:waypoint x="4355" y="1685" />
+        <di:waypoint x="4360" y="1685" />
+        <di:waypoint x="4360" y="1720" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="4370" y="1650" width="130" height="36" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
