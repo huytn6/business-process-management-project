@@ -1,0 +1,406 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" targetNamespace="" exporter="bpmn-js (https://demo.bpmn.io)" exporterVersion="18.22.0" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL http://www.omg.org/spec/BPMN/2.0/20100501/BPMN20.xsd">
+  <collaboration id="Collaboration_1">
+    <participant id="Participant_TuyenDung" name="Quy trình Tuyển dụng &#38; Đào tạo Nhân sự" processRef="Process_TuyenDung" />
+  </collaboration>
+  <process id="Process_TuyenDung" isExecutable="false">
+    <laneSet id="LaneSet_1">
+      <lane id="Lane_UngVien" name="Ứng viên">
+        <flowNodeRef>Task_UngTuyen</flowNodeRef>
+        <flowNodeRef>Task_ThuViec</flowNodeRef>
+      </lane>
+      <lane id="Lane_QuanLy" name="Quản lý Cửa hàng / Bưu cục">
+        <flowNodeRef>Start_NhuCau</flowNodeRef>
+        <flowNodeRef>Task_DeXuat</flowNodeRef>
+        <flowNodeRef>Task_HuongDan</flowNodeRef>
+        <flowNodeRef>Task_DanhGia</flowNodeRef>
+      </lane>
+      <lane id="Lane_BanLanhDao" name="Ban Lãnh đạo">
+        <flowNodeRef>Task_XemXet</flowNodeRef>
+        <flowNodeRef>Gateway_DuyetDeXuat</flowNodeRef>
+      </lane>
+      <lane id="Lane_HR" name="Phòng Nhân sự (HR)">
+        <flowNodeRef>Task_DanhSach</flowNodeRef>
+        <flowNodeRef>Task_DangTin</flowNodeRef>
+        <flowNodeRef>Task_NhanHoSo</flowNodeRef>
+        <flowNodeRef>Timer_SangLoc</flowNodeRef>
+        <flowNodeRef>Task_SangLoc</flowNodeRef>
+        <flowNodeRef>Gateway_SangLoc</flowNodeRef>
+        <flowNodeRef>Task_MoiPV</flowNodeRef>
+        <flowNodeRef>Task_PhongVan</flowNodeRef>
+        <flowNodeRef>Timer_KetQuaPV</flowNodeRef>
+        <flowNodeRef>Gateway_PhongVan</flowNodeRef>
+        <flowNodeRef>Task_MoiNhanViec</flowNodeRef>
+        <flowNodeRef>Gateway_And_Start</flowNodeRef>
+        <flowNodeRef>Gateway_And_End</flowNodeRef>
+        <flowNodeRef>Gateway_ThuViec</flowNodeRef>
+        <flowNodeRef>Task_KyHDLD</flowNodeRef>
+        <flowNodeRef>End_TuChoiDeXuat</flowNodeRef>
+        <flowNodeRef>Task_TuChoi_PV</flowNodeRef>
+        <flowNodeRef>Task_TuChoi_ThuViec</flowNodeRef>
+        <flowNodeRef>End_TruotThuViec</flowNodeRef>
+        <flowNodeRef>End_TruotPV</flowNodeRef>
+        <flowNodeRef>End_ThanhCong</flowNodeRef>
+        <flowNodeRef>Task_TuChoi_HoSo</flowNodeRef>
+        <flowNodeRef>End_LoaiHoSo</flowNodeRef>
+      </lane>
+    </laneSet>
+    <startEvent id="Start_NhuCau" name="Phát sinh nhu cầu" />
+    <task id="Task_DeXuat" name="Đề xuất tuyển nhân viên" />
+    <task id="Task_XemXet" name="Xem xét đề xuất" />
+    <task id="Task_DanhSach" name="Lên danh sách vị trí" />
+    <task id="Task_DangTin" name="Đăng tin tuyển dụng" />
+    <task id="Task_UngTuyen" name="Ứng tuyển online" />
+    <task id="Task_NhanHoSo" name="Nhận hồ sơ" />
+    <intermediateCatchEvent id="Timer_SangLoc" name="Chờ 5-7 ngày">
+      <timerEventDefinition id="TimerEventDefinition_1" />
+    </intermediateCatchEvent>
+    <task id="Task_SangLoc" name="Sàng lọc hồ sơ" />
+    <exclusiveGateway id="Gateway_SangLoc" name="Sàng lọc đạt?" />
+    <task id="Task_MoiPV" name="Gửi thư mời PV" />
+    <task id="Task_PhongVan" name="Phỏng vấn ứng viên" />
+    <intermediateCatchEvent id="Timer_KetQuaPV" name="Chờ 3-5 ngày">
+      <timerEventDefinition id="TimerEventDefinition_2" />
+    </intermediateCatchEvent>
+    <exclusiveGateway id="Gateway_PhongVan" name="Phỏng vấn đạt?" />
+    <task id="Task_MoiNhanViec" name="Gửi thư mời nhận việc" />
+    <parallelGateway id="Gateway_And_Start" name="Bắt đầu thử việc" />
+    <task id="Task_ThuViec" name="Nhận việc &#38; Thử việc (3 tháng)" />
+    <task id="Task_HuongDan" name="Sắp xếp &#38; Hướng dẫn công việc" />
+    <parallelGateway id="Gateway_And_End" name="Hoàn thành thử việc" />
+    <task id="Task_DanhGia" name="Đánh giá thử việc" />
+    <exclusiveGateway id="Gateway_ThuViec" name="Thử việc đạt?" />
+    <task id="Task_KyHDLD" name="Ký HĐLĐ chính thức" />
+    <sequenceFlow id="Flow_1" sourceRef="Start_NhuCau" targetRef="Task_DeXuat" />
+    <sequenceFlow id="Flow_2" sourceRef="Task_DeXuat" targetRef="Task_XemXet" />
+    <sequenceFlow id="Flow_3" sourceRef="Task_XemXet" targetRef="Gateway_DuyetDeXuat" />
+    <sequenceFlow id="Flow_DongY_DX" name="Đồng ý" sourceRef="Gateway_DuyetDeXuat" targetRef="Task_DanhSach" />
+    <sequenceFlow id="Flow_4" sourceRef="Task_DanhSach" targetRef="Task_DangTin" />
+    <sequenceFlow id="Flow_5" sourceRef="Task_DangTin" targetRef="Task_UngTuyen" />
+    <sequenceFlow id="Flow_6" sourceRef="Task_UngTuyen" targetRef="Task_NhanHoSo" />
+    <sequenceFlow id="Flow_7" sourceRef="Task_NhanHoSo" targetRef="Timer_SangLoc" />
+    <sequenceFlow id="Flow_8" sourceRef="Timer_SangLoc" targetRef="Task_SangLoc" />
+    <sequenceFlow id="Flow_9" sourceRef="Task_SangLoc" targetRef="Gateway_SangLoc" />
+    <sequenceFlow id="Flow_SL_Khong" name="Không" sourceRef="Gateway_SangLoc" targetRef="Task_TuChoi_HoSo" />
+    <sequenceFlow id="Flow_SL_Dat" name="Đạt" sourceRef="Gateway_SangLoc" targetRef="Task_MoiPV" />
+    <sequenceFlow id="Flow_10" sourceRef="Task_TuChoi_HoSo" targetRef="End_LoaiHoSo" />
+    <sequenceFlow id="Flow_11" sourceRef="Task_MoiPV" targetRef="Task_PhongVan" />
+    <sequenceFlow id="Flow_12" sourceRef="Task_PhongVan" targetRef="Timer_KetQuaPV" />
+    <sequenceFlow id="Flow_13" sourceRef="Timer_KetQuaPV" targetRef="Gateway_PhongVan" />
+    <sequenceFlow id="Flow_PV_Khong" name="Không" sourceRef="Gateway_PhongVan" targetRef="Task_TuChoi_PV" />
+    <sequenceFlow id="Flow_PV_Dat" name="Đạt" sourceRef="Gateway_PhongVan" targetRef="Task_MoiNhanViec" />
+    <sequenceFlow id="Flow_14" sourceRef="Task_TuChoi_PV" targetRef="End_TruotPV" />
+    <sequenceFlow id="Flow_15" sourceRef="Task_MoiNhanViec" targetRef="Gateway_And_Start" />
+    <sequenceFlow id="Flow_16" sourceRef="Gateway_And_Start" targetRef="Task_ThuViec" />
+    <sequenceFlow id="Flow_17" sourceRef="Gateway_And_Start" targetRef="Task_HuongDan" />
+    <sequenceFlow id="Flow_18" sourceRef="Task_ThuViec" targetRef="Gateway_And_End" />
+    <sequenceFlow id="Flow_19" sourceRef="Task_HuongDan" targetRef="Gateway_And_End" />
+    <sequenceFlow id="Flow_20" sourceRef="Gateway_And_End" targetRef="Task_DanhGia" />
+    <sequenceFlow id="Flow_21" sourceRef="Task_DanhGia" targetRef="Gateway_ThuViec" />
+    <sequenceFlow id="Flow_TV_Khong" name="Không" sourceRef="Gateway_ThuViec" targetRef="Task_TuChoi_ThuViec" />
+    <sequenceFlow id="Flow_TV_Dat" name="Đạt" sourceRef="Gateway_ThuViec" targetRef="Task_KyHDLD" />
+    <sequenceFlow id="Flow_22" sourceRef="Task_TuChoi_ThuViec" targetRef="End_TruotThuViec" />
+    <sequenceFlow id="Flow_23" sourceRef="Task_KyHDLD" targetRef="End_ThanhCong" />
+    <sequenceFlow id="Flow_TuChoi_DX" name="Từ chối" sourceRef="Gateway_DuyetDeXuat" targetRef="End_TuChoiDeXuat" />
+    <exclusiveGateway id="Gateway_DuyetDeXuat" name="Phê duyệt?" />
+    <endEvent id="End_TuChoiDeXuat" name="Đề xuất bị từ chối" />
+    <task id="Task_TuChoi_PV" name="Gửi thư từ chối" />
+    <task id="Task_TuChoi_ThuViec" name="Thông báo không đạt" />
+    <endEvent id="End_TruotThuViec" name="Không đạt thử việc" />
+    <endEvent id="End_TruotPV" name="Trượt phỏng vấn" />
+    <endEvent id="End_ThanhCong" name="Tuyển dụng thành công" />
+    <task id="Task_TuChoi_HoSo" name="Gửi thư từ chối" />
+    <endEvent id="End_LoaiHoSo" name="Hồ sơ bị loại" />
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_1">
+      <bpmndi:BPMNShape id="Participant_TuyenDung_di" bpmnElement="Participant_TuyenDung" isHorizontal="true">
+        <omgdc:Bounds x="160" y="80" width="2220" height="710" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_HR_di" bpmnElement="Lane_HR" isHorizontal="true">
+        <omgdc:Bounds x="190" y="500" width="2190" height="290" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_BanLanhDao_di" bpmnElement="Lane_BanLanhDao" isHorizontal="true">
+        <omgdc:Bounds x="190" y="360" width="2190" height="140" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_QuanLy_di" bpmnElement="Lane_QuanLy" isHorizontal="true">
+        <omgdc:Bounds x="190" y="220" width="2190" height="140" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_UngVien_di" bpmnElement="Lane_UngVien" isHorizontal="true">
+        <omgdc:Bounds x="190" y="80" width="2190" height="140" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Start_NhuCau_di" bpmnElement="Start_NhuCau">
+        <omgdc:Bounds x="232" y="272" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_DeXuat_di" bpmnElement="Task_DeXuat">
+        <omgdc:Bounds x="300" y="250" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_XemXet_di" bpmnElement="Task_XemXet">
+        <omgdc:Bounds x="300" y="390" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_DuyetDeXuat_di" bpmnElement="Gateway_DuyetDeXuat" isMarkerVisible="true">
+        <omgdc:Bounds x="435" y="405" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="432" y="381" width="56" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_DanhSach_di" bpmnElement="Task_DanhSach">
+        <omgdc:Bounds x="520" y="570" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_DangTin_di" bpmnElement="Task_DangTin">
+        <omgdc:Bounds x="650" y="570" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_UngTuyen_di" bpmnElement="Task_UngTuyen">
+        <omgdc:Bounds x="650" y="110" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_NhanHoSo_di" bpmnElement="Task_NhanHoSo">
+        <omgdc:Bounds x="780" y="570" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Timer_SangLoc_di" bpmnElement="Timer_SangLoc">
+        <omgdc:Bounds x="902" y="592" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="886" y="635" width="68" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_SangLoc_di" bpmnElement="Task_SangLoc">
+        <omgdc:Bounds x="960" y="570" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_SangLoc_di" bpmnElement="Gateway_SangLoc" isMarkerVisible="true">
+        <omgdc:Bounds x="1085" y="585" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="1076" y="561" width="68" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_MoiPV_di" bpmnElement="Task_MoiPV">
+        <omgdc:Bounds x="1170" y="570" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_PhongVan_di" bpmnElement="Task_PhongVan">
+        <omgdc:Bounds x="1300" y="570" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Timer_KetQuaPV_di" bpmnElement="Timer_KetQuaPV">
+        <omgdc:Bounds x="1422" y="592" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="1406" y="635" width="68" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_PhongVan_di" bpmnElement="Gateway_PhongVan" isMarkerVisible="true">
+        <omgdc:Bounds x="1485" y="585" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="1471" y="561" width="78" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_MoiNhanViec_di" bpmnElement="Task_MoiNhanViec">
+        <omgdc:Bounds x="1570" y="570" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_And_Start_di" bpmnElement="Gateway_And_Start">
+        <omgdc:Bounds x="1705" y="585" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_ThuViec_di" bpmnElement="Task_ThuViec">
+        <omgdc:Bounds x="1780" y="110" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_HuongDan_di" bpmnElement="Task_HuongDan">
+        <omgdc:Bounds x="1780" y="250" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_And_End_di" bpmnElement="Gateway_And_End">
+        <omgdc:Bounds x="1915" y="585" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_DanhGia_di" bpmnElement="Task_DanhGia">
+        <omgdc:Bounds x="1990" y="250" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_ThuViec_di" bpmnElement="Gateway_ThuViec" isMarkerVisible="true">
+        <omgdc:Bounds x="2015" y="585" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="1946" y="573" width="68" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_KyHDLD_di" bpmnElement="Task_KyHDLD">
+        <omgdc:Bounds x="2100" y="570" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="End_TuChoiDeXuat_di" bpmnElement="End_TuChoiDeXuat">
+        <omgdc:Bounds x="442" y="512" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="417" y="548" width="87" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_TuChoi_PV_di" bpmnElement="Task_TuChoi_PV">
+        <omgdc:Bounds x="1460" y="690" width="100" height="60" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_TuChoi_ThuViec_di" bpmnElement="Task_TuChoi_ThuViec">
+        <omgdc:Bounds x="1990" y="690" width="100" height="60" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="End_TruotThuViec_di" bpmnElement="End_TruotThuViec">
+        <omgdc:Bounds x="2162" y="702" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="2145" y="738" width="70" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="End_TruotPV_di" bpmnElement="End_TruotPV">
+        <omgdc:Bounds x="1652" y="702" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="1629" y="743" width="83" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="End_ThanhCong_di" bpmnElement="End_ThanhCong">
+        <omgdc:Bounds x="2282" y="592" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="2256" y="628" width="89" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_TuChoi_HoSo_di" bpmnElement="Task_TuChoi_HoSo">
+        <omgdc:Bounds x="1060" y="690" width="100" height="60" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="End_LoaiHoSo_di" bpmnElement="End_LoaiHoSo">
+        <omgdc:Bounds x="1232" y="702" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="1219" y="753" width="62" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_1_di" bpmnElement="Flow_1">
+        <omgdi:waypoint x="268" y="290" />
+        <omgdi:waypoint x="300" y="290" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_2_di" bpmnElement="Flow_2">
+        <omgdi:waypoint x="350" y="330" />
+        <omgdi:waypoint x="350" y="390" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_3_di" bpmnElement="Flow_3">
+        <omgdi:waypoint x="400" y="430" />
+        <omgdi:waypoint x="435" y="430" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_TuChoi_DX_di" bpmnElement="Flow_TuChoi_DX">
+        <omgdi:waypoint x="460" y="455" />
+        <omgdi:waypoint x="460" y="512" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="456" y="468" width="38" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_DongY_DX_di" bpmnElement="Flow_DongY_DX">
+        <omgdi:waypoint x="485" y="430" />
+        <omgdi:waypoint x="570" y="430" />
+        <omgdi:waypoint x="570" y="570" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="510" y="405" width="35" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_4_di" bpmnElement="Flow_4">
+        <omgdi:waypoint x="620" y="610" />
+        <omgdi:waypoint x="650" y="610" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_5_di" bpmnElement="Flow_5">
+        <omgdi:waypoint x="700" y="570" />
+        <omgdi:waypoint x="700" y="190" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_6_di" bpmnElement="Flow_6">
+        <omgdi:waypoint x="750" y="150" />
+        <omgdi:waypoint x="830" y="150" />
+        <omgdi:waypoint x="830" y="570" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_7_di" bpmnElement="Flow_7">
+        <omgdi:waypoint x="880" y="610" />
+        <omgdi:waypoint x="902" y="610" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_8_di" bpmnElement="Flow_8">
+        <omgdi:waypoint x="938" y="610" />
+        <omgdi:waypoint x="960" y="610" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_9_di" bpmnElement="Flow_9">
+        <omgdi:waypoint x="1060" y="610" />
+        <omgdi:waypoint x="1085" y="610" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_SL_Khong_di" bpmnElement="Flow_SL_Khong">
+        <omgdi:waypoint x="1110" y="635" />
+        <omgdi:waypoint x="1110" y="690" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="1109" y="646" width="32" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_SL_Dat_di" bpmnElement="Flow_SL_Dat">
+        <omgdi:waypoint x="1135" y="610" />
+        <omgdi:waypoint x="1170" y="610" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_10_di" bpmnElement="Flow_10">
+        <omgdi:waypoint x="1160" y="720" />
+        <omgdi:waypoint x="1232" y="720" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_11_di" bpmnElement="Flow_11">
+        <omgdi:waypoint x="1270" y="610" />
+        <omgdi:waypoint x="1300" y="610" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_12_di" bpmnElement="Flow_12">
+        <omgdi:waypoint x="1400" y="610" />
+        <omgdi:waypoint x="1422" y="610" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_13_di" bpmnElement="Flow_13">
+        <omgdi:waypoint x="1458" y="610" />
+        <omgdi:waypoint x="1485" y="610" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_PV_Khong_di" bpmnElement="Flow_PV_Khong">
+        <omgdi:waypoint x="1510" y="635" />
+        <omgdi:waypoint x="1510" y="690" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="1509" y="646" width="32" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_PV_Dat_di" bpmnElement="Flow_PV_Dat">
+        <omgdi:waypoint x="1535" y="610" />
+        <omgdi:waypoint x="1570" y="610" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_14_di" bpmnElement="Flow_14">
+        <omgdi:waypoint x="1560" y="720" />
+        <omgdi:waypoint x="1652" y="720" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_15_di" bpmnElement="Flow_15">
+        <omgdi:waypoint x="1670" y="610" />
+        <omgdi:waypoint x="1705" y="610" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_16_di" bpmnElement="Flow_16">
+        <omgdi:waypoint x="1730" y="585" />
+        <omgdi:waypoint x="1730" y="150" />
+        <omgdi:waypoint x="1780" y="150" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_17_di" bpmnElement="Flow_17">
+        <omgdi:waypoint x="1730" y="585" />
+        <omgdi:waypoint x="1730" y="290" />
+        <omgdi:waypoint x="1780" y="290" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_18_di" bpmnElement="Flow_18">
+        <omgdi:waypoint x="1880" y="150" />
+        <omgdi:waypoint x="1940" y="150" />
+        <omgdi:waypoint x="1940" y="585" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_19_di" bpmnElement="Flow_19">
+        <omgdi:waypoint x="1880" y="290" />
+        <omgdi:waypoint x="1940" y="290" />
+        <omgdi:waypoint x="1940" y="585" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_20_di" bpmnElement="Flow_20">
+        <omgdi:waypoint x="1965" y="610" />
+        <omgdi:waypoint x="2040" y="610" />
+        <omgdi:waypoint x="2040" y="330" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_21_di" bpmnElement="Flow_21">
+        <omgdi:waypoint x="2040" y="330" />
+        <omgdi:waypoint x="2040" y="585" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_TV_Khong_di" bpmnElement="Flow_TV_Khong">
+        <omgdi:waypoint x="2040" y="635" />
+        <omgdi:waypoint x="2040" y="690" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="2039" y="646" width="32" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_TV_Dat_di" bpmnElement="Flow_TV_Dat">
+        <omgdi:waypoint x="2065" y="610" />
+        <omgdi:waypoint x="2100" y="610" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_22_di" bpmnElement="Flow_22">
+        <omgdi:waypoint x="2090" y="720" />
+        <omgdi:waypoint x="2162" y="720" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_23_di" bpmnElement="Flow_23">
+        <omgdi:waypoint x="2200" y="610" />
+        <omgdi:waypoint x="2282" y="610" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>
