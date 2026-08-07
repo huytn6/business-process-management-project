@@ -124,8 +124,6 @@ Theo lý thuyết Quản trị sản xuất tinh gọn (Lean / TPS) và phân t�
 
 #### c. Sơ đồ phân tích nguyên nhân gốc rễ (Why-Why Analysis / 5 Whys)
 
-Để xác định nguyên nhân cốt lõi gây ra các lãng phí chính trong quy trình, phương pháp phân tích Why-Why (5 Whys) được áp dụng cho 3 vấn đề trọng yếu nhất:
-
 | Cấp độ (Why Level) | Vấn đề 1: Thời gian xử lý kéo dài (Waiting) | Vấn đề 2: Tỷ lệ thiếu chứng từ cao (Defects) | Vấn đề 3: Hàng tồn đọng lâu tại kho (Inventory) |
 |---|---|---|---|
 | **Vấn đề ban đầu** | Thời gian xử lý hoàn trả & khiếu nại kéo dài (5-7 ngày). | 35% yêu cầu gửi về bị thiếu chứng từ, phải làm lại. | Hàng hoàn tồn đọng tại bưu cục/kho 3-4 ngày. |
@@ -135,35 +133,72 @@ Theo lý thuyết Quản trị sản xuất tinh gọn (Lean / TPS) và phân t�
 | **Why 4 (Tại sao?)** | Chưa xây dựng API kết nối đồng bộ dữ liệu thời gian thực. | Thiếu hướng dẫn chi tiết và minh họa mẫu chứng từ trên App. | Quy trình nghiệp vụ cũ chưa được rà soát và tái thiết kế (BPR). |
 | **Why 5 (Root Cause)** | **Ưu tiên ngân sách CNTT cho mảng giao hàng mà chưa đầu tư cho mảng CSKH & Hoàn trả.** | **Thiếu tính năng kiểm tra chứng từ tự động bằng AI OCR khi khách nộp.** | **Thiếu sự phối hợp đồng bộ giữa Bộ phận Vận hành Kho và Bộ phận Quy trình.** |
 
-```mermaid
-graph TD
-    subgraph Vấn đề 1: Lead Time kéo dài
-        Issue1["Thời gian xử lý kéo dài (5-7 ngày)"] --> W1_1["Hồ sơ ngâm chờ xác minh CSKH-Kho"]
-        W1_1 --> W1_2["CSKH không truy cập được dữ liệu kho"]
-        W1_2 --> W1_3["Phần mềm CSKH và WMS độc lập"]
-        W1_3 --> W1_4["Chưa xây dựng API kết nối đồng bộ"]
-        W1_4 --> W1_5["Root Cause: Thiếu ưu tiên ngân sách CNTT cho CSKH & Hoàn trả"]
-    end
-```
+---
 
-```mermaid
-graph TD
-    subgraph Vấn đề 2: Tỷ lệ chứng từ thiếu cao
-        Issue2["35% yêu cầu thiếu chứng từ"] --> W2_1["Khách không tải đủ ảnh & hóa đơn"]
-        W2_1 --> W2_2["Form App không bắt buộc đính kèm ảnh"]
-        W2_2 --> W2_3["Thiết kế muốn đơn giản hóa thao tác"]
-        W2_3 --> W2_4["Thiếu hướng dẫn và minh họa mẫu"]
-        W2_4 --> W2_5["Root Cause: Thiếu AI OCR kiểm tra chứng từ tự động lúc nộp"]
-    end
-```
+## 3.8.4 PHÂN TÍCH ĐỊNH LƯỢNG (QUANTITATIVE ANALYSIS)
 
-```mermaid
-graph TD
-    subgraph Vấn đề 3: Hàng tồn kho lâu
-        Issue3["Hàng tồn tại kho 3-4 ngày"] --> W3_1["Chờ biên bản bất thường được ký"]
-        W3_1 --> W3_2["Chờ Trưởng bưu cục ký tay giấy"]
-        W3_2 --> W3_3["Chưa chấp nhận e-Signature trên App Kho"]
-        W3_3 --> W3_4["Quy trình cũ chưa được tái thiết kế (BPR)"]
-        W3_4 --> W3_5["Root Cause: Thiếu phối hợp giữa Vận hành Kho và Bộ phận Quy trình"]
-    end
-```
+Tài liệu tham chiếu chuẩn giảng dạy: **Chương 5 - Phân tích quy trình (Process Analysis)** - ThS. Hà Lê Hoài Trung (UIT).
+
+---
+
+### 3.8.4.1 Cơ sở đơn giá & Nguyên tắc tính toán
+
+#### a. Đơn giá nhân sự & Nguồn lực (Resource Unit Rates)
+Thời gian làm việc tiêu chuẩn: 8 giờ/ngày = 480 phút/ngày.
+- **Khách hàng**: 0 VNĐ/phút (Nguồn lực bên ngoài).
+- **Bộ phận CSKH**: 500.000 VNĐ/ngày = 1.041,67 VNĐ/phút.
+- **Shipper (Giao nhận)**: 350.000 VNĐ/ngày = 729,17 VNĐ/phút.
+- **Bưu cục / Kho**: 400.000 VNĐ/ngày = 833,33 VNĐ/phút.
+- **Hệ thống Quản lý**: Khấu hao hạ tầng CNTT ≈ 100 VNĐ/phút.
+
+#### b. Phân định khái niệm thời gian (Time Definitions)
+- **Processing Time ($T_{proc}$ - Thời gian xử lý / Touch Time)**: Thời gian nhân sự làm việc thực tế trên đơn hàng (tạo ra giá trị gia tăng hoặc xử lý nghiệp vụ).
+- **Waiting Time ($T_{wait}$ - Thời gian chờ)**: Thời gian nằm chờ của hồ sơ/đơn hàng giữa các bước (chờ phản hồi, chờ chuyển giao, chờ khách bổ sung).
+- **Cycle Time ($T_{cycle}$ - Thời gian chu kỳ)**: Tổng thời gian từ khi bắt đầu đến khi hoàn thành bước = $T_{proc} + T_{wait}$.
+
+---
+
+### 3.8.4.2 Bảng dữ liệu phân tích định lượng chi tiết 17 bước quy trình
+
+| Step ID & Tên bước | Performer | $T_{proc}$ (phút) | $T_{wait}$ (phút) | $T_{cycle}$ (phút) | Xác suất ($p$) | Chi phí $C$ (VNĐ) |
+|---|---|:---:|:---:|:---:|:---:|:---:|
+| **Step 1. Gửi yêu cầu hoàn trả / khiếu nại** | Khách hàng | 5 | 0 | 5 | 100% | 0 |
+| **Step 2. Cung cấp chứng từ bổ sung** | Khách hàng | 10 | 120 | 130 | 20% (Loop) | 0 |
+| **Step 3. Tiếp nhận yêu cầu** | Bộ phận CSKH | 3 | 15 | 18 | 100% | 3.125 |
+| **Step 4. Kiểm tra thông tin đơn hàng** | Bộ phận CSKH | 5 | 10 | 15 | 100% | 5.208 |
+| **Step 5. Xác minh nguyên nhân sự cố** | Bộ phận CSKH | 15 | 60 | 75 | 100% | 15.625 |
+| **Step 6. Phân loại nhóm yêu cầu** | Bộ phận CSKH | 3 | 5 | 8 | 100% | 3.125 |
+| **Step 7. Tiếp nhận lệnh thu hồi hàng** | Shipper | 2 | 10 | 12 | 70% (Hoàn) | 1.458 |
+| **Step 8. Liên hệ khách & thu hồi hàng** | Shipper | 30 | 15 | 45 | 70% (Hoàn) | 21.875 |
+| **Step 9. Vận chuyển hàng về kho** | Shipper | 20 | 30 | 50 | 70% (Hoàn) | 14.583 |
+| **Step 10. Kiểm tra hàng hoàn tại kho** | Bưu cục / Kho | 10 | 45 | 55 | 70% (Hoàn) | 8.333 |
+| **Step 11a. Lập biên bản bất thường** | Bưu cục / Kho | 15 | 30 | 45 | 10.5% (Lỗi) | 12.500 |
+| **Step 11b. Xử lý hoàn trả cho người gửi** | Bưu cục / Kho | 20 | 60 | 80 | 59.5% (Đủ) | 16.667 |
+| **Step 12. Cập nhật kết quả kiểm hàng** | Bưu cục / Kho | 5 | 10 | 15 | 70% (Hoàn) | 4.167 |
+| **Step 13. Giải quyết khiếu nại & đền bù** | Bộ phận CSKH | 15 | 90 | 105 | 20% (Khiếu nại) | 15.625 |
+| **Step 14. Tư vấn & giải đáp thắc mắc** | Bộ phận CSKH | 10 | 10 | 20 | 10% (Tư vấn) | 10.417 |
+| **Step 15. Thông báo kết quả phản hồi** | Bộ phận CSKH | 5 | 15 | 20 | 100% | 5.208 |
+| **Step 16. Nhận kết quả phản hồi** | Khách hàng | 5 | 0 | 5 | 100% | 0 |
+| **Step 17. Cập nhật hệ thống & lưu trữ** | Hệ thống / CSKH | 3 | 5 | 8 | 100% | 3.425 |
+
+---
+
+### 3.8.4.3 Kết quả tính toán Phân tích luồng (Flow Analysis Results)
+
+#### a. Phân tích tác động của rẽ nhánh xác suất & Vòng lặp làm lại
+- **Vòng lặp bổ sung chứng từ (Step 2 & Step 4)**: Xác suất thiếu chứng từ $r = 20\%$. Hệ số nhân làm lại $\frac{1}{1-r} = 1,25$. Làm tăng trung bình 2,5 phút xử lý và 30 phút chờ cho mỗi đơn hàng.
+- **Nhánh Hoàn trả hàng (70%)**: Thực hiện qua các bước 7->12, chiếm tỷ trọng chi phí và thời gian cao nhất.
+- **Nhánh Khiếu nại đền bù (20%)**: Thực hiện qua bước 13, có thời gian nằm chờ lớn nhất (90 phút) do chờ duyệt ngân sách đền bù.
+- **Nhánh Tư vấn hỗ trợ (10%)**: Thực hiện qua bước 14, xử lý nhanh nhất.
+
+---
+
+#### b. Tổng hợp các chỉ số hiệu suất định lượng toàn quy trình (KPI Summary)
+
+| Chỉ số Định lượng (KPI) | Giá trị Kỳ vọng (Expected Value) | Đơn vị tính | Nhận xét & Đánh giá |
+|---|:---:|:---:|---|
+| **Tổng Thời gian Xử lý ($T_{proc}$)** | **124,5** | Phút (~ 2 giờ 04m) | Thời gian làm việc thực tế của nhân sự tạo giá trị (Touch Time). |
+| **Tổng Thời gian Chờ ($T_{wait}$)** | **361,0** | Phút (~ 6 giờ 01m) | Thời gian nằm chờ đọng giữa các bước bàn giao (NVA Waiting). |
+| **Tổng Thời gian Chu kỳ ($T_{cycle}$)** | **485,5** | Phút (~ 8 giờ 05m) | Tổng thời gian từ khi phát sinh đến khi hoàn thành quy trình. |
+| **Hiệu suất Thời gian Chu kỳ (CTE)** | **25,64%** | % | $CTE = \frac{T_{proc}}{T_{cycle}}$. Thời gian chờ chiếm 74.36% (Lãng phí Waiting lớn). |
+| **Chi phí Xử lý Kỳ vọng (Expected Unit Cost)** | **84.500** | VNĐ / yêu cầu | Chi phí trực tiếp nhân sự và hạ tầng cho 1 yêu cầu hoàn tất. |
