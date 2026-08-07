@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_HoanTraCSKH" targetNamespace="http://bpmn.io/schema/bpmn" exporter="bpmn-js (https://demo.bpmn.io)" exporterVersion="17.11.1">
   <bpmn:collaboration id="Collaboration_HoanTraCSKH">
     <bpmn:participant id="Participant_ViettelPost" name="QUY TRÌNH QUẢN LÝ HOÀN TRẢ HÀNG &amp; CHĂM SÓC KHÁCH HÀNG – VIETTEL POST" processRef="Process_HoanTraCSKH" />
@@ -38,16 +38,19 @@
     <bpmn:startEvent id="StartEvent_1" name="Yêu cầu hoàn trả đã phát sinh">
       <bpmn:outgoing>Flow_1</bpmn:outgoing>
     </bpmn:startEvent>
-    <bpmn:task id="Task_GuiYeuCau" name="Gửi yêu cầu hoàn trả">
-      <bpmn:incoming>Flow_1</bpmn:incoming>
+    <bpmn:task id="Task_GuiYeuCau" name="Gửi yêu cầu hoàn trả [VA]">
+      <bpmn:documentation>Classification: VA
+Note: Hoạt động gia tăng giá trị trực tiếp cho khách hàng</bpmn:documentation><bpmn:incoming>Flow_1</bpmn:incoming>
       <bpmn:outgoing>Flow_2</bpmn:outgoing>
     </bpmn:task>
-    <bpmn:task id="Task_TiepNhanYeuCau" name="Tiếp nhận yêu cầu">
-      <bpmn:incoming>Flow_2</bpmn:incoming>
+    <bpmn:task id="Task_TiepNhanYeuCau" name="Tiếp nhận yêu cầu [BVA]">
+      <bpmn:documentation>Classification: BVA
+Note: Ghi nhận vé yêu cầu vào hệ thống ticket để theo dõi SLA</bpmn:documentation><bpmn:incoming>Flow_2</bpmn:incoming>
       <bpmn:outgoing>Flow_3</bpmn:outgoing>
     </bpmn:task>
-    <bpmn:task id="Task_KiemTraThongTin" name="Kiểm tra thông tin đơn hàng">
-      <bpmn:incoming>Flow_3</bpmn:incoming>
+    <bpmn:task id="Task_KiemTraThongTin" name="Kiểm tra thông tin đơn hàng [BVA]">
+      <bpmn:documentation>Classification: BVA
+Note: Lãng phí Xử lý quá mức (Over-processing) do kiểm tra lặp lại</bpmn:documentation><bpmn:incoming>Flow_3</bpmn:incoming>
       <bpmn:incoming>Flow_6</bpmn:incoming>
       <bpmn:outgoing>Flow_4</bpmn:outgoing>
     </bpmn:task>
@@ -56,16 +59,19 @@
       <bpmn:outgoing>Flow_5</bpmn:outgoing>
       <bpmn:outgoing>Flow_7</bpmn:outgoing>
     </bpmn:exclusiveGateway>
-    <bpmn:task id="Task_CungCapChungTu" name="Cung cấp chứng từ bổ sung">
-      <bpmn:incoming>Flow_5</bpmn:incoming>
+    <bpmn:task id="Task_CungCapChungTu" name="Cung cấp chứng từ bổ sung [NVA]">
+      <bpmn:documentation>Classification: NVA
+Note: Lãng phí Lỗi/Làm lại (Defects &amp; Rework) do hồ sơ ban đầu bị thiếu</bpmn:documentation><bpmn:incoming>Flow_5</bpmn:incoming>
       <bpmn:outgoing>Flow_6</bpmn:outgoing>
     </bpmn:task>
-    <bpmn:task id="Task_XacMinhSuCo" name="Xác minh nguyên nhân sự cố">
-      <bpmn:incoming>Flow_7</bpmn:incoming>
+    <bpmn:task id="Task_XacMinhSuCo" name="Xác minh nguyên nhân sự cố [BVA]">
+      <bpmn:documentation>Classification: BVA
+Note: Lãng phí Chờ đợi (Waiting) giữa CSKH và Kho/Shipper</bpmn:documentation><bpmn:incoming>Flow_7</bpmn:incoming>
       <bpmn:outgoing>Flow_8</bpmn:outgoing>
     </bpmn:task>
-    <bpmn:task id="Task_PhanLoaiYeuCau" name="Phân loại nhóm yêu cầu">
-      <bpmn:incoming>Flow_8</bpmn:incoming>
+    <bpmn:task id="Task_PhanLoaiYeuCau" name="Phân loại nhóm yêu cầu [BVA]">
+      <bpmn:documentation>Classification: BVA
+Note: Điều hướng luồng nghiệp vụ nội bộ</bpmn:documentation><bpmn:incoming>Flow_8</bpmn:incoming>
       <bpmn:outgoing>Flow_9</bpmn:outgoing>
     </bpmn:task>
     <bpmn:exclusiveGateway id="Gateway_Classify" name="Phân loại nhóm?">
@@ -74,29 +80,35 @@
       <bpmn:outgoing>Flow_11</bpmn:outgoing>
       <bpmn:outgoing>Flow_12</bpmn:outgoing>
     </bpmn:exclusiveGateway>
-    <bpmn:task id="Task_TiepNhanLenhThuHoi" name="Tiếp nhận lệnh thu hồi">
-      <bpmn:incoming>Flow_10</bpmn:incoming>
+    <bpmn:task id="Task_TiepNhanLenhThuHoi" name="Tiếp nhận lệnh thu hồi [BVA]">
+      <bpmn:documentation>Classification: BVA
+Note: Phân công nhiệm vụ cho Shipper</bpmn:documentation><bpmn:incoming>Flow_10</bpmn:incoming>
       <bpmn:outgoing>Flow_13</bpmn:outgoing>
     </bpmn:task>
-    <bpmn:task id="Task_GiaiQuyetKhieuNai" name="Giải quyết khiếu nại">
-      <bpmn:incoming>Flow_11</bpmn:incoming>
+    <bpmn:task id="Task_GiaiQuyetKhieuNai" name="Giải quyết khiếu nại [VA]">
+      <bpmn:documentation>Classification: VA
+Note: Bồi thường thỏa đáng cho khách hàng</bpmn:documentation><bpmn:incoming>Flow_11</bpmn:incoming>
       <bpmn:incoming>Flow_19</bpmn:incoming>
       <bpmn:outgoing>Flow_23</bpmn:outgoing>
     </bpmn:task>
-    <bpmn:task id="Task_TuVanKhachHang" name="Tư vấn hỗ trợ khách hàng">
-      <bpmn:incoming>Flow_12</bpmn:incoming>
+    <bpmn:task id="Task_TuVanKhachHang" name="Tư vấn hỗ trợ khách hàng [VA]">
+      <bpmn:documentation>Classification: VA
+Note: Giải đáp thắc mắc trực tiếp giúp khách hàng hài lòng</bpmn:documentation><bpmn:incoming>Flow_12</bpmn:incoming>
       <bpmn:outgoing>Flow_24</bpmn:outgoing>
     </bpmn:task>
-    <bpmn:task id="Task_ThuHoiHangHoa" name="Thu hồi hàng hóa">
-      <bpmn:incoming>Flow_13</bpmn:incoming>
+    <bpmn:task id="Task_ThuHoiHangHoa" name="Thu hồi hàng hóa [VA]">
+      <bpmn:documentation>Classification: VA
+Note: Lãng phí Chuyển động (Motion) khi không hẹn trước khách hàng</bpmn:documentation><bpmn:incoming>Flow_13</bpmn:incoming>
       <bpmn:outgoing>Flow_14</bpmn:outgoing>
     </bpmn:task>
-    <bpmn:task id="Task_VanChuyenVeKho" name="Vận chuyển hàng về kho">
-      <bpmn:incoming>Flow_14</bpmn:incoming>
+    <bpmn:task id="Task_VanChuyenVeKho" name="Vận chuyển hàng về kho [NVA]">
+      <bpmn:documentation>Classification: NVA
+Note: Lãng phí Vận chuyển (Transportation) qua nhiều trạm trung chuyển</bpmn:documentation><bpmn:incoming>Flow_14</bpmn:incoming>
       <bpmn:outgoing>Flow_15</bpmn:outgoing>
     </bpmn:task>
-    <bpmn:task id="Task_KiemTraTinhTrang" name="Kiểm tra tình trạng hàng">
-      <bpmn:incoming>Flow_15</bpmn:incoming>
+    <bpmn:task id="Task_KiemTraTinhTrang" name="Kiểm tra tình trạng hàng [BVA]">
+      <bpmn:documentation>Classification: BVA
+Note: Lãng phí Tồn kho (Inventory) do hàng chờ kiểm tra lâu</bpmn:documentation><bpmn:incoming>Flow_15</bpmn:incoming>
       <bpmn:outgoing>Flow_16</bpmn:outgoing>
     </bpmn:task>
     <bpmn:exclusiveGateway id="Gateway_Condition" name="Kiểm tra điều kiện?">
@@ -104,22 +116,26 @@
       <bpmn:outgoing>Flow_17</bpmn:outgoing>
       <bpmn:outgoing>Flow_18</bpmn:outgoing>
     </bpmn:exclusiveGateway>
-    <bpmn:task id="Task_LapBienBan" name="Lập biên bản bất thường">
-      <bpmn:incoming>Flow_17</bpmn:incoming>
+    <bpmn:task id="Task_LapBienBan" name="Lập biên bản bất thường [BVA]">
+      <bpmn:documentation>Classification: BVA
+Note: Lập căn cứ pháp lý bảo vệ doanh nghiệp</bpmn:documentation><bpmn:incoming>Flow_17</bpmn:incoming>
       <bpmn:outgoing>Flow_19</bpmn:outgoing>
       <bpmn:outgoing>Flow_20</bpmn:outgoing>
     </bpmn:task>
-    <bpmn:task id="Task_HoanTraNguoiGui" name="Hoàn trả hàng cho người gửi">
-      <bpmn:incoming>Flow_18</bpmn:incoming>
+    <bpmn:task id="Task_HoanTraNguoiGui" name="Hoàn trả hàng cho người gửi [VA]">
+      <bpmn:documentation>Classification: VA
+Note: Trả tài sản về cho người gửi, hoàn thành mục tiêu quy trình</bpmn:documentation><bpmn:incoming>Flow_18</bpmn:incoming>
       <bpmn:outgoing>Flow_21</bpmn:outgoing>
     </bpmn:task>
-    <bpmn:task id="Task_CapNhatKiemHang" name="Cập nhật kết quả kiểm hàng">
-      <bpmn:incoming>Flow_20</bpmn:incoming>
+    <bpmn:task id="Task_CapNhatKiemHang" name="Cập nhật kết quả kiểm hàng [BVA]">
+      <bpmn:documentation>Classification: BVA
+Note: Đóng luồng vật lý trên hệ thống kho</bpmn:documentation><bpmn:incoming>Flow_20</bpmn:incoming>
       <bpmn:incoming>Flow_21</bpmn:incoming>
       <bpmn:outgoing>Flow_22</bpmn:outgoing>
     </bpmn:task>
-    <bpmn:task id="Task_NhanKetQua" name="Nhận kết quả phản hồi">
-      <bpmn:incoming>Flow_22</bpmn:incoming>
+    <bpmn:task id="Task_NhanKetQua" name="Nhận kết quả phản hồi [VA]">
+      <bpmn:documentation>Classification: VA
+Note: Khách hàng nghiệm thu kết quả xử lý</bpmn:documentation><bpmn:incoming>Flow_22</bpmn:incoming>
       <bpmn:incoming>Flow_23</bpmn:incoming>
       <bpmn:incoming>Flow_24</bpmn:incoming>
       <bpmn:outgoing>Flow_25</bpmn:outgoing>
