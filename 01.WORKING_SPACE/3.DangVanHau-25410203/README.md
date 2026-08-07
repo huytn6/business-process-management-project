@@ -28,7 +28,7 @@ Phân tích giá trị gia tăng (Value-Added Analysis) rã nhỏ quy trình ngh
 ---
 
 #### b. Biểu diễn trên mô hình BPMN
-Trên sơ đồ quy trình BPMN (`QuyTrinhHoanTraCSKH.bpmn`), các nút công việc được đánh dấu phân loại và mã màu trực quan:
+Trên sơ đồ quy trình BPMN (sơ đồ BPMN), các nút công việc được đánh dấu phân loại và mã màu trực quan:
 - **[VA] (Xanh lá)**: Gửi yêu cầu hoàn trả, Liên hệ & Thu hồi hàng hóa, Hoàn trả hàng cho người gửi, Giải quyết khiếu nại, Tư vấn khách hàng, Nhận kết quả phản hồi.
 - **[BVA] (Xanh dương)**: Tiếp nhận yêu cầu, Kiểm tra thông tin đơn hàng, Xác minh nguyên nhân, Phân loại nhóm yêu cầu, Tiếp nhận lệnh thu hồi, Kiểm tra tình trạng hàng tại kho, Lập biên bản bất thường, Cập nhật kết quả kiểm hàng, Thông báo kết quả phản hồi, Cập nhật hệ thống & lưu trữ.
 - **[NVA] (Màu đỏ/cam)**: Cung cấp chứng từ bổ sung (bước làm lại do thiếu thông tin ban đầu), Vận chuyển lặp lại.
