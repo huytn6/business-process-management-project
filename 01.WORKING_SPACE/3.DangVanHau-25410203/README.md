@@ -2,8 +2,6 @@
 
 ## 3.8.3 PHÂN TÍCH ĐỊNH TÍNH (QUALITATIVE ANALYSIS)
 
-Tài liệu tham chiếu chuẩn giảng dạy: **Chương 5 - Phân tích quy trình (Process Analysis)** - ThS. Hà Lê Hoài Trung (UIT).
-
 ---
 
 ### 3.8.3.1 Phân tích giá trị gia tăng (Value-added Analysis)
@@ -136,8 +134,6 @@ Theo lý thuyết Quản trị sản xuất tinh gọn (Lean / TPS) và phân t�
 ---
 
 ## 3.8.4 PHÂN TÍCH ĐỊNH LƯỢNG (QUANTITATIVE ANALYSIS)
-
-Tài liệu tham chiếu chuẩn giảng dạy: **Chương 5 - Phân tích quy trình (Process Analysis)** - ThS. Hà Lê Hoài Trung (UIT).
 
 ---
 
