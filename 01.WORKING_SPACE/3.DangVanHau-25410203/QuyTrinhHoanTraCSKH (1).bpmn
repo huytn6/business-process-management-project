@@ -19,8 +19,8 @@
         <bpmn:flowNodeRef>Task_XacMinhSuCo</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Task_PhanLoaiYeuCau</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Gateway_Classify</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Task_GiaiQuyetKhieuNai</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Task_TuVanKhachHang</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_GiaiQuyetKhieuNai</bpmn:flowNodeRef>
       </bpmn:lane>
       <bpmn:lane id="Lane_Shipper" name="SHIPPER">
         <bpmn:flowNodeRef>Task_TiepNhanLenhThuHoi</bpmn:flowNodeRef>
@@ -30,9 +30,9 @@
       <bpmn:lane id="Lane_Kho" name="BƯU CỤC / KHO">
         <bpmn:flowNodeRef>Task_KiemTraTinhTrang</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Gateway_Condition</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_CapNhatKiemHang</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Task_LapBienBan</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Task_HoanTraNguoiGui</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Task_CapNhatKiemHang</bpmn:flowNodeRef>
       </bpmn:lane>
     </bpmn:laneSet>
     <bpmn:startEvent id="StartEvent_1" name="Yêu cầu hoàn trả đã phát sinh">
@@ -43,7 +43,8 @@
 Waiting Time (T_wait): 0 phút
 Cycle Time (T_cycle): 5 phút
 Chi phí xử lý (Cost): 0 VNĐ
-Xác suất (Prob): 100%</bpmn:documentation>
+Xác suất (Prob): 100%
+Lãng phí (Waste): None</bpmn:documentation>
       <bpmn:incoming>Flow_1</bpmn:incoming>
       <bpmn:outgoing>Flow_2</bpmn:outgoing>
     </bpmn:task>
@@ -52,16 +53,18 @@ Xác suất (Prob): 100%</bpmn:documentation>
 Waiting Time (T_wait): 15 phút
 Cycle Time (T_cycle): 18 phút
 Chi phí xử lý (Cost): 3,125 VNĐ
-Xác suất (Prob): 100%</bpmn:documentation>
+Xác suất (Prob): 100%
+Lãng phí (Waste): None</bpmn:documentation>
       <bpmn:incoming>Flow_2</bpmn:incoming>
       <bpmn:outgoing>Flow_3</bpmn:outgoing>
     </bpmn:task>
-    <bpmn:task id="Task_KiemTraThongTin" name="Kiểm tra thông tin đơn hàng [BVA | 5m/10m]">
+    <bpmn:task id="Task_KiemTraThongTin" name="Kiểm tra thông tin đơn hàng [BVA | 5m/10m | W6:Over-processing]">
       <bpmn:documentation>Processing Time (T_proc): 5 phút
 Waiting Time (T_wait): 10 phút
 Cycle Time (T_cycle): 15 phút
 Chi phí xử lý (Cost): 5,208 VNĐ
-Xác suất (Prob): 100%</bpmn:documentation>
+Xác suất (Prob): 100%
+Lãng phí (Waste): W6: Over-processing (Kiểm tra trùng lặp)</bpmn:documentation>
       <bpmn:incoming>Flow_3</bpmn:incoming>
       <bpmn:incoming>Flow_6</bpmn:incoming>
       <bpmn:outgoing>Flow_4</bpmn:outgoing>
@@ -71,21 +74,23 @@ Xác suất (Prob): 100%</bpmn:documentation>
       <bpmn:outgoing>Flow_5</bpmn:outgoing>
       <bpmn:outgoing>Flow_7</bpmn:outgoing>
     </bpmn:exclusiveGateway>
-    <bpmn:task id="Task_CungCapChungTu" name="Cung cấp chứng từ bổ sung [NVA | 10m/120m]">
+    <bpmn:task id="Task_CungCapChungTu" name="Cung cấp chứng từ bổ sung [NVA | 10m/120m | W2:Defects]">
       <bpmn:documentation>Processing Time (T_proc): 10 phút
 Waiting Time (T_wait): 120 phút
 Cycle Time (T_cycle): 130 phút
 Chi phí xử lý (Cost): 0 VNĐ
-Xác suất (Prob): 20% Loop</bpmn:documentation>
+Xác suất (Prob): 20% Loop
+Lãng phí (Waste): W2: Defects (Hồ sơ thiếu chứng từ)</bpmn:documentation>
       <bpmn:incoming>Flow_5</bpmn:incoming>
       <bpmn:outgoing>Flow_6</bpmn:outgoing>
     </bpmn:task>
-    <bpmn:task id="Task_XacMinhSuCo" name="Xác minh nguyên nhân sự cố [BVA | 15m/60m]">
+    <bpmn:task id="Task_XacMinhSuCo" name="Xác minh nguyên nhân sự cố [BVA | 15m/60m | W1:Waiting]">
       <bpmn:documentation>Processing Time (T_proc): 15 phút
 Waiting Time (T_wait): 60 phút
 Cycle Time (T_cycle): 75 phút
 Chi phí xử lý (Cost): 15,625 VNĐ
-Xác suất (Prob): 100%</bpmn:documentation>
+Xác suất (Prob): 100%
+Lãng phí (Waste): W1: Waiting (Chờ đối soát)</bpmn:documentation>
       <bpmn:incoming>Flow_7</bpmn:incoming>
       <bpmn:outgoing>Flow_8</bpmn:outgoing>
     </bpmn:task>
@@ -94,7 +99,8 @@ Xác suất (Prob): 100%</bpmn:documentation>
 Waiting Time (T_wait): 5 phút
 Cycle Time (T_cycle): 8 phút
 Chi phí xử lý (Cost): 3,125 VNĐ
-Xác suất (Prob): 100%</bpmn:documentation>
+Xác suất (Prob): 100%
+Lãng phí (Waste): None</bpmn:documentation>
       <bpmn:incoming>Flow_8</bpmn:incoming>
       <bpmn:outgoing>Flow_9</bpmn:outgoing>
     </bpmn:task>
@@ -109,53 +115,38 @@ Xác suất (Prob): 100%</bpmn:documentation>
 Waiting Time (T_wait): 10 phút
 Cycle Time (T_cycle): 12 phút
 Chi phí xử lý (Cost): 1,458 VNĐ
-Xác suất (Prob): p = 70%</bpmn:documentation>
+Xác suất (Prob): p = 70%
+Lãng phí (Waste): None</bpmn:documentation>
       <bpmn:incoming>Flow_10</bpmn:incoming>
       <bpmn:outgoing>Flow_13</bpmn:outgoing>
     </bpmn:task>
-    <bpmn:task id="Task_GiaiQuyetKhieuNai" name="Giải quyết khiếu nại đền bù [VA | 15m/90m]">
-      <bpmn:documentation>Processing Time (T_proc): 15 phút
-Waiting Time (T_wait): 90 phút
-Cycle Time (T_cycle): 105 phút
-Chi phí xử lý (Cost): 15,625 VNĐ
-Xác suất (Prob): p = 20%</bpmn:documentation>
-      <bpmn:incoming>Flow_11</bpmn:incoming>
-      <bpmn:incoming>Flow_19</bpmn:incoming>
-      <bpmn:outgoing>Flow_23</bpmn:outgoing>
-    </bpmn:task>
-    <bpmn:task id="Task_TuVanKhachHang" name="Tư vấn hỗ trợ khách hàng [VA | 10m/10m]">
-      <bpmn:documentation>Processing Time (T_proc): 10 phút
-Waiting Time (T_wait): 10 phút
-Cycle Time (T_cycle): 20 phút
-Chi phí xử lý (Cost): 10,417 VNĐ
-Xác suất (Prob): p = 10%</bpmn:documentation>
-      <bpmn:incoming>Flow_12</bpmn:incoming>
-      <bpmn:outgoing>Flow_24</bpmn:outgoing>
-    </bpmn:task>
-    <bpmn:task id="Task_ThuHoiHangHoa" name="Thu hồi hàng hóa [VA | 30m/15m]">
+    <bpmn:task id="Task_ThuHoiHangHoa" name="Thu hồi hàng hóa [VA | 30m/15m | W4:Motion]">
       <bpmn:documentation>Processing Time (T_proc): 30 phút
 Waiting Time (T_wait): 15 phút
 Cycle Time (T_cycle): 45 phút
 Chi phí xử lý (Cost): 21,875 VNĐ
-Xác suất (Prob): p = 70%</bpmn:documentation>
+Xác suất (Prob): p = 70%
+Lãng phí (Waste): W4: Motion (Shipper đi lại nhiều lần)</bpmn:documentation>
       <bpmn:incoming>Flow_13</bpmn:incoming>
       <bpmn:outgoing>Flow_14</bpmn:outgoing>
     </bpmn:task>
-    <bpmn:task id="Task_VanChuyenVeKho" name="Vận chuyển hàng về kho [NVA | 20m/30m]">
+    <bpmn:task id="Task_VanChuyenVeKho" name="Vận chuyển hàng về kho [NVA | 20m/30m | W3:Transportation]">
       <bpmn:documentation>Processing Time (T_proc): 20 phút
 Waiting Time (T_wait): 30 phút
 Cycle Time (T_cycle): 50 phút
 Chi phí xử lý (Cost): 14,583 VNĐ
-Xác suất (Prob): p = 70%</bpmn:documentation>
+Xác suất (Prob): p = 70%
+Lãng phí (Waste): W3: Transportation (Di chuyển trung gian)</bpmn:documentation>
       <bpmn:incoming>Flow_14</bpmn:incoming>
       <bpmn:outgoing>Flow_15</bpmn:outgoing>
     </bpmn:task>
-    <bpmn:task id="Task_KiemTraTinhTrang" name="Kiểm tra tình trạng hàng [BVA | 10m/45m]">
+    <bpmn:task id="Task_KiemTraTinhTrang" name="Kiểm tra tình trạng hàng [BVA | 10m/45m | W5:Inventory]">
       <bpmn:documentation>Processing Time (T_proc): 10 phút
 Waiting Time (T_wait): 45 phút
 Cycle Time (T_cycle): 55 phút
 Chi phí xử lý (Cost): 8,333 VNĐ
-Xác suất (Prob): p = 70%</bpmn:documentation>
+Xác suất (Prob): p = 70%
+Lãng phí (Waste): W5: Inventory (Chờ đọng kho)</bpmn:documentation>
       <bpmn:incoming>Flow_15</bpmn:incoming>
       <bpmn:outgoing>Flow_16</bpmn:outgoing>
     </bpmn:task>
@@ -164,41 +155,13 @@ Xác suất (Prob): p = 70%</bpmn:documentation>
       <bpmn:outgoing>Flow_17</bpmn:outgoing>
       <bpmn:outgoing>Flow_18</bpmn:outgoing>
     </bpmn:exclusiveGateway>
-    <bpmn:task id="Task_LapBienBan" name="Lập biên bản bất thường [BVA | 15m/30m]">
-      <bpmn:documentation>Processing Time (T_proc): 15 phút
-Waiting Time (T_wait): 30 phút
-Cycle Time (T_cycle): 45 phút
-Chi phí xử lý (Cost): 12,500 VNĐ
-Xác suất (Prob): p = 10.5%</bpmn:documentation>
-      <bpmn:incoming>Flow_17</bpmn:incoming>
-      <bpmn:outgoing>Flow_19</bpmn:outgoing>
-      <bpmn:outgoing>Flow_20</bpmn:outgoing>
-    </bpmn:task>
-    <bpmn:task id="Task_HoanTraNguoiGui" name="Hoàn trả hàng cho người gửi [VA | 20m/60m]">
-      <bpmn:documentation>Processing Time (T_proc): 20 phút
-Waiting Time (T_wait): 60 phút
-Cycle Time (T_cycle): 80 phút
-Chi phí xử lý (Cost): 16,667 VNĐ
-Xác suất (Prob): p = 59.5%</bpmn:documentation>
-      <bpmn:incoming>Flow_18</bpmn:incoming>
-      <bpmn:outgoing>Flow_21</bpmn:outgoing>
-    </bpmn:task>
-    <bpmn:task id="Task_CapNhatKiemHang" name="Cập nhật kết quả kiểm hàng [BVA | 5m/10m]">
-      <bpmn:documentation>Processing Time (T_proc): 5 phút
-Waiting Time (T_wait): 10 phút
-Cycle Time (T_cycle): 15 phút
-Chi phí xử lý (Cost): 4,167 VNĐ
-Xác suất (Prob): p = 70%</bpmn:documentation>
-      <bpmn:incoming>Flow_20</bpmn:incoming>
-      <bpmn:incoming>Flow_21</bpmn:incoming>
-      <bpmn:outgoing>Flow_22</bpmn:outgoing>
-    </bpmn:task>
     <bpmn:task id="Task_NhanKetQua" name="Nhận kết quả phản hồi [VA | 5m/0m]">
       <bpmn:documentation>Processing Time (T_proc): 5 phút
 Waiting Time (T_wait): 0 phút
 Cycle Time (T_cycle): 5 phút
 Chi phí xử lý (Cost): 0 VNĐ
-Xác suất (Prob): 100%</bpmn:documentation>
+Xác suất (Prob): 100%
+Lãng phí (Waste): None</bpmn:documentation>
       <bpmn:incoming>Flow_22</bpmn:incoming>
       <bpmn:incoming>Flow_23</bpmn:incoming>
       <bpmn:incoming>Flow_24</bpmn:incoming>
@@ -232,6 +195,59 @@ Xác suất (Prob): 100%</bpmn:documentation>
     <bpmn:sequenceFlow id="Flow_23" sourceRef="Task_GiaiQuyetKhieuNai" targetRef="Task_NhanKetQua" />
     <bpmn:sequenceFlow id="Flow_24" sourceRef="Task_TuVanKhachHang" targetRef="Task_NhanKetQua" />
     <bpmn:sequenceFlow id="Flow_25" sourceRef="Task_NhanKetQua" targetRef="EndEvent_1" />
+    <bpmn:task id="Task_TuVanKhachHang" name="Tư vấn hỗ trợ khách hàng [VA | 10m/10m]">
+      <bpmn:documentation>Processing Time (T_proc): 10 phút
+Waiting Time (T_wait): 10 phút
+Cycle Time (T_cycle): 20 phút
+Chi phí xử lý (Cost): 10,417 VNĐ
+Xác suất (Prob): p = 10%
+Lãng phí (Waste): None</bpmn:documentation>
+      <bpmn:incoming>Flow_12</bpmn:incoming>
+      <bpmn:outgoing>Flow_24</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Task_CapNhatKiemHang" name="Cập nhật kết quả kiểm hàng [BVA | 5m/10m]">
+      <bpmn:documentation>Processing Time (T_proc): 5 phút
+Waiting Time (T_wait): 10 phút
+Cycle Time (T_cycle): 15 phút
+Chi phí xử lý (Cost): 4,167 VNĐ
+Xác suất (Prob): p = 70%
+Lãng phí (Waste): None</bpmn:documentation>
+      <bpmn:incoming>Flow_20</bpmn:incoming>
+      <bpmn:incoming>Flow_21</bpmn:incoming>
+      <bpmn:outgoing>Flow_22</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Task_GiaiQuyetKhieuNai" name="Giải quyết khiếu nại đền bù [VA | 15m/90m | W1:Waiting]">
+      <bpmn:documentation>Processing Time (T_proc): 15 phút
+Waiting Time (T_wait): 90 phút
+Cycle Time (T_cycle): 105 phút
+Chi phí xử lý (Cost): 15,625 VNĐ
+Xác suất (Prob): p = 20%
+Lãng phí (Waste): W1: Waiting (Chờ phê duyệt đền bù)</bpmn:documentation>
+      <bpmn:incoming>Flow_11</bpmn:incoming>
+      <bpmn:incoming>Flow_19</bpmn:incoming>
+      <bpmn:outgoing>Flow_23</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Task_LapBienBan" name="Lập biên bản bất thường [BVA | 15m/30m | W1:Waiting]">
+      <bpmn:documentation>Processing Time (T_proc): 15 phút
+Waiting Time (T_wait): 30 phút
+Cycle Time (T_cycle): 45 phút
+Chi phí xử lý (Cost): 12,500 VNĐ
+Xác suất (Prob): p = 10.5%
+Lãng phí (Waste): W1: Waiting (Chờ duyệt biên bản)</bpmn:documentation>
+      <bpmn:incoming>Flow_17</bpmn:incoming>
+      <bpmn:outgoing>Flow_19</bpmn:outgoing>
+      <bpmn:outgoing>Flow_20</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Task_HoanTraNguoiGui" name="Hoàn trả hàng cho người gửi [VA | 20m/60m]">
+      <bpmn:documentation>Processing Time (T_proc): 20 phút
+Waiting Time (T_wait): 60 phút
+Cycle Time (T_cycle): 80 phút
+Chi phí xử lý (Cost): 16,667 VNĐ
+Xác suất (Prob): p = 59.5%
+Lãng phí (Waste): None</bpmn:documentation>
+      <bpmn:incoming>Flow_18</bpmn:incoming>
+      <bpmn:outgoing>Flow_21</bpmn:outgoing>
+    </bpmn:task>
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_HoanTraCSKH">
     <bpmndi:BPMNPlane id="BPMNPlane_HoanTraCSKH" bpmnElement="Collaboration_HoanTraCSKH">
@@ -283,17 +299,11 @@ Xác suất (Prob): 100%</bpmn:documentation>
       <bpmndi:BPMNShape id="Gateway_Classify_di" bpmnElement="Gateway_Classify" isMarkerVisible="true">
         <dc:Bounds x="1235" y="355" width="50" height="50" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1220" y="412" width="81" height="14" />
+          <dc:Bounds x="1218" y="331" width="83" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Task_TiepNhanLenhThuHoi_di" bpmnElement="Task_TiepNhanLenhThuHoi">
         <dc:Bounds x="550" y="540" width="120" height="80" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Task_GiaiQuyetKhieuNai_di" bpmnElement="Task_GiaiQuyetKhieuNai">
-        <dc:Bounds x="1400" y="290" width="120" height="80" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Task_TuVanKhachHang_di" bpmnElement="Task_TuVanKhachHang">
-        <dc:Bounds x="1400" y="400" width="120" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Task_ThuHoiHangHoa_di" bpmnElement="Task_ThuHoiHangHoa">
         <dc:Bounds x="730" y="540" width="120" height="80" />
@@ -310,15 +320,6 @@ Xác suất (Prob): 100%</bpmn:documentation>
           <dc:Bounds x="1221" y="802" width="79" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Task_LapBienBan_di" bpmnElement="Task_LapBienBan">
-        <dc:Bounds x="1370" y="680" width="120" height="80" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Task_HoanTraNguoiGui_di" bpmnElement="Task_HoanTraNguoiGui">
-        <dc:Bounds x="1370" y="780" width="120" height="80" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Task_CapNhatKiemHang_di" bpmnElement="Task_CapNhatKiemHang">
-        <dc:Bounds x="1560" y="730" width="120" height="80" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Task_NhanKetQua_di" bpmnElement="Task_NhanKetQua">
         <dc:Bounds x="1720" y="130" width="120" height="80" />
       </bpmndi:BPMNShape>
@@ -327,6 +328,22 @@ Xác suất (Prob): 100%</bpmn:documentation>
         <bpmndi:BPMNLabel>
           <dc:Bounds x="1908" y="195" width="65" height="27" />
         </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_TuVanKhachHang_di" bpmnElement="Task_TuVanKhachHang">
+        <dc:Bounds x="1450" y="400" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_CapNhatKiemHang_di" bpmnElement="Task_CapNhatKiemHang">
+        <dc:Bounds x="1640" y="730" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_GiaiQuyetKhieuNai_di" bpmnElement="Task_GiaiQuyetKhieuNai">
+        <dc:Bounds x="1450" y="290" width="120" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_LapBienBan_di" bpmnElement="Task_LapBienBan">
+        <dc:Bounds x="1390" y="680" width="120" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_HoanTraNguoiGui_di" bpmnElement="Task_HoanTraNguoiGui">
+        <dc:Bounds x="1391" y="780" width="120" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_1_di" bpmnElement="Flow_1">
         <di:waypoint x="268" y="170" />
@@ -377,25 +394,25 @@ Xác suất (Prob): 100%</bpmn:documentation>
         <di:waypoint x="610" y="470" />
         <di:waypoint x="610" y="540" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="901" y="452" width="68" height="14" />
+          <dc:Bounds x="894" y="436" width="83" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_11_di" bpmnElement="Flow_11">
         <di:waypoint x="1285" y="380" />
         <di:waypoint x="1340" y="380" />
         <di:waypoint x="1340" y="330" />
-        <di:waypoint x="1400" y="330" />
+        <di:waypoint x="1450" y="330" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1302" y="296" width="83" height="27" />
+          <dc:Bounds x="1348" y="336" width="83" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_12_di" bpmnElement="Flow_12">
         <di:waypoint x="1285" y="380" />
         <di:waypoint x="1340" y="380" />
         <di:waypoint x="1340" y="440" />
-        <di:waypoint x="1400" y="440" />
+        <di:waypoint x="1450" y="440" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1320" y="446" width="80" height="27" />
+          <dc:Bounds x="1350" y="406" width="80" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_13_di" bpmnElement="Flow_13">
@@ -419,51 +436,50 @@ Xác suất (Prob): 100%</bpmn:documentation>
         <di:waypoint x="1285" y="770" />
         <di:waypoint x="1328" y="770" />
         <di:waypoint x="1328" y="720" />
-        <di:waypoint x="1370" y="720" />
+        <di:waypoint x="1390" y="720" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1294" y="686" width="72" height="27" />
+          <dc:Bounds x="1311" y="686" width="72" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_18_di" bpmnElement="Flow_18">
         <di:waypoint x="1285" y="770" />
         <di:waypoint x="1328" y="770" />
         <di:waypoint x="1328" y="820" />
-        <di:waypoint x="1370" y="820" />
+        <di:waypoint x="1391" y="820" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1275" y="826" width="89" height="27" />
+          <dc:Bounds x="1294" y="836" width="89" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_19_di" bpmnElement="Flow_19">
-        <di:waypoint x="1430" y="680" />
-        <di:waypoint x="1430" y="620" />
-        <di:waypoint x="1550" y="620" />
-        <di:waypoint x="1550" y="330" />
-        <di:waypoint x="1520" y="330" />
+        <di:waypoint x="1510" y="700" />
+        <di:waypoint x="1700" y="700" />
+        <di:waypoint x="1700" y="350" />
+        <di:waypoint x="1570" y="350" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_20_di" bpmnElement="Flow_20">
-        <di:waypoint x="1490" y="720" />
-        <di:waypoint x="1525" y="720" />
-        <di:waypoint x="1525" y="770" />
-        <di:waypoint x="1560" y="770" />
+        <di:waypoint x="1510" y="720" />
+        <di:waypoint x="1545" y="720" />
+        <di:waypoint x="1545" y="770" />
+        <di:waypoint x="1640" y="770" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_21_di" bpmnElement="Flow_21">
-        <di:waypoint x="1490" y="820" />
-        <di:waypoint x="1525" y="820" />
-        <di:waypoint x="1525" y="770" />
-        <di:waypoint x="1560" y="770" />
+        <di:waypoint x="1511" y="820" />
+        <di:waypoint x="1545" y="820" />
+        <di:waypoint x="1545" y="770" />
+        <di:waypoint x="1640" y="770" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_22_di" bpmnElement="Flow_22">
-        <di:waypoint x="1680" y="770" />
+        <di:waypoint x="1760" y="770" />
         <di:waypoint x="1780" y="770" />
         <di:waypoint x="1780" y="210" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_23_di" bpmnElement="Flow_23">
-        <di:waypoint x="1520" y="330" />
+        <di:waypoint x="1570" y="330" />
         <di:waypoint x="1780" y="330" />
         <di:waypoint x="1780" y="210" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_24_di" bpmnElement="Flow_24">
-        <di:waypoint x="1520" y="440" />
+        <di:waypoint x="1570" y="440" />
         <di:waypoint x="1780" y="440" />
         <di:waypoint x="1780" y="210" />
       </bpmndi:BPMNEdge>
