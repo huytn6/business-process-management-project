@@ -1,0 +1,196 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_DestinationPostOffice" targetNamespace="http://bpmn.io/schema/bpmn" exporter="bpmn-js (https://bpmn.io)" exporterVersion="18.22.0">
+  <bpmn:message id="Message_Arrival" name="Bưu gửi và manifest đến bưu cục đích"/>
+  <bpmn:message id="Message_DeliveryReady" name="Tuyến giao đã sẵn sàng"/>
+  <bpmn:collaboration id="Collaboration_DestinationPostOffice">
+    <bpmn:participant id="Participant_Feeder" name="Trung tâm khai thác đích / xe feeder"/>
+    <bpmn:participant id="Participant_PostOffice" name="BƯU CỤC PHÁT ĐÍCH" processRef="Process_DestinationPostOffice"/>
+    <bpmn:participant id="Participant_LastMile" name="Quy trình kế tiếp: Giao hàng tận nơi &amp; Xác nhận"/>
+    <bpmn:messageFlow id="MessageFlow_In" name="Bàn giao bưu gửi + manifest" sourceRef="Participant_Feeder" targetRef="Start_Arrival" messageRef="Message_Arrival"/>
+    <bpmn:messageFlow id="MessageFlow_Out" name="Bàn giao tuyến giao" sourceRef="Task_Accept" targetRef="Participant_LastMile" messageRef="Message_DeliveryReady"/>
+  </bpmn:collaboration>
+  <bpmn:process id="Process_DestinationPostOffice" name="Tiếp nhận tại bưu cục đích &amp; Phân bổ tuyến giao" isExecutable="false">
+    <bpmn:laneSet id="LaneSet_DestinationPostOffice">
+      <bpmn:lane id="Lane_Inbound" name="TIẾP NHẬN / INBOUND">
+        <bpmn:flowNodeRef>Start_Arrival</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_Receive</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Gateway_Handover</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_Discrepancy</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>End_Discrepancy</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_OpenScan</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Gateway_Barcode</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_Relabel</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_System" name="HỆ THỐNG NGHIỆP VỤ">
+        <bpmn:flowNodeRef>Task_Validate</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Gateway_Eligible</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_ExceptionQueue</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>End_Hold</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_Group</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_Suggest</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_Manifest</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_Dispatch" name="TRƯỞNG BƯU CỤC / ĐIỀU PHỐI">
+        <bpmn:flowNodeRef>Task_CheckLoad</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Gateway_Feasible</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_Rebalance</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_Confirm</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_Courier" name="BƯU TÁ / TUYẾN GIAO">
+        <bpmn:flowNodeRef>Task_CourierCheck</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Gateway_CourierMatch</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_Reconcile</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_Accept</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>End_Assigned</bpmn:flowNodeRef>
+      </bpmn:lane>
+    </bpmn:laneSet>
+    <bpmn:startEvent id="Start_Arrival" name="Chuyến feeder đến bưu cục đích">
+      <bpmn:messageEventDefinition id="MessageEvent_Start" messageRef="Message_Arrival"/>
+      <bpmn:outgoing>F01</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:receiveTask id="Task_Receive" name="Tiếp nhận; kiểm tra seal, số bao/kiện và manifest">
+      <bpmn:incoming>F01</bpmn:incoming>
+      <bpmn:outgoing>F02</bpmn:outgoing>
+    </bpmn:receiveTask>
+    <bpmn:exclusiveGateway id="Gateway_Handover" name="Bàn giao khớp?">
+      <bpmn:incoming>F02</bpmn:incoming>
+      <bpmn:outgoing>F03</bpmn:outgoing>
+      <bpmn:outgoing>F04</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:manualTask id="Task_Discrepancy" name="Cách ly phần sai lệch; lập biên bản và thông báo đầu gửi">
+      <bpmn:incoming>F04</bpmn:incoming>
+      <bpmn:outgoing>F05</bpmn:outgoing>
+    </bpmn:manualTask>
+    <bpmn:endEvent id="End_Discrepancy" name="Chờ xử lý sai lệch">
+      <bpmn:incoming>F05</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:userTask id="Task_OpenScan" name="Mở bao có kiểm soát; quét nhập tồn bưu cục đích">
+      <bpmn:incoming>F03</bpmn:incoming>
+      <bpmn:incoming>F09</bpmn:incoming>
+      <bpmn:outgoing>F06</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:exclusiveGateway id="Gateway_Barcode" name="Mã/record hợp lệ?">
+      <bpmn:incoming>F06</bpmn:incoming>
+      <bpmn:outgoing>F07</bpmn:outgoing>
+      <bpmn:outgoing>F08</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:userTask id="Task_Relabel" name="Nhận dạng, sửa dữ liệu hoặc in/dán lại nhãn">
+      <bpmn:incoming>F08</bpmn:incoming>
+      <bpmn:outgoing>F09</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:serviceTask id="Task_Validate" name="Kiểm tra địa chỉ, vùng phát, dịch vụ, COD và thuộc tính đặc biệt">
+      <bpmn:incoming>F07</bpmn:incoming>
+      <bpmn:outgoing>F10</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:exclusiveGateway id="Gateway_Eligible" name="Đủ điều kiện phân tuyến?">
+      <bpmn:incoming>F10</bpmn:incoming>
+      <bpmn:outgoing>F11</bpmn:outgoing>
+      <bpmn:outgoing>F12</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:userTask id="Task_ExceptionQueue" name="Đưa vào hàng chờ xác minh địa chỉ/tái định tuyến/xử lý chất lượng">
+      <bpmn:incoming>F12</bpmn:incoming>
+      <bpmn:outgoing>F13</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:endEvent id="End_Hold" name="Tạm giữ có kiểm soát">
+      <bpmn:incoming>F13</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:serviceTask id="Task_Group" name="Gom nhóm theo địa bàn, ưu tiên dịch vụ và khung giờ cam kết">
+      <bpmn:incoming>F11</bpmn:incoming>
+      <bpmn:outgoing>F14</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Task_Suggest" name="Đề xuất tuyến giao và bưu tá theo vùng phục vụ">
+      <bpmn:incoming>F14</bpmn:incoming>
+      <bpmn:outgoing>F15</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:userTask id="Task_CheckLoad" name="Điều phối kiểm tra tải tuyến, năng lực bưu tá và giờ xuất phát">
+      <bpmn:incoming>F15</bpmn:incoming>
+      <bpmn:incoming>F19</bpmn:incoming>
+      <bpmn:outgoing>F16</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:exclusiveGateway id="Gateway_Feasible" name="Phương án khả thi?">
+      <bpmn:incoming>F16</bpmn:incoming>
+      <bpmn:outgoing>F17</bpmn:outgoing>
+      <bpmn:outgoing>F18</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:userTask id="Task_Rebalance" name="Tách/gộp tuyến, đổi bưu tá hoặc chuyển ca có kiểm soát">
+      <bpmn:incoming>F18</bpmn:incoming>
+      <bpmn:outgoing>F19</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:userTask id="Task_Confirm" name="Xác nhận phân tuyến và khóa danh sách giao">
+      <bpmn:incoming>F17</bpmn:incoming>
+      <bpmn:outgoing>F20</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:serviceTask id="Task_Manifest" name="Sinh bảng kê tuyến; cập nhật trạng thái sẵn sàng bàn giao">
+      <bpmn:incoming>F20</bpmn:incoming>
+      <bpmn:outgoing>F21</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:userTask id="Task_CourierCheck" name="Bưu tá nhận hàng; quét và đối chiếu với bảng kê tuyến">
+      <bpmn:incoming>F21</bpmn:incoming>
+      <bpmn:incoming>F25</bpmn:incoming>
+      <bpmn:outgoing>F22</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:exclusiveGateway id="Gateway_CourierMatch" name="Bàn giao khớp?">
+      <bpmn:incoming>F22</bpmn:incoming>
+      <bpmn:outgoing>F23</bpmn:outgoing>
+      <bpmn:outgoing>F24</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:userTask id="Task_Reconcile" name="Đối soát thiếu/thừa/sai tuyến và điều chỉnh danh sách">
+      <bpmn:incoming>F24</bpmn:incoming>
+      <bpmn:outgoing>F25</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sendTask id="Task_Accept" name="Bưu tá xác nhận nhận tuyến; hệ thống ghi nhận xuất giao">
+      <bpmn:incoming>F23</bpmn:incoming>
+      <bpmn:outgoing>F26</bpmn:outgoing>
+    </bpmn:sendTask>
+    <bpmn:endEvent id="End_Assigned" name="Sẵn sàng giao hàng tận nơi">
+      <bpmn:incoming>F26</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="F01" sourceRef="Start_Arrival" targetRef="Task_Receive"/>
+    <bpmn:sequenceFlow id="F02" sourceRef="Task_Receive" targetRef="Gateway_Handover"/>
+    <bpmn:sequenceFlow id="F03" sourceRef="Gateway_Handover" targetRef="Task_OpenScan" name="Có">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">Có</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="F04" sourceRef="Gateway_Handover" targetRef="Task_Discrepancy" name="Không">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">Không</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="F05" sourceRef="Task_Discrepancy" targetRef="End_Discrepancy"/>
+    <bpmn:sequenceFlow id="F06" sourceRef="Task_OpenScan" targetRef="Gateway_Barcode"/>
+    <bpmn:sequenceFlow id="F07" sourceRef="Gateway_Barcode" targetRef="Task_Validate" name="Có">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">Có</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="F08" sourceRef="Gateway_Barcode" targetRef="Task_Relabel" name="Không">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">Không</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="F09" sourceRef="Task_Relabel" targetRef="Task_OpenScan"/>
+    <bpmn:sequenceFlow id="F10" sourceRef="Task_Validate" targetRef="Gateway_Eligible"/>
+    <bpmn:sequenceFlow id="F11" sourceRef="Gateway_Eligible" targetRef="Task_Group" name="Có">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">Có</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="F12" sourceRef="Gateway_Eligible" targetRef="Task_ExceptionQueue" name="Không">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">Không</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="F13" sourceRef="Task_ExceptionQueue" targetRef="End_Hold"/>
+    <bpmn:sequenceFlow id="F14" sourceRef="Task_Group" targetRef="Task_Suggest"/>
+    <bpmn:sequenceFlow id="F15" sourceRef="Task_Suggest" targetRef="Task_CheckLoad"/>
+    <bpmn:sequenceFlow id="F16" sourceRef="Task_CheckLoad" targetRef="Gateway_Feasible"/>
+    <bpmn:sequenceFlow id="F17" sourceRef="Gateway_Feasible" targetRef="Task_Confirm" name="Có">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">Có</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="F18" sourceRef="Gateway_Feasible" targetRef="Task_Rebalance" name="Không">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">Không</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="F19" sourceRef="Task_Rebalance" targetRef="Task_CheckLoad"/>
+    <bpmn:sequenceFlow id="F20" sourceRef="Task_Confirm" targetRef="Task_Manifest"/>
+    <bpmn:sequenceFlow id="F21" sourceRef="Task_Manifest" targetRef="Task_CourierCheck"/>
+    <bpmn:sequenceFlow id="F22" sourceRef="Task_CourierCheck" targetRef="Gateway_CourierMatch"/>
+    <bpmn:sequenceFlow id="F23" sourceRef="Gateway_CourierMatch" targetRef="Task_Accept" name="Có">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">Có</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="F24" sourceRef="Gateway_CourierMatch" targetRef="Task_Reconcile" name="Không">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">Không</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="F25" sourceRef="Task_Reconcile" targetRef="Task_CourierCheck"/>
+    <bpmn:sequenceFlow id="F26" sourceRef="Task_Accept" targetRef="End_Assigned"/>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1"><bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_DestinationPostOffice"><bpmndi:BPMNShape id="Participant_Feeder_di" bpmnElement="Participant_Feeder" isHorizontal="true"><dc:Bounds x="40" y="20" width="2000" height="75"/></bpmndi:BPMNShape><bpmndi:BPMNShape id="Participant_PostOffice_di" bpmnElement="Participant_PostOffice" isHorizontal="false"><dc:Bounds x="40" y="115" width="2000" height="2235"/></bpmndi:BPMNShape><bpmndi:BPMNShape id="Lane_Inbound_di" bpmnElement="Lane_Inbound" isHorizontal="false"><dc:Bounds x="40" y="149" width="500" height="2201"/></bpmndi:BPMNShape><bpmndi:BPMNShape id="Lane_System_di" bpmnElement="Lane_System" isHorizontal="false"><dc:Bounds x="540" y="149" width="500" height="2201"/></bpmndi:BPMNShape><bpmndi:BPMNShape id="Lane_Dispatch_di" bpmnElement="Lane_Dispatch" isHorizontal="false"><dc:Bounds x="1040" y="149" width="500" height="2201"/></bpmndi:BPMNShape><bpmndi:BPMNShape id="Lane_Courier_di" bpmnElement="Lane_Courier" isHorizontal="false"><dc:Bounds x="1540" y="149" width="500" height="2201"/></bpmndi:BPMNShape><bpmndi:BPMNShape id="Participant_LastMile_di" bpmnElement="Participant_LastMile" isHorizontal="true"><dc:Bounds x="40" y="2370" width="2000" height="80"/></bpmndi:BPMNShape><bpmndi:BPMNShape id="Start_Arrival_di" bpmnElement="Start_Arrival"><dc:Bounds x="149" y="119" width="42" height="42"/><bpmndi:BPMNLabel><dc:Bounds x="100" y="167" width="140" height="28"/></bpmndi:BPMNLabel></bpmndi:BPMNShape><bpmndi:BPMNShape id="Task_Receive_di" bpmnElement="Task_Receive"><dc:Bounds x="60" y="225" width="220" height="90"/></bpmndi:BPMNShape><bpmndi:BPMNShape id="Gateway_Handover_di" bpmnElement="Gateway_Handover"><dc:Bounds x="143" y="373" width="54" height="54"/><bpmndi:BPMNLabel><dc:Bounds x="-15" y="386" width="150" height="28"/></bpmndi:BPMNLabel></bpmndi:BPMNShape><bpmndi:BPMNShape id="Task_Discrepancy_di" bpmnElement="Task_Discrepancy"><dc:Bounds x="300" y="355" width="220" height="90"/></bpmndi:BPMNShape><bpmndi:BPMNShape id="End_Discrepancy_di" bpmnElement="End_Discrepancy"><dc:Bounds x="389" y="489" width="42" height="42"/><bpmndi:BPMNLabel><dc:Bounds x="340" y="537" width="140" height="28"/></bpmndi:BPMNLabel></bpmndi:BPMNShape><bpmndi:BPMNShape id="Task_OpenScan_di" bpmnElement="Task_OpenScan"><dc:Bounds x="60" y="505" width="220" height="90"/></bpmndi:BPMNShape><bpmndi:BPMNShape id="Gateway_Barcode_di" bpmnElement="Gateway_Barcode"><dc:Bounds x="143" y="653" width="54" height="54"/><bpmndi:BPMNLabel><dc:Bounds x="-15" y="666" width="150" height="28"/></bpmndi:BPMNLabel></bpmndi:BPMNShape><bpmndi:BPMNShape id="Task_Relabel_di" bpmnElement="Task_Relabel"><dc:Bounds x="300" y="635" width="220" height="90"/></bpmndi:BPMNShape><bpmndi:BPMNShape id="Task_Validate_di" bpmnElement="Task_Validate"><dc:Bounds x="560" y="765" width="220" height="90"/></bpmndi:BPMNShape><bpmndi:BPMNShape id="Gateway_Eligible_di" bpmnElement="Gateway_Eligible"><dc:Bounds x="643" y="913" width="54" height="54"/><bpmndi:BPMNLabel><dc:Bounds x="485" y="926" width="150" height="28"/></bpmndi:BPMNLabel></bpmndi:BPMNShape><bpmndi:BPMNShape id="Task_ExceptionQueue_di" bpmnElement="Task_ExceptionQueue"><dc:Bounds x="800" y="895" width="220" height="90"/></bpmndi:BPMNShape><bpmndi:BPMNShape id="End_Hold_di" bpmnElement="End_Hold"><dc:Bounds x="889" y="1029" width="42" height="42"/><bpmndi:BPMNLabel><dc:Bounds x="840" y="1077" width="140" height="28"/></bpmndi:BPMNLabel></bpmndi:BPMNShape><bpmndi:BPMNShape id="Task_Group_di" bpmnElement="Task_Group"><dc:Bounds x="560" y="1045" width="220" height="90"/></bpmndi:BPMNShape><bpmndi:BPMNShape id="Task_Suggest_di" bpmnElement="Task_Suggest"><dc:Bounds x="560" y="1175" width="220" height="90"/></bpmndi:BPMNShape><bpmndi:BPMNShape id="Task_CheckLoad_di" bpmnElement="Task_CheckLoad"><dc:Bounds x="1060" y="1305" width="220" height="90"/></bpmndi:BPMNShape><bpmndi:BPMNShape id="Gateway_Feasible_di" bpmnElement="Gateway_Feasible"><dc:Bounds x="1143" y="1453" width="54" height="54"/><bpmndi:BPMNLabel><dc:Bounds x="985" y="1466" width="150" height="28"/></bpmndi:BPMNLabel></bpmndi:BPMNShape><bpmndi:BPMNShape id="Task_Rebalance_di" bpmnElement="Task_Rebalance"><dc:Bounds x="1300" y="1435" width="220" height="90"/></bpmndi:BPMNShape><bpmndi:BPMNShape id="Task_Confirm_di" bpmnElement="Task_Confirm"><dc:Bounds x="1060" y="1565" width="220" height="90"/></bpmndi:BPMNShape><bpmndi:BPMNShape id="Task_Manifest_di" bpmnElement="Task_Manifest"><dc:Bounds x="560" y="1695" width="220" height="90"/></bpmndi:BPMNShape><bpmndi:BPMNShape id="Task_CourierCheck_di" bpmnElement="Task_CourierCheck"><dc:Bounds x="1560" y="1825" width="220" height="90"/></bpmndi:BPMNShape><bpmndi:BPMNShape id="Gateway_CourierMatch_di" bpmnElement="Gateway_CourierMatch"><dc:Bounds x="1643" y="1973" width="54" height="54"/><bpmndi:BPMNLabel><dc:Bounds x="1485" y="1986" width="150" height="28"/></bpmndi:BPMNLabel></bpmndi:BPMNShape><bpmndi:BPMNShape id="Task_Reconcile_di" bpmnElement="Task_Reconcile"><dc:Bounds x="1800" y="1955" width="220" height="90"/></bpmndi:BPMNShape><bpmndi:BPMNShape id="Task_Accept_di" bpmnElement="Task_Accept"><dc:Bounds x="1560" y="2085" width="220" height="90"/></bpmndi:BPMNShape><bpmndi:BPMNShape id="End_Assigned_di" bpmnElement="End_Assigned"><dc:Bounds x="1649" y="2239" width="42" height="42"/><bpmndi:BPMNLabel><dc:Bounds x="1600" y="2287" width="140" height="28"/></bpmndi:BPMNLabel></bpmndi:BPMNShape><bpmndi:BPMNEdge id="F01_di" bpmnElement="F01"><di:waypoint x="170" y="161"/><di:waypoint x="170" y="225"/></bpmndi:BPMNEdge><bpmndi:BPMNEdge id="F02_di" bpmnElement="F02"><di:waypoint x="170" y="315"/><di:waypoint x="170" y="373"/></bpmndi:BPMNEdge><bpmndi:BPMNEdge id="F03_di" bpmnElement="F03"><di:waypoint x="170" y="427"/><di:waypoint x="170" y="505"/><bpmndi:BPMNLabel><dc:Bounds x="178" y="454" width="120" height="24"/></bpmndi:BPMNLabel></bpmndi:BPMNEdge><bpmndi:BPMNEdge id="F04_di" bpmnElement="F04"><di:waypoint x="197" y="400"/><di:waypoint x="300" y="400"/><bpmndi:BPMNLabel><dc:Bounds x="193" y="374" width="110" height="24"/></bpmndi:BPMNLabel></bpmndi:BPMNEdge><bpmndi:BPMNEdge id="F05_di" bpmnElement="F05"><di:waypoint x="410" y="445"/><di:waypoint x="410" y="489"/></bpmndi:BPMNEdge><bpmndi:BPMNEdge id="F06_di" bpmnElement="F06"><di:waypoint x="170" y="595"/><di:waypoint x="170" y="653"/></bpmndi:BPMNEdge><bpmndi:BPMNEdge id="F07_di" bpmnElement="F07"><di:waypoint x="197" y="680"/><di:waypoint x="670" y="680"/><di:waypoint x="670" y="765"/><bpmndi:BPMNLabel><dc:Bounds x="378" y="654" width="110" height="24"/></bpmndi:BPMNLabel></bpmndi:BPMNEdge><bpmndi:BPMNEdge id="F08_di" bpmnElement="F08"><di:waypoint x="197" y="680"/><di:waypoint x="300" y="680"/><bpmndi:BPMNLabel><dc:Bounds x="193" y="654" width="110" height="24"/></bpmndi:BPMNLabel></bpmndi:BPMNEdge><bpmndi:BPMNEdge id="F09_di" bpmnElement="F09"><di:waypoint x="410" y="635"/><di:waypoint x="410" y="550"/><di:waypoint x="280" y="550"/></bpmndi:BPMNEdge><bpmndi:BPMNEdge id="F10_di" bpmnElement="F10"><di:waypoint x="670" y="855"/><di:waypoint x="670" y="913"/></bpmndi:BPMNEdge><bpmndi:BPMNEdge id="F11_di" bpmnElement="F11"><di:waypoint x="670" y="967"/><di:waypoint x="670" y="1045"/><bpmndi:BPMNLabel><dc:Bounds x="678" y="994" width="120" height="24"/></bpmndi:BPMNLabel></bpmndi:BPMNEdge><bpmndi:BPMNEdge id="F12_di" bpmnElement="F12"><di:waypoint x="697" y="940"/><di:waypoint x="800" y="940"/><bpmndi:BPMNLabel><dc:Bounds x="693" y="914" width="110" height="24"/></bpmndi:BPMNLabel></bpmndi:BPMNEdge><bpmndi:BPMNEdge id="F13_di" bpmnElement="F13"><di:waypoint x="910" y="985"/><di:waypoint x="910" y="1029"/></bpmndi:BPMNEdge><bpmndi:BPMNEdge id="F14_di" bpmnElement="F14"><di:waypoint x="670" y="1135"/><di:waypoint x="670" y="1175"/></bpmndi:BPMNEdge><bpmndi:BPMNEdge id="F15_di" bpmnElement="F15"><di:waypoint x="780" y="1220"/><di:waypoint x="1170" y="1220"/><di:waypoint x="1170" y="1305"/></bpmndi:BPMNEdge><bpmndi:BPMNEdge id="F16_di" bpmnElement="F16"><di:waypoint x="1170" y="1395"/><di:waypoint x="1170" y="1453"/></bpmndi:BPMNEdge><bpmndi:BPMNEdge id="F17_di" bpmnElement="F17"><di:waypoint x="1170" y="1507"/><di:waypoint x="1170" y="1565"/><bpmndi:BPMNLabel><dc:Bounds x="1178" y="1524" width="120" height="24"/></bpmndi:BPMNLabel></bpmndi:BPMNEdge><bpmndi:BPMNEdge id="F18_di" bpmnElement="F18"><di:waypoint x="1197" y="1480"/><di:waypoint x="1300" y="1480"/><bpmndi:BPMNLabel><dc:Bounds x="1193" y="1454" width="110" height="24"/></bpmndi:BPMNLabel></bpmndi:BPMNEdge><bpmndi:BPMNEdge id="F19_di" bpmnElement="F19"><di:waypoint x="1410" y="1435"/><di:waypoint x="1410" y="1350"/><di:waypoint x="1280" y="1350"/></bpmndi:BPMNEdge><bpmndi:BPMNEdge id="F20_di" bpmnElement="F20"><di:waypoint x="1060" y="1610"/><di:waypoint x="670" y="1610"/><di:waypoint x="670" y="1695"/></bpmndi:BPMNEdge><bpmndi:BPMNEdge id="F21_di" bpmnElement="F21"><di:waypoint x="780" y="1740"/><di:waypoint x="1670" y="1740"/><di:waypoint x="1670" y="1825"/></bpmndi:BPMNEdge><bpmndi:BPMNEdge id="F22_di" bpmnElement="F22"><di:waypoint x="1670" y="1915"/><di:waypoint x="1670" y="1973"/></bpmndi:BPMNEdge><bpmndi:BPMNEdge id="F23_di" bpmnElement="F23"><di:waypoint x="1670" y="2027"/><di:waypoint x="1670" y="2085"/><bpmndi:BPMNLabel><dc:Bounds x="1678" y="2044" width="120" height="24"/></bpmndi:BPMNLabel></bpmndi:BPMNEdge><bpmndi:BPMNEdge id="F24_di" bpmnElement="F24"><di:waypoint x="1697" y="2000"/><di:waypoint x="1800" y="2000"/><bpmndi:BPMNLabel><dc:Bounds x="1693" y="1974" width="110" height="24"/></bpmndi:BPMNLabel></bpmndi:BPMNEdge><bpmndi:BPMNEdge id="F25_di" bpmnElement="F25"><di:waypoint x="1910" y="1955"/><di:waypoint x="1910" y="1870"/><di:waypoint x="1780" y="1870"/></bpmndi:BPMNEdge><bpmndi:BPMNEdge id="F26_di" bpmnElement="F26"><di:waypoint x="1670" y="2175"/><di:waypoint x="1670" y="2239"/></bpmndi:BPMNEdge><bpmndi:BPMNEdge id="MessageFlow_In_di" bpmnElement="MessageFlow_In"><di:waypoint x="170" y="95"/><di:waypoint x="170" y="119"/><bpmndi:BPMNLabel><dc:Bounds x="178" y="95" width="120" height="24"/></bpmndi:BPMNLabel></bpmndi:BPMNEdge><bpmndi:BPMNEdge id="MessageFlow_Out_di" bpmnElement="MessageFlow_Out"><di:waypoint x="1780" y="2130"/><di:waypoint x="1820" y="2130"/><di:waypoint x="1820" y="2370"/><bpmndi:BPMNLabel><dc:Bounds x="1692" y="2334" width="120" height="24"/></bpmndi:BPMNLabel></bpmndi:BPMNEdge></bpmndi:BPMNPlane></bpmndi:BPMNDiagram>
+</bpmn:definitions>
