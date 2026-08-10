@@ -1,7 +1,7 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_HoanTraCSKH" targetNamespace="http://bpmn.io/schema/bpmn" exporter="bpmn-js (https://demo.bpmn.io)" exporterVersion="18.22.0">
   <bpmn:collaboration id="Collaboration_HoanTraCSKH">
-    <bpmn:participant id="Participant_ViettelPost" name="QUY TRÌNH QUẢN LÝ HOÀN TRẢ HÀNG &#38; CHĂM SÓC KHÁCH HÀNG – VIETTEL POST" processRef="Process_HoanTraCSKH" />
+    <bpmn:participant id="Participant_ViettelPost" name="QUY TRÌNH QUẢN LÝ HOÀN TRẢ HÀNG &amp; CHĂM SÓC KHÁCH HÀNG – VIETTEL POST" processRef="Process_HoanTraCSKH" />
   </bpmn:collaboration>
   <bpmn:process id="Process_HoanTraCSKH" isExecutable="false">
     <bpmn:laneSet id="LaneSet_HoanTraCSKH">
@@ -38,7 +38,7 @@
     <bpmn:startEvent id="StartEvent_1" name="Yêu cầu hoàn trả đã phát sinh">
       <bpmn:outgoing>Flow_1</bpmn:outgoing>
     </bpmn:startEvent>
-    <bpmn:task id="Task_GuiYeuCau" name="Gửi yêu cầu hoàn trả [VA | 5m/0m]">
+    <bpmn:task id="Task_GuiYeuCau" name="Gửi yêu cầu hoàn trả">
       <bpmn:documentation>Processing Time (T_proc): 5 phút
 Waiting Time (T_wait): 0 phút
 Cycle Time (T_cycle): 5 phút
@@ -48,7 +48,7 @@ Lãng phí (Waste): None</bpmn:documentation>
       <bpmn:incoming>Flow_1</bpmn:incoming>
       <bpmn:outgoing>Flow_2</bpmn:outgoing>
     </bpmn:task>
-    <bpmn:task id="Task_TiepNhanYeuCau" name="Tiếp nhận yêu cầu [BVA | 3m/15m]">
+    <bpmn:task id="Task_TiepNhanYeuCau" name="Tiếp nhận yêu cầu">
       <bpmn:documentation>Processing Time (T_proc): 3 phút
 Waiting Time (T_wait): 15 phút
 Cycle Time (T_cycle): 18 phút
@@ -58,7 +58,7 @@ Lãng phí (Waste): None</bpmn:documentation>
       <bpmn:incoming>Flow_2</bpmn:incoming>
       <bpmn:outgoing>Flow_3</bpmn:outgoing>
     </bpmn:task>
-    <bpmn:task id="Task_KiemTraThongTin" name="Kiểm tra thông tin đơn hàng [BVA | 5m/10m | W6:Over-processing]">
+    <bpmn:task id="Task_KiemTraThongTin" name="Kiểm tra thông tin đơn hàng">
       <bpmn:documentation>Processing Time (T_proc): 5 phút
 Waiting Time (T_wait): 10 phút
 Cycle Time (T_cycle): 15 phút
@@ -74,7 +74,7 @@ Lãng phí (Waste): W6: Over-processing (Kiểm tra trùng lặp)</bpmn:document
       <bpmn:outgoing>Flow_5</bpmn:outgoing>
       <bpmn:outgoing>Flow_7</bpmn:outgoing>
     </bpmn:exclusiveGateway>
-    <bpmn:task id="Task_CungCapChungTu" name="Cung cấp chứng từ bổ sung [NVA | 10m/120m | W2:Defects]">
+    <bpmn:task id="Task_CungCapChungTu" name="Cung cấp chứng từ bổ sung">
       <bpmn:documentation>Processing Time (T_proc): 10 phút
 Waiting Time (T_wait): 120 phút
 Cycle Time (T_cycle): 130 phút
@@ -84,7 +84,7 @@ Lãng phí (Waste): W2: Defects (Hồ sơ thiếu chứng từ)</bpmn:documentat
       <bpmn:incoming>Flow_5</bpmn:incoming>
       <bpmn:outgoing>Flow_6</bpmn:outgoing>
     </bpmn:task>
-    <bpmn:task id="Task_XacMinhSuCo" name="Xác minh nguyên nhân sự cố [BVA | 15m/60m | W1:Waiting]">
+    <bpmn:task id="Task_XacMinhSuCo" name="Xác minh nguyên nhân sự cố">
       <bpmn:documentation>Processing Time (T_proc): 15 phút
 Waiting Time (T_wait): 60 phút
 Cycle Time (T_cycle): 75 phút
@@ -94,7 +94,7 @@ Lãng phí (Waste): W1: Waiting (Chờ đối soát)</bpmn:documentation>
       <bpmn:incoming>Flow_7</bpmn:incoming>
       <bpmn:outgoing>Flow_8</bpmn:outgoing>
     </bpmn:task>
-    <bpmn:task id="Task_PhanLoaiYeuCau" name="Phân loại nhóm yêu cầu [BVA | 3m/5m]">
+    <bpmn:task id="Task_PhanLoaiYeuCau" name="Phân loại nhóm yêu cầu">
       <bpmn:documentation>Processing Time (T_proc): 3 phút
 Waiting Time (T_wait): 5 phút
 Cycle Time (T_cycle): 8 phút
@@ -110,7 +110,7 @@ Lãng phí (Waste): None</bpmn:documentation>
       <bpmn:outgoing>Flow_11</bpmn:outgoing>
       <bpmn:outgoing>Flow_12</bpmn:outgoing>
     </bpmn:exclusiveGateway>
-    <bpmn:task id="Task_TiepNhanLenhThuHoi" name="Tiếp nhận lệnh thu hồi [BVA | 2m/10m]">
+    <bpmn:task id="Task_TiepNhanLenhThuHoi" name="Tiếp nhận lệnh thu hồi">
       <bpmn:documentation>Processing Time (T_proc): 2 phút
 Waiting Time (T_wait): 10 phút
 Cycle Time (T_cycle): 12 phút
@@ -120,7 +120,7 @@ Lãng phí (Waste): None</bpmn:documentation>
       <bpmn:incoming>Flow_10</bpmn:incoming>
       <bpmn:outgoing>Flow_13</bpmn:outgoing>
     </bpmn:task>
-    <bpmn:task id="Task_ThuHoiHangHoa" name="Thu hồi hàng hóa [VA | 30m/15m | W4:Motion]">
+    <bpmn:task id="Task_ThuHoiHangHoa" name="Thu hồi hàng hóa">
       <bpmn:documentation>Processing Time (T_proc): 30 phút
 Waiting Time (T_wait): 15 phút
 Cycle Time (T_cycle): 45 phút
@@ -130,7 +130,7 @@ Lãng phí (Waste): W4: Motion (Shipper đi lại nhiều lần)</bpmn:documenta
       <bpmn:incoming>Flow_13</bpmn:incoming>
       <bpmn:outgoing>Flow_14</bpmn:outgoing>
     </bpmn:task>
-    <bpmn:task id="Task_VanChuyenVeKho" name="Vận chuyển hàng về kho [NVA | 20m/30m | W3:Transportation]">
+    <bpmn:task id="Task_VanChuyenVeKho" name="Vận chuyển hàng về kho">
       <bpmn:documentation>Processing Time (T_proc): 20 phút
 Waiting Time (T_wait): 30 phút
 Cycle Time (T_cycle): 50 phút
@@ -140,7 +140,7 @@ Lãng phí (Waste): W3: Transportation (Di chuyển trung gian)</bpmn:documentat
       <bpmn:incoming>Flow_14</bpmn:incoming>
       <bpmn:outgoing>Flow_15</bpmn:outgoing>
     </bpmn:task>
-    <bpmn:task id="Task_KiemTraTinhTrang" name="Kiểm tra tình trạng hàng [BVA | 10m/45m | W5:Inventory]">
+    <bpmn:task id="Task_KiemTraTinhTrang" name="Kiểm tra tình trạng hàng">
       <bpmn:documentation>Processing Time (T_proc): 10 phút
 Waiting Time (T_wait): 45 phút
 Cycle Time (T_cycle): 55 phút
@@ -155,7 +155,7 @@ Lãng phí (Waste): W5: Inventory (Chờ đọng kho)</bpmn:documentation>
       <bpmn:outgoing>Flow_17</bpmn:outgoing>
       <bpmn:outgoing>Flow_18</bpmn:outgoing>
     </bpmn:exclusiveGateway>
-    <bpmn:task id="Task_NhanKetQua" name="Nhận kết quả phản hồi [VA | 5m/0m]">
+    <bpmn:task id="Task_NhanKetQua" name="Nhận kết quả phản hồi">
       <bpmn:documentation>Processing Time (T_proc): 5 phút
 Waiting Time (T_wait): 0 phút
 Cycle Time (T_cycle): 5 phút
@@ -195,7 +195,7 @@ Lãng phí (Waste): None</bpmn:documentation>
     <bpmn:sequenceFlow id="Flow_23" sourceRef="Task_GiaiQuyetKhieuNai" targetRef="Task_NhanKetQua" />
     <bpmn:sequenceFlow id="Flow_24" sourceRef="Task_TuVanKhachHang" targetRef="Task_NhanKetQua" />
     <bpmn:sequenceFlow id="Flow_25" sourceRef="Task_NhanKetQua" targetRef="EndEvent_1" />
-    <bpmn:task id="Task_TuVanKhachHang" name="Tư vấn hỗ trợ khách hàng [VA | 10m/10m]">
+    <bpmn:task id="Task_TuVanKhachHang" name="Tư vấn hỗ trợ khách hàng">
       <bpmn:documentation>Processing Time (T_proc): 10 phút
 Waiting Time (T_wait): 10 phút
 Cycle Time (T_cycle): 20 phút
@@ -205,7 +205,7 @@ Lãng phí (Waste): None</bpmn:documentation>
       <bpmn:incoming>Flow_12</bpmn:incoming>
       <bpmn:outgoing>Flow_24</bpmn:outgoing>
     </bpmn:task>
-    <bpmn:task id="Task_CapNhatKiemHang" name="Cập nhật kết quả kiểm hàng [BVA | 5m/10m]">
+    <bpmn:task id="Task_CapNhatKiemHang" name="Cập nhật kết quả kiểm hàng">
       <bpmn:documentation>Processing Time (T_proc): 5 phút
 Waiting Time (T_wait): 10 phút
 Cycle Time (T_cycle): 15 phút
@@ -216,7 +216,7 @@ Lãng phí (Waste): None</bpmn:documentation>
       <bpmn:incoming>Flow_21</bpmn:incoming>
       <bpmn:outgoing>Flow_22</bpmn:outgoing>
     </bpmn:task>
-    <bpmn:task id="Task_GiaiQuyetKhieuNai" name="Giải quyết khiếu nại đền bù [VA | 15m/90m | W1:Waiting]">
+    <bpmn:task id="Task_GiaiQuyetKhieuNai" name="Giải quyết khiếu nại đền bù">
       <bpmn:documentation>Processing Time (T_proc): 15 phút
 Waiting Time (T_wait): 90 phút
 Cycle Time (T_cycle): 105 phút
@@ -227,7 +227,7 @@ Lãng phí (Waste): W1: Waiting (Chờ phê duyệt đền bù)</bpmn:documentat
       <bpmn:incoming>Flow_19</bpmn:incoming>
       <bpmn:outgoing>Flow_23</bpmn:outgoing>
     </bpmn:task>
-    <bpmn:task id="Task_LapBienBan" name="Lập biên bản bất thường [BVA | 15m/30m | W1:Waiting]">
+    <bpmn:task id="Task_LapBienBan" name="Lập biên bản bất thường">
       <bpmn:documentation>Processing Time (T_proc): 15 phút
 Waiting Time (T_wait): 30 phút
 Cycle Time (T_cycle): 45 phút
@@ -238,7 +238,7 @@ Lãng phí (Waste): W1: Waiting (Chờ duyệt biên bản)</bpmn:documentation>
       <bpmn:outgoing>Flow_19</bpmn:outgoing>
       <bpmn:outgoing>Flow_20</bpmn:outgoing>
     </bpmn:task>
-    <bpmn:task id="Task_HoanTraNguoiGui" name="Hoàn trả hàng cho người gửi [VA | 20m/60m]">
+    <bpmn:task id="Task_HoanTraNguoiGui" name="Hoàn trả hàng cho người gửi">
       <bpmn:documentation>Processing Time (T_proc): 20 phút
 Waiting Time (T_wait): 60 phút
 Cycle Time (T_cycle): 80 phút
