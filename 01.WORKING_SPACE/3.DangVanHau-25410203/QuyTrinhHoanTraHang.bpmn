@@ -1,0 +1,401 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_HoanTra" targetNamespace="http://bpmn.io/schema/bpmn" exporter="bpmn-js (https://demo.bpmn.io)" exporterVersion="18.24.0">
+  <bpmn:collaboration id="Collaboration_HoanTra">
+    <bpmn:participant id="Participant_ViettelPost" name="QUY TRÌNH QUẢN LÝ HOÀN TRẢ HÀNG – VIETTEL POST" processRef="Process_HoanTra" />
+  </bpmn:collaboration>
+  <bpmn:process id="Process_HoanTra" isExecutable="false">
+    <bpmn:laneSet id="LaneSet_HoanTra">
+      <bpmn:lane id="Lane_KhachHang" name="KHÁCH HÀNG">
+        <bpmn:flowNodeRef>StartEvent_HoanTra</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_GuiYeuCau</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_BoSungChungTu</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_NhanKetQua</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>EndEvent_KhachHang</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_CSKH" name="BỘ PHẬN CSKH">
+        <bpmn:flowNodeRef>Task_TiepNhan</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_KiemTra</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Gateway_HoSo</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_ThongBao</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_XacMinh</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_Shipper" name="SHIPPER">
+        <bpmn:flowNodeRef>Task_VanChuyen</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_ThuHoi</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_TiepNhanLenh</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_Kho" name="BƯU CỤC / KHO">
+        <bpmn:flowNodeRef>Gateway_DieuKien</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_HoanTraShop</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_LapBienBan</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_CapNhatKho</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Gateway_MergeKho</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_KiemTraKho</bpmn:flowNodeRef>
+      </bpmn:lane>
+    </bpmn:laneSet>
+    <bpmn:startEvent id="StartEvent_HoanTra" name="Khách hàng phát sinh nhu cầu hoàn trả hàng">
+      <bpmn:outgoing>Flow_H1</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:task id="Task_GuiYeuCau" name="Gửi yêu cầu hoàn trả">
+      <bpmn:documentation>Processing Time (T_proc): 5 phút
+Waiting Time (T_wait): 0 phút
+Cycle Time (T_cycle): 5 phút
+Chi phí xử lý (Cost): 0 VNĐ
+Xác suất (Prob): 100%
+Lãng phí (Waste): None</bpmn:documentation>
+      <bpmn:incoming>Flow_H1</bpmn:incoming>
+      <bpmn:outgoing>Flow_H2</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Task_TiepNhan" name="Tiếp nhận yêu cầu hoàn trả">
+      <bpmn:documentation>Processing Time (T_proc): 3 phút
+Waiting Time (T_wait): 10 phút
+Cycle Time (T_cycle): 13 phút
+Chi phí xử lý (Cost): 3.125 VNĐ
+Xác suất (Prob): 100%
+Lãng phí (Waste): None</bpmn:documentation>
+      <bpmn:incoming>Flow_H2</bpmn:incoming>
+      <bpmn:outgoing>Flow_H3</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Task_KiemTra" name="Kiểm tra thông tin đơn hàng">
+      <bpmn:documentation>Processing Time (T_proc): 5 phút
+Waiting Time (T_wait): 10 phút
+Cycle Time (T_cycle): 15 phút
+Chi phí xử lý (Cost): 5.208 VNĐ
+Xác suất (Prob): 100%
+Lãng phí (Waste): W6: Over-processing (Kiểm tra trùng lặp thông tin)</bpmn:documentation>
+      <bpmn:incoming>Flow_H3</bpmn:incoming>
+      <bpmn:incoming>Flow_H6</bpmn:incoming>
+      <bpmn:outgoing>Flow_H4</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:exclusiveGateway id="Gateway_HoSo" name="Hồ sơ đầy đủ?">
+      <bpmn:incoming>Flow_H4</bpmn:incoming>
+      <bpmn:outgoing>Flow_H5</bpmn:outgoing>
+      <bpmn:outgoing>Flow_H7</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:task id="Task_BoSungChungTu" name="Bổ sung chứng từ">
+      <bpmn:documentation>Processing Time (T_proc): 10 phút
+Waiting Time (T_wait): 120 phút
+Cycle Time (T_cycle): 130 phút
+Chi phí xử lý (Cost): 0 VNĐ
+Xác suất (Prob): 20% Loop
+Lãng phí (Waste): W2: Defects (Hồ sơ thiếu chứng từ)</bpmn:documentation>
+      <bpmn:incoming>Flow_H5</bpmn:incoming>
+      <bpmn:outgoing>Flow_H6</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:exclusiveGateway id="Gateway_DieuKien" name="Điều kiện hàng hoàn?">
+      <bpmn:incoming>Flow_H12</bpmn:incoming>
+      <bpmn:outgoing>Flow_H13</bpmn:outgoing>
+      <bpmn:outgoing>Flow_H14</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:task id="Task_NhanKetQua" name="Nhận kết quả phản hồi">
+      <bpmn:documentation>Processing Time (T_proc): 5 phút
+Waiting Time (T_wait): 0 phút
+Cycle Time (T_cycle): 5 phút
+Chi phí xử lý (Cost): 0 VNĐ
+Xác suất (Prob): 100%
+Lãng phí (Waste): None</bpmn:documentation>
+      <bpmn:incoming>Flow_H19</bpmn:incoming>
+      <bpmn:outgoing>Flow_H20</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:endEvent id="EndEvent_KhachHang" name="Quy trình hoàn trả hoàn thành">
+      <bpmn:incoming>Flow_H20</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_H1" sourceRef="StartEvent_HoanTra" targetRef="Task_GuiYeuCau" />
+    <bpmn:sequenceFlow id="Flow_H2" sourceRef="Task_GuiYeuCau" targetRef="Task_TiepNhan" />
+    <bpmn:sequenceFlow id="Flow_H3" sourceRef="Task_TiepNhan" targetRef="Task_KiemTra" />
+    <bpmn:sequenceFlow id="Flow_H4" sourceRef="Task_KiemTra" targetRef="Gateway_HoSo" />
+    <bpmn:sequenceFlow id="Flow_H5" name="Thiếu chứng từ (r = 20%)" sourceRef="Gateway_HoSo" targetRef="Task_BoSungChungTu" />
+    <bpmn:sequenceFlow id="Flow_H6" sourceRef="Task_BoSungChungTu" targetRef="Task_KiemTra" />
+    <bpmn:sequenceFlow id="Flow_H7" name="Đầy đủ (80%)" sourceRef="Gateway_HoSo" targetRef="Task_XacMinh" />
+    <bpmn:sequenceFlow id="Flow_H8" sourceRef="Task_XacMinh" targetRef="Task_TiepNhanLenh" />
+    <bpmn:sequenceFlow id="Flow_H9" sourceRef="Task_TiepNhanLenh" targetRef="Task_ThuHoi" />
+    <bpmn:sequenceFlow id="Flow_H10" sourceRef="Task_ThuHoi" targetRef="Task_VanChuyen" />
+    <bpmn:sequenceFlow id="Flow_H11" sourceRef="Task_VanChuyen" targetRef="Task_KiemTraKho" />
+    <bpmn:sequenceFlow id="Flow_H12" sourceRef="Task_KiemTraKho" targetRef="Gateway_DieuKien" />
+    <bpmn:sequenceFlow id="Flow_H13" name="Đủ điều kiện (85%)" sourceRef="Gateway_DieuKien" targetRef="Task_HoanTraShop" />
+    <bpmn:sequenceFlow id="Flow_H14" name="Không đủ điều kiện (15%)" sourceRef="Gateway_DieuKien" targetRef="Task_LapBienBan" />
+    <bpmn:sequenceFlow id="Flow_H15" sourceRef="Task_HoanTraShop" targetRef="Gateway_MergeKho" />
+    <bpmn:sequenceFlow id="Flow_H16" sourceRef="Task_LapBienBan" targetRef="Gateway_MergeKho" />
+    <bpmn:sequenceFlow id="Flow_H17" sourceRef="Gateway_MergeKho" targetRef="Task_CapNhatKho" />
+    <bpmn:sequenceFlow id="Flow_H18" sourceRef="Task_CapNhatKho" targetRef="Task_ThongBao" />
+    <bpmn:sequenceFlow id="Flow_H19" sourceRef="Task_ThongBao" targetRef="Task_NhanKetQua" />
+    <bpmn:sequenceFlow id="Flow_H20" sourceRef="Task_NhanKetQua" targetRef="EndEvent_KhachHang" />
+    <bpmn:task id="Task_ThongBao" name="Thông báo kết quả hoàn trả">
+      <bpmn:documentation>Processing Time (T_proc): 5 phút
+Waiting Time (T_wait): 5 phút
+Cycle Time (T_cycle): 10 phút
+Chi phí xử lý (Cost): 5.208 VNĐ
+Xác suất (Prob): 100%
+Lãng phí (Waste): None</bpmn:documentation>
+      <bpmn:incoming>Flow_H18</bpmn:incoming>
+      <bpmn:outgoing>Flow_H19</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Task_HoanTraShop" name="Xử lý hoàn trả cho người gửi">
+      <bpmn:documentation>Processing Time (T_proc): 20 phút
+Waiting Time (T_wait): 60 phút
+Cycle Time (T_cycle): 80 phút
+Chi phí xử lý (Cost): 16.667 VNĐ
+Xác suất (Prob): 85%
+Lãng phí (Waste): None</bpmn:documentation>
+      <bpmn:incoming>Flow_H13</bpmn:incoming>
+      <bpmn:outgoing>Flow_H15</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Task_LapBienBan" name="Lập biên bản bất thường">
+      <bpmn:documentation>Processing Time (T_proc): 15 phút
+Waiting Time (T_wait): 120 phút
+Cycle Time (T_cycle): 135 phút
+Chi phí xử lý (Cost): 12.500 VNĐ
+Xác suất (Prob): 15%
+Lãng phí (Waste): W5: Inventory (Chờ ký biên bản giấy)</bpmn:documentation>
+      <bpmn:incoming>Flow_H14</bpmn:incoming>
+      <bpmn:outgoing>Flow_H16</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Task_CapNhatKho" name="Cập nhật kết quả kiểm hàng">
+      <bpmn:documentation>Processing Time (T_proc): 5 phút
+Waiting Time (T_wait): 10 phút
+Cycle Time (T_cycle): 15 phút
+Chi phí xử lý (Cost): 4.167 VNĐ
+Xác suất (Prob): 100%
+Lãng phí (Waste): None</bpmn:documentation>
+      <bpmn:incoming>Flow_H17</bpmn:incoming>
+      <bpmn:outgoing>Flow_H18</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:exclusiveGateway id="Gateway_MergeKho">
+      <bpmn:incoming>Flow_H15</bpmn:incoming>
+      <bpmn:incoming>Flow_H16</bpmn:incoming>
+      <bpmn:outgoing>Flow_H17</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:task id="Task_KiemTraKho" name="Kiểm tra hàng hoàn tại kho">
+      <bpmn:documentation>Processing Time (T_proc): 10 phút
+Waiting Time (T_wait): 45 phút
+Cycle Time (T_cycle): 55 phút
+Chi phí xử lý (Cost): 8.333 VNĐ
+Xác suất (Prob): 100%
+Lãng phí (Waste): W5: Inventory (Hàng đọng lưu kho)</bpmn:documentation>
+      <bpmn:incoming>Flow_H11</bpmn:incoming>
+      <bpmn:outgoing>Flow_H12</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Task_VanChuyen" name="Vận chuyển hàng về kho">
+      <bpmn:documentation>Processing Time (T_proc): 20 phút
+Waiting Time (T_wait): 30 phút
+Cycle Time (T_cycle): 50 phút
+Chi phí xử lý (Cost): 14.583 VNĐ
+Xác suất (Prob): 100%
+Lãng phí (Waste): W3: Transportation (Di chuyển qua bưu cục trung gian)</bpmn:documentation>
+      <bpmn:incoming>Flow_H10</bpmn:incoming>
+      <bpmn:outgoing>Flow_H11</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Task_ThuHoi" name="Liên hệ khách &#38; thu hồi hàng">
+      <bpmn:documentation>Processing Time (T_proc): 30 phút
+Waiting Time (T_wait): 15 phút
+Cycle Time (T_cycle): 45 phút
+Chi phí xử lý (Cost): 21.875 VNĐ
+Xác suất (Prob): 100%
+Lãng phí (Waste): W4: Motion (Shipper di chuyển nhiều lần)</bpmn:documentation>
+      <bpmn:incoming>Flow_H9</bpmn:incoming>
+      <bpmn:outgoing>Flow_H10</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Task_TiepNhanLenh" name="Tiếp nhận lệnh thu hồi hàng">
+      <bpmn:documentation>Processing Time (T_proc): 2 phút
+Waiting Time (T_wait): 10 phút
+Cycle Time (T_cycle): 12 phút
+Chi phí xử lý (Cost): 1.458 VNĐ
+Xác suất (Prob): 100%
+Lãng phí (Waste): None</bpmn:documentation>
+      <bpmn:incoming>Flow_H8</bpmn:incoming>
+      <bpmn:outgoing>Flow_H9</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Task_XacMinh" name="Xác minh nguyên nhân sự cố với Kho/Shipper">
+      <bpmn:documentation>Processing Time (T_proc): 15 phút
+Waiting Time (T_wait): 60 phút
+Cycle Time (T_cycle): 75 phút
+Chi phí xử lý (Cost): 15.625 VNĐ
+Xác suất (Prob): 100%
+Lãng phí (Waste): W1: Waiting (Chờ đối soát thủ công)</bpmn:documentation>
+      <bpmn:incoming>Flow_H7</bpmn:incoming>
+      <bpmn:outgoing>Flow_H8</bpmn:outgoing>
+    </bpmn:task>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_HoanTra">
+    <bpmndi:BPMNPlane id="BPMNPlane_HoanTra" bpmnElement="Collaboration_HoanTra">
+      <bpmndi:BPMNShape id="Participant_ViettelPost_di" bpmnElement="Participant_ViettelPost" isHorizontal="true">
+        <dc:Bounds x="130" y="60" width="1680" height="760" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_Kho_di" bpmnElement="Lane_Kho" isHorizontal="true">
+        <dc:Bounds x="160" y="600" width="1650" height="220" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_Shipper_di" bpmnElement="Lane_Shipper" isHorizontal="true">
+        <dc:Bounds x="160" y="420" width="1650" height="180" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_CSKH_di" bpmnElement="Lane_CSKH" isHorizontal="true">
+        <dc:Bounds x="160" y="240" width="1650" height="180" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_KhachHang_di" bpmnElement="Lane_KhachHang" isHorizontal="true">
+        <dc:Bounds x="160" y="60" width="1650" height="180" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="StartEvent_HoanTra_di" bpmnElement="StartEvent_HoanTra">
+        <dc:Bounds x="212" y="132" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="186" y="172" width="88" height="40" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_GuiYeuCau_di" bpmnElement="Task_GuiYeuCau">
+        <dc:Bounds x="300" y="110" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_TiepNhan_di" bpmnElement="Task_TiepNhan">
+        <dc:Bounds x="300" y="290" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_KiemTra_di" bpmnElement="Task_KiemTra">
+        <dc:Bounds x="440" y="290" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_HoSo_di" bpmnElement="Gateway_HoSo" isMarkerVisible="true">
+        <dc:Bounds x="575" y="305" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_BoSungChungTu_di" bpmnElement="Task_BoSungChungTu">
+        <dc:Bounds x="550" y="110" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_DieuKien_di" bpmnElement="Gateway_DieuKien" isMarkerVisible="true">
+        <dc:Bounds x="1095" y="675" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1155" y="686.5" width="74" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_NhanKetQua_di" bpmnElement="Task_NhanKetQua">
+        <dc:Bounds x="1500" y="110" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_KhachHang_di" bpmnElement="EndEvent_KhachHang">
+        <dc:Bounds x="1662" y="132" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1640" y="172" width="80" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_ThongBao_di" bpmnElement="Task_ThongBao">
+        <dc:Bounds x="1500" y="300" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_HoanTraShop_di" bpmnElement="Task_HoanTraShop">
+        <dc:Bounds x="1230" y="620" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_LapBienBan_di" bpmnElement="Task_LapBienBan">
+        <dc:Bounds x="1230" y="720" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_CapNhatKho_di" bpmnElement="Task_CapNhatKho">
+        <dc:Bounds x="1500" y="671" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_MergeKho_di" bpmnElement="Gateway_MergeKho" isMarkerVisible="true">
+        <dc:Bounds x="1365" y="686" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_KiemTraKho_di" bpmnElement="Task_KiemTraKho">
+        <dc:Bounds x="957" y="660" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_VanChuyen_di" bpmnElement="Task_VanChuyen">
+        <dc:Bounds x="957" y="470" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_ThuHoi_di" bpmnElement="Task_ThuHoi">
+        <dc:Bounds x="822" y="470" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_TiepNhanLenh_di" bpmnElement="Task_TiepNhanLenh">
+        <dc:Bounds x="686" y="470" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_XacMinh_di" bpmnElement="Task_XacMinh">
+        <dc:Bounds x="686" y="290" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_H1_di" bpmnElement="Flow_H1">
+        <di:waypoint x="248" y="150" />
+        <di:waypoint x="300" y="150" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_H2_di" bpmnElement="Flow_H2">
+        <di:waypoint x="350" y="190" />
+        <di:waypoint x="350" y="290" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_H3_di" bpmnElement="Flow_H3">
+        <di:waypoint x="400" y="330" />
+        <di:waypoint x="440" y="330" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_H4_di" bpmnElement="Flow_H4">
+        <di:waypoint x="540" y="330" />
+        <di:waypoint x="575" y="330" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_H5_di" bpmnElement="Flow_H5">
+        <di:waypoint x="600" y="305" />
+        <di:waypoint x="600" y="190" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="597" y="246" width="86" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_H6_di" bpmnElement="Flow_H6">
+        <di:waypoint x="550" y="150" />
+        <di:waypoint x="490" y="150" />
+        <di:waypoint x="490" y="290" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_H7_di" bpmnElement="Flow_H7">
+        <di:waypoint x="625" y="330" />
+        <di:waypoint x="686" y="330" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="616" y="293" width="68" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_H8_di" bpmnElement="Flow_H8">
+        <di:waypoint x="736" y="370" />
+        <di:waypoint x="736" y="470" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_H9_di" bpmnElement="Flow_H9">
+        <di:waypoint x="786" y="510" />
+        <di:waypoint x="822" y="510" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_H10_di" bpmnElement="Flow_H10">
+        <di:waypoint x="922" y="510" />
+        <di:waypoint x="957" y="510" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_H11_di" bpmnElement="Flow_H11">
+        <di:waypoint x="1007" y="550" />
+        <di:waypoint x="1007" y="660" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_H12_di" bpmnElement="Flow_H12">
+        <di:waypoint x="1057" y="700" />
+        <di:waypoint x="1095" y="700" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_H13_di" bpmnElement="Flow_H13">
+        <di:waypoint x="1120" y="675" />
+        <di:waypoint x="1120" y="660" />
+        <di:waypoint x="1230" y="660" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1129" y="626" width="81" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_H14_di" bpmnElement="Flow_H14">
+        <di:waypoint x="1120" y="725" />
+        <di:waypoint x="1120" y="760" />
+        <di:waypoint x="1230" y="760" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1134" y="766" width="71" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_H15_di" bpmnElement="Flow_H15">
+        <di:waypoint x="1330" y="660" />
+        <di:waypoint x="1390" y="660" />
+        <di:waypoint x="1390" y="686" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_H16_di" bpmnElement="Flow_H16">
+        <di:waypoint x="1330" y="760" />
+        <di:waypoint x="1390" y="760" />
+        <di:waypoint x="1390" y="736" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_H17_di" bpmnElement="Flow_H17">
+        <di:waypoint x="1415" y="711" />
+        <di:waypoint x="1500" y="711" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_H18_di" bpmnElement="Flow_H18">
+        <di:waypoint x="1550" y="671" />
+        <di:waypoint x="1550" y="380" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_H19_di" bpmnElement="Flow_H19">
+        <di:waypoint x="1550" y="300" />
+        <di:waypoint x="1550" y="190" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_H20_di" bpmnElement="Flow_H20">
+        <di:waypoint x="1600" y="150" />
+        <di:waypoint x="1662" y="150" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
