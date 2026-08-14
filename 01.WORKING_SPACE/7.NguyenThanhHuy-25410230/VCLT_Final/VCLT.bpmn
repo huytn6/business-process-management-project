@@ -23,7 +23,6 @@
     <bpmn:laneSet id="LaneSet_FINAL">
       <bpmn:lane id="Lane_NVGH" name="Nhân viên giao hàng">
         <bpmn:flowNodeRef>VP_Deliver</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>VP_Reject</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>VP_COD</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>VP_SendInfo</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>VP_Confirm</bpmn:flowNodeRef>
@@ -32,12 +31,13 @@
         <bpmn:flowNodeRef>VP_Merge_Deliver</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>VP_EndCOD</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>VP_EndNoCOD</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>VP_EndReturn</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>VP_StatusCOD</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>VP_CollectCOD</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>VP_StatusNoCOD</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>VP_Reject</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>VP_Fail</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>VP_Return</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>VP_EndReturn</bpmn:flowNodeRef>
       </bpmn:lane>
       <bpmn:lane id="Lane_BCP" name="Bưu cục phát">
         <bpmn:flowNodeRef>VP_Arrival</bpmn:flowNodeRef>
@@ -67,9 +67,6 @@
     <bpmn:task id="VP_Arrival" name="Tiếp nhận tại bưu cục phát" />
     <bpmn:task id="VP_Assign" name="Phân công nhân viên giao hàng" />
     <bpmn:task id="VP_Deliver" name="Thực hiện giao hàng" />
-    <bpmn:intermediateCatchEvent id="VP_Reject" name="Thông báo từ chối đã nhận">
-      <bpmn:messageEventDefinition />
-    </bpmn:intermediateCatchEvent>
     <bpmn:exclusiveGateway id="VP_COD" name="Đơn hàng có COD?" />
     <bpmn:intermediateThrowEvent id="VP_SendInfo" name="Thông tin giao hàng đã gửi">
       <bpmn:messageEventDefinition />
@@ -84,13 +81,10 @@
     <bpmn:exclusiveGateway id="VP_Merge_Deliver" name="Sẵn sàng thực hiện giao hàng?" />
     <bpmn:endEvent id="VP_EndCOD" name="Giao thành công và hoàn tất đối soát" />
     <bpmn:endEvent id="VP_EndNoCOD" name="Đơn hàng giao thành công" />
-    <bpmn:endEvent id="VP_EndReturn" name="Chuyển sang xử lý hoàn hàng" />
     <bpmn:task id="VP_StatusCOD" name="Cập nhật trạng thái giao thành công" />
     <bpmn:task id="VP_Reconcile" name="Đối soát và nộp tiền COD" />
     <bpmn:task id="VP_CollectCOD" name="Thu tiền COD từ người nhận" />
     <bpmn:task id="VP_StatusNoCOD" name="Cập nhật trạng thái giao thành công" />
-    <bpmn:task id="VP_Fail" name="Cập nhật trạng thái giao thất bại" />
-    <bpmn:task id="VP_Return" name="Khởi tạo xử lý chuyển hoàn" />
     <bpmn:subProcess id="VP_Transit" name="Khai thác và vận chuyển liên tỉnh" />
     <bpmn:sequenceFlow id="VP_F1" sourceRef="VP_Start" targetRef="VP_Receive" />
     <bpmn:sequenceFlow id="VP_F2" sourceRef="VP_Receive" targetRef="VP_Check" />
@@ -119,9 +113,15 @@
     <bpmn:sequenceFlow id="VP_F19" sourceRef="VP_CollectCOD" targetRef="VP_StatusCOD" />
     <bpmn:sequenceFlow id="VP_F20" sourceRef="VP_StatusCOD" targetRef="VP_Reconcile" />
     <bpmn:sequenceFlow id="VP_F25" sourceRef="VP_Fail" targetRef="VP_Return" />
+    <bpmn:intermediateCatchEvent id="VP_Reject" name="Thông báo từ chối đã nhận">
+      <bpmn:messageEventDefinition />
+    </bpmn:intermediateCatchEvent>
+    <bpmn:task id="VP_Fail" name="Cập nhật trạng thái giao thất bại" />
+    <bpmn:task id="VP_Return" name="Khởi tạo xử lý chuyển hoàn" />
+    <bpmn:endEvent id="VP_EndReturn" name="Chuyển sang xử lý hoàn hàng" />
   </bpmn:process>
   <bpmn:process id="Proc_NN_FINAL" name="Người nhận">
-    <bpmn:startEvent id="NN_Start" name="Yêu cần nhận thông tin giao hàng">
+    <bpmn:startEvent id="NN_Start" name="Thông tin giao hàng đã nhận">
       <bpmn:messageEventDefinition />
     </bpmn:startEvent>
     <bpmn:task id="NN_Check" name="Kiểm tra hàng hóa" />
@@ -253,12 +253,6 @@
       <bpmndi:BPMNShape id="Shape_VP_Deliver" bpmnElement="VP_Deliver">
         <dc:Bounds x="1000" y="1095" width="160" height="70" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Shape_VP_Reject" bpmnElement="VP_Reject">
-        <dc:Bounds x="2030" y="1103" width="36" height="36" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="2015" y="1070.5" width="90" height="27" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Shape_VP_COD" bpmnElement="VP_COD" isMarkerVisible="true">
         <dc:Bounds x="2105" y="908" width="50" height="50" />
         <bpmndi:BPMNLabel>
@@ -307,12 +301,6 @@
           <dc:Bounds x="2712" y="1058" width="73" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Shape_VP_EndReturn" bpmnElement="VP_EndReturn">
-        <dc:Bounds x="2730" y="1201" width="36" height="36" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="2708" y="1240" width="81" height="27" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Shape_VP_StatusCOD" bpmnElement="VP_StatusCOD">
         <dc:Bounds x="2450" y="906" width="180" height="70" />
       </bpmndi:BPMNShape>
@@ -325,11 +313,23 @@
       <bpmndi:BPMNShape id="Shape_VP_StatusNoCOD" bpmnElement="VP_StatusNoCOD">
         <dc:Bounds x="2220" y="1000" width="180" height="70" />
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_VP_Reject" bpmnElement="VP_Reject">
+        <dc:Bounds x="2030" y="1111" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2015" y="1078.5" width="90" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Shape_VP_Fail" bpmnElement="VP_Fail">
-        <dc:Bounds x="2225" y="1086" width="170" height="70" />
+        <dc:Bounds x="2225" y="1094" width="170" height="70" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Shape_VP_Return" bpmnElement="VP_Return">
-        <dc:Bounds x="2225" y="1181" width="170" height="70" />
+        <dc:Bounds x="2225" y="1184" width="170" height="70" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_VP_EndReturn" bpmnElement="VP_EndReturn">
+        <dc:Bounds x="2730" y="1204" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2708" y="1243" width="81" height="27" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Shape_VP_Transit" bpmnElement="VP_Transit">
         <dc:Bounds x="760" y="500" width="180" height="70" />
@@ -392,12 +392,12 @@
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Edge_VP_F15" bpmnElement="VP_F15">
         <di:waypoint x="1810" y="963" />
-        <di:waypoint x="1810" y="1120" />
-        <di:waypoint x="2030" y="1121" />
+        <di:waypoint x="1810" y="1129" />
+        <di:waypoint x="2030" y="1129" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Edge_VP_F24" bpmnElement="VP_F24">
-        <di:waypoint x="2066" y="1121" />
-        <di:waypoint x="2225" y="1121" />
+        <di:waypoint x="2066" y="1129" />
+        <di:waypoint x="2225" y="1129" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Edge_VP_F16" bpmnElement="VP_F16">
         <di:waypoint x="1930" y="936" />
@@ -445,8 +445,8 @@
         <di:waypoint x="2730" y="1035" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Edge_VP_F26" bpmnElement="VP_F26">
-        <di:waypoint x="2395" y="1219" />
-        <di:waypoint x="2730" y="1219" />
+        <di:waypoint x="2395" y="1222" />
+        <di:waypoint x="2730" y="1222" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Edge_VP_F19" bpmnElement="VP_F19">
         <di:waypoint x="2390" y="941" />
@@ -457,8 +457,8 @@
         <di:waypoint x="2540" y="770" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Edge_VP_F25" bpmnElement="VP_F25">
-        <di:waypoint x="2310" y="1156" />
-        <di:waypoint x="2310" y="1181" />
+        <di:waypoint x="2310" y="1164" />
+        <di:waypoint x="2310" y="1184" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Shape_Participant_NN" bpmnElement="Participant_NN" isHorizontal="true">
         <dc:Bounds x="160" y="1300" width="2650" height="350" />
@@ -466,7 +466,7 @@
       <bpmndi:BPMNShape id="Shape_NN_Start" bpmnElement="NN_Start">
         <dc:Bounds x="260" y="1350" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="215" y="1390" width="126" height="27" />
+          <dc:Bounds x="229" y="1390" width="98" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Shape_NN_Check" bpmnElement="NN_Check">
@@ -619,7 +619,7 @@
         <di:waypoint x="678" y="1578" />
         <di:waypoint x="678" y="1620" />
         <di:waypoint x="2048" y="1620" />
-        <di:waypoint x="2048" y="1139" />
+        <di:waypoint x="2048" y="1147" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="1315" y="1601" width="90" height="14" />
         </bpmndi:BPMNLabel>
