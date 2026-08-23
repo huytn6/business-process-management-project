@@ -1,27 +1,90 @@
-<?xml version='1.0' encoding='utf-8'?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_Process_HoanTra" targetNamespace="http://bpmn.io/schema/bpmn" exporter="bpmn-js (https://demo.bpmn.io)" exporterVersion="18.2.0">
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_Process_HoanTra" targetNamespace="http://bpmn.io/schema/bpmn" exporter="bpmn-js (https://demo.bpmn.io)" exporterVersion="18.25.1">
   <bpmn:collaboration id="Collaboration_Process_HoanTra">
     <bpmn:participant id="Participant_ViettelPost" name="QUY TRÌNH QUẢN LÝ HOÀN TRẢ HÀNG – VIETTEL POST" processRef="Process_HoanTra" />
+    <bpmn:textAnnotation id="Ann_DL_H1">
+      <bpmn:text>T_proc = 5m | 0đ</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:textAnnotation id="Ann_DL_H2">
+      <bpmn:text>T_proc = 3m | 3.125đ</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:textAnnotation id="Ann_DL_H3">
+      <bpmn:text>T_proc = 10m | p=20%</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:textAnnotation id="Ann_DL_H4">
+      <bpmn:text>T_proc = 15m | 15.625đ</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:textAnnotation id="Ann_DL_H5">
+      <bpmn:text>T_proc = 2m | 1.458đ</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:textAnnotation id="Ann_DL_H6">
+      <bpmn:text>T_proc = 5m | 3.645đ</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:textAnnotation id="Ann_DL_H7">
+      <bpmn:text>T_proc = 5m | p=15%</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:textAnnotation id="Ann_DL_H8">
+      <bpmn:text>T_proc = 15m | 10.935đ</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:textAnnotation id="Ann_DL_H9">
+      <bpmn:text>T_proc = 5m | p=10%</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:textAnnotation id="Ann_DL_H10">
+      <bpmn:text>T_proc = 10m | 7.290đ</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:textAnnotation id="Ann_DL_H11">
+      <bpmn:text>T_proc = 20m | 14.580đ</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:textAnnotation id="Ann_DL_H12">
+      <bpmn:text>T_proc = 10m | 8.330đ</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:textAnnotation id="Ann_DL_H14">
+      <bpmn:text>T_proc = 5m | 4.165đ</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:textAnnotation id="Ann_DL_H13">
+      <bpmn:text>T_proc = 15m | p=15%</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:textAnnotation id="Ann_DL_H15">
+      <bpmn:text>T_proc = 20m | 16.660đ</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:textAnnotation id="Ann_DL_H16">
+      <bpmn:text>T_proc = 15m | p=20%</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:textAnnotation id="Ann_DL_H17">
+      <bpmn:text>T_proc = 5m | 5.208đ</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:textAnnotation id="Ann_DL_H18">
+      <bpmn:text>T_proc = 5m | 0đ</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Assoc_Ann_DL_H1" sourceRef="Task_GuiYeuCau" targetRef="Ann_DL_H1" />
+    <bpmn:association id="Assoc_Ann_DL_H2" sourceRef="Task_TiepNhan" targetRef="Ann_DL_H2" />
+    <bpmn:association id="Assoc_Ann_DL_H3" sourceRef="Task_BoSungChungTu" targetRef="Ann_DL_H3" />
+    <bpmn:association id="Assoc_Ann_DL_H4" sourceRef="Task_XacMinh" targetRef="Ann_DL_H4" />
+    <bpmn:association id="Assoc_Ann_DL_H5" sourceRef="Task_LenhThuHoi" targetRef="Ann_DL_H5" />
+    <bpmn:association id="Assoc_Ann_DL_H6" sourceRef="Task_LienHeKhach" targetRef="Ann_DL_H6" />
+    <bpmn:association id="Assoc_Ann_DL_H7" sourceRef="Task_HenLai" targetRef="Ann_DL_H7" />
+    <bpmn:association id="Assoc_Ann_DL_H8" sourceRef="Task_DenLayHang" targetRef="Ann_DL_H8" />
+    <bpmn:association id="Assoc_Ann_DL_H9" sourceRef="Task_HuyYeuCau" targetRef="Ann_DL_H9" />
+    <bpmn:association id="Assoc_Ann_DL_H10" sourceRef="Task_ThuHoi" targetRef="Ann_DL_H10" />
+    <bpmn:association id="Assoc_Ann_DL_H11" sourceRef="Task_VanChuyen" targetRef="Ann_DL_H11" />
+    <bpmn:association id="Assoc_Ann_DL_H13" sourceRef="Task_LapBienBan" targetRef="Ann_DL_H13" />
+    <bpmn:association id="Assoc_Ann_DL_H12" sourceRef="Task_KiemTraKho" targetRef="Ann_DL_H12" />
+    <bpmn:association id="Assoc_Ann_DL_H14" sourceRef="Task_NhapKhoHoan" targetRef="Ann_DL_H14" />
+    <bpmn:association id="Assoc_Ann_DL_H15" sourceRef="Task_XuatTraShop" targetRef="Ann_DL_H15" />
+    <bpmn:association id="Assoc_Ann_DL_H16" sourceRef="Task_ChuyenBoiThuong" targetRef="Ann_DL_H16" />
+    <bpmn:association id="Assoc_Ann_DL_H17" sourceRef="Task_ThongBao" targetRef="Ann_DL_H17" />
+    <bpmn:association id="Assoc_Ann_DL_H18" sourceRef="Task_NhanKetQua" targetRef="Ann_DL_H18" />
   </bpmn:collaboration>
   <bpmn:process id="Process_HoanTra" name="Quy trình Quản lý hoàn trả hàng (Dinh Luong)" isExecutable="false">
     <bpmn:laneSet id="LaneSet_Process_HoanTra">
-      <bpmn:lane id="Lane_KhachHang" name="KHÁCH HÀNG">
-        <bpmn:flowNodeRef>StartEvent_HoanTra</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Task_GuiYeuCau</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Task_BoSungChungTu</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Task_NhanKetQua</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>EndEvent_HoanTra</bpmn:flowNodeRef>
-      </bpmn:lane>
-      <bpmn:lane id="Lane_CSKH" name="BỘ PHẬN CSKH">
-        <bpmn:flowNodeRef>GW_Merge_HoSo</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Task_TiepNhan</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>GW_Split_HoSo</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Task_XacMinh</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Task_HuyYeuCau</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>EndEvent_Huy</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Task_ChuyenBoiThuong</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>GW_Merge_KetQua</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Task_ThongBao</bpmn:flowNodeRef>
+      <bpmn:lane id="Lane_Kho" name="BƯU CỤC / KHO">
+        <bpmn:flowNodeRef>Task_KiemTraKho</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>GW_Split_NgoaiQuan</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_NhapKhoHoan</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>GW_Merge_NgoaiQuan</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>GW_Split_PhanLoai</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_XuatTraShop</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_LapBienBan</bpmn:flowNodeRef>
       </bpmn:lane>
       <bpmn:lane id="Lane_Shipper" name="SHIPPER">
         <bpmn:flowNodeRef>Task_LenhThuHoi</bpmn:flowNodeRef>
@@ -34,14 +97,23 @@
         <bpmn:flowNodeRef>Task_ThuHoi</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Task_VanChuyen</bpmn:flowNodeRef>
       </bpmn:lane>
-      <bpmn:lane id="Lane_Kho" name="BƯU CỤC / KHO">
-        <bpmn:flowNodeRef>Task_KiemTraKho</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>GW_Split_NgoaiQuan</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Task_LapBienBan</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Task_NhapKhoHoan</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>GW_Merge_NgoaiQuan</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>GW_Split_PhanLoai</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Task_XuatTraShop</bpmn:flowNodeRef>
+      <bpmn:lane id="Lane_CSKH" name="BỘ PHẬN CSKH">
+        <bpmn:flowNodeRef>GW_Merge_HoSo</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_TiepNhan</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>GW_Split_HoSo</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_XacMinh</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_HuyYeuCau</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>EndEvent_Huy</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_ChuyenBoiThuong</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>GW_Merge_KetQua</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_ThongBao</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_KhachHang" name="KHÁCH HÀNG">
+        <bpmn:flowNodeRef>StartEvent_HoanTra</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_GuiYeuCau</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_BoSungChungTu</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_NhanKetQua</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>EndEvent_HoanTra</bpmn:flowNodeRef>
       </bpmn:lane>
     </bpmn:laneSet>
     <bpmn:startEvent id="StartEvent_HoanTra" name="Yêu cầu hoàn trả hàng phát sinh">
@@ -128,10 +200,6 @@
       <bpmn:outgoing>Flow_H22</bpmn:outgoing>
       <bpmn:outgoing>Flow_H23</bpmn:outgoing>
     </bpmn:exclusiveGateway>
-    <bpmn:task id="Task_LapBienBan" name="Lập biên bản bất thường [NVA]">
-      <bpmn:incoming>Flow_H22</bpmn:incoming>
-      <bpmn:outgoing>Flow_H24</bpmn:outgoing>
-    </bpmn:task>
     <bpmn:task id="Task_NhapKhoHoan" name="Nhập kho hàng hoàn [BVA]">
       <bpmn:incoming>Flow_H23</bpmn:incoming>
       <bpmn:outgoing>Flow_H25</bpmn:outgoing>
@@ -170,519 +238,475 @@
     <bpmn:endEvent id="EndEvent_HoanTra" name="Quy trình hoàn trả hoàn tất">
       <bpmn:incoming>Flow_H33</bpmn:incoming>
     </bpmn:endEvent>
+    <bpmn:task id="Task_LapBienBan" name="Lập biên bản bất thường [NVA]">
+      <bpmn:incoming>Flow_H22</bpmn:incoming>
+      <bpmn:outgoing>Flow_H24</bpmn:outgoing>
+    </bpmn:task>
     <bpmn:sequenceFlow id="Flow_H1" sourceRef="StartEvent_HoanTra" targetRef="Task_GuiYeuCau" />
     <bpmn:sequenceFlow id="Flow_H2" sourceRef="Task_GuiYeuCau" targetRef="GW_Merge_HoSo" />
+    <bpmn:sequenceFlow id="Flow_H6" sourceRef="Task_BoSungChungTu" targetRef="GW_Merge_HoSo" />
     <bpmn:sequenceFlow id="Flow_H3" sourceRef="GW_Merge_HoSo" targetRef="Task_TiepNhan" />
     <bpmn:sequenceFlow id="Flow_H4" sourceRef="Task_TiepNhan" targetRef="GW_Split_HoSo" />
-    <bpmn:sequenceFlow id="Flow_H5" sourceRef="GW_Split_HoSo" targetRef="Task_BoSungChungTu" name="Thiếu chứng từ (r = 20%)" />
-    <bpmn:sequenceFlow id="Flow_H6" sourceRef="Task_BoSungChungTu" targetRef="GW_Merge_HoSo" />
-    <bpmn:sequenceFlow id="Flow_H7" sourceRef="GW_Split_HoSo" targetRef="Task_XacMinh" name="Đầy đủ chứng từ (80%)" />
+    <bpmn:sequenceFlow id="Flow_H5" name="Thiếu chứng từ (r = 20%)" sourceRef="GW_Split_HoSo" targetRef="Task_BoSungChungTu" />
+    <bpmn:sequenceFlow id="Flow_H7" name="Đầy đủ chứng từ (80%)" sourceRef="GW_Split_HoSo" targetRef="Task_XacMinh" />
     <bpmn:sequenceFlow id="Flow_H8" sourceRef="Task_XacMinh" targetRef="Task_LenhThuHoi" />
     <bpmn:sequenceFlow id="Flow_H9" sourceRef="Task_LenhThuHoi" targetRef="GW_Merge_LienHe" />
+    <bpmn:sequenceFlow id="Flow_H13" sourceRef="Task_HenLai" targetRef="GW_Merge_LienHe" />
     <bpmn:sequenceFlow id="Flow_H10" sourceRef="GW_Merge_LienHe" targetRef="Task_LienHeKhach" />
     <bpmn:sequenceFlow id="Flow_H11" sourceRef="Task_LienHeKhach" targetRef="GW_Split_LienHe" />
-    <bpmn:sequenceFlow id="Flow_H12" sourceRef="GW_Split_LienHe" targetRef="Task_HenLai" name="Khách hẹn lại (15%)" />
-    <bpmn:sequenceFlow id="Flow_H13" sourceRef="Task_HenLai" targetRef="GW_Merge_LienHe" />
-    <bpmn:sequenceFlow id="Flow_H14" sourceRef="GW_Split_LienHe" targetRef="Task_DenLayHang" name="Đúng hẹn (85%)" />
+    <bpmn:sequenceFlow id="Flow_H12" name="Khách hẹn lại (15%)" sourceRef="GW_Split_LienHe" targetRef="Task_HenLai" />
+    <bpmn:sequenceFlow id="Flow_H14" name="Đúng hẹn (85%)" sourceRef="GW_Split_LienHe" targetRef="Task_DenLayHang" />
     <bpmn:sequenceFlow id="Flow_H15" sourceRef="Task_DenLayHang" targetRef="GW_Split_LayHang" />
-    <bpmn:sequenceFlow id="Flow_H16" sourceRef="GW_Split_LayHang" targetRef="Task_HuyYeuCau" name="Hủy hoàn (10%)" />
+    <bpmn:sequenceFlow id="Flow_H16" name="Hủy hoàn (10%)" sourceRef="GW_Split_LayHang" targetRef="Task_HuyYeuCau" />
+    <bpmn:sequenceFlow id="Flow_H18" name="Bàn giao hàng (90%)" sourceRef="GW_Split_LayHang" targetRef="Task_ThuHoi" />
     <bpmn:sequenceFlow id="Flow_H17" sourceRef="Task_HuyYeuCau" targetRef="EndEvent_Huy" />
-    <bpmn:sequenceFlow id="Flow_H18" sourceRef="GW_Split_LayHang" targetRef="Task_ThuHoi" name="Bàn giao hàng (90%)" />
     <bpmn:sequenceFlow id="Flow_H19" sourceRef="Task_ThuHoi" targetRef="Task_VanChuyen" />
     <bpmn:sequenceFlow id="Flow_H20" sourceRef="Task_VanChuyen" targetRef="Task_KiemTraKho" />
     <bpmn:sequenceFlow id="Flow_H21" sourceRef="Task_KiemTraKho" targetRef="GW_Split_NgoaiQuan" />
-    <bpmn:sequenceFlow id="Flow_H22" sourceRef="GW_Split_NgoaiQuan" targetRef="Task_LapBienBan" name="Lỗi/Hư hại (15%)" />
-    <bpmn:sequenceFlow id="Flow_H23" sourceRef="GW_Split_NgoaiQuan" targetRef="Task_NhapKhoHoan" name="Đạt chuẩn (85%)" />
-    <bpmn:sequenceFlow id="Flow_H24" sourceRef="Task_LapBienBan" targetRef="GW_Merge_NgoaiQuan" />
+    <bpmn:sequenceFlow id="Flow_H22" name="Lỗi/Hư hại (15%)" sourceRef="GW_Split_NgoaiQuan" targetRef="Task_LapBienBan" />
+    <bpmn:sequenceFlow id="Flow_H23" name="Đạt chuẩn (85%)" sourceRef="GW_Split_NgoaiQuan" targetRef="Task_NhapKhoHoan" />
     <bpmn:sequenceFlow id="Flow_H25" sourceRef="Task_NhapKhoHoan" targetRef="GW_Merge_NgoaiQuan" />
+    <bpmn:sequenceFlow id="Flow_H24" sourceRef="Task_LapBienBan" targetRef="GW_Merge_NgoaiQuan" />
     <bpmn:sequenceFlow id="Flow_H26" sourceRef="GW_Merge_NgoaiQuan" targetRef="GW_Split_PhanLoai" />
-    <bpmn:sequenceFlow id="Flow_H27" sourceRef="GW_Split_PhanLoai" targetRef="Task_XuatTraShop" name="Xuất trả Shop (80%)" />
-    <bpmn:sequenceFlow id="Flow_H28" sourceRef="GW_Split_PhanLoai" targetRef="Task_ChuyenBoiThuong" name="Chuyển bồi thường (20%)" />
+    <bpmn:sequenceFlow id="Flow_H27" name="Xuất trả Shop (80%)" sourceRef="GW_Split_PhanLoai" targetRef="Task_XuatTraShop" />
+    <bpmn:sequenceFlow id="Flow_H28" name="Chuyển bồi thường (20%)" sourceRef="GW_Split_PhanLoai" targetRef="Task_ChuyenBoiThuong" />
     <bpmn:sequenceFlow id="Flow_H29" sourceRef="Task_XuatTraShop" targetRef="GW_Merge_KetQua" />
     <bpmn:sequenceFlow id="Flow_H30" sourceRef="Task_ChuyenBoiThuong" targetRef="GW_Merge_KetQua" />
     <bpmn:sequenceFlow id="Flow_H31" sourceRef="GW_Merge_KetQua" targetRef="Task_ThongBao" />
     <bpmn:sequenceFlow id="Flow_H32" sourceRef="Task_ThongBao" targetRef="Task_NhanKetQua" />
     <bpmn:sequenceFlow id="Flow_H33" sourceRef="Task_NhanKetQua" targetRef="EndEvent_HoanTra" />
-    <bpmn:textAnnotation id="Ann_DL_H1">
-      <bpmn:text>T_proc = 5m | 0đ</bpmn:text>
-    </bpmn:textAnnotation>
-    <bpmn:association id="Assoc_Ann_DL_H1" sourceRef="Task_GuiYeuCau" targetRef="Ann_DL_H1" />
-    <bpmn:textAnnotation id="Ann_DL_H2">
-      <bpmn:text>T_proc = 3m | 3.125đ</bpmn:text>
-    </bpmn:textAnnotation>
-    <bpmn:association id="Assoc_Ann_DL_H2" sourceRef="Task_TiepNhan" targetRef="Ann_DL_H2" />
-    <bpmn:textAnnotation id="Ann_DL_H3">
-      <bpmn:text>T_proc = 10m | p=20%</bpmn:text>
-    </bpmn:textAnnotation>
-    <bpmn:association id="Assoc_Ann_DL_H3" sourceRef="Task_BoSungChungTu" targetRef="Ann_DL_H3" />
-    <bpmn:textAnnotation id="Ann_DL_H4">
-      <bpmn:text>T_proc = 15m | 15.625đ</bpmn:text>
-    </bpmn:textAnnotation>
-    <bpmn:association id="Assoc_Ann_DL_H4" sourceRef="Task_XacMinh" targetRef="Ann_DL_H4" />
-    <bpmn:textAnnotation id="Ann_DL_H5">
-      <bpmn:text>T_proc = 2m | 1.458đ</bpmn:text>
-    </bpmn:textAnnotation>
-    <bpmn:association id="Assoc_Ann_DL_H5" sourceRef="Task_LenhThuHoi" targetRef="Ann_DL_H5" />
-    <bpmn:textAnnotation id="Ann_DL_H6">
-      <bpmn:text>T_proc = 5m | 3.645đ</bpmn:text>
-    </bpmn:textAnnotation>
-    <bpmn:association id="Assoc_Ann_DL_H6" sourceRef="Task_LienHeKhach" targetRef="Ann_DL_H6" />
-    <bpmn:textAnnotation id="Ann_DL_H7">
-      <bpmn:text>T_proc = 5m | p=15%</bpmn:text>
-    </bpmn:textAnnotation>
-    <bpmn:association id="Assoc_Ann_DL_H7" sourceRef="Task_HenLai" targetRef="Ann_DL_H7" />
-    <bpmn:textAnnotation id="Ann_DL_H8">
-      <bpmn:text>T_proc = 15m | 10.935đ</bpmn:text>
-    </bpmn:textAnnotation>
-    <bpmn:association id="Assoc_Ann_DL_H8" sourceRef="Task_DenLayHang" targetRef="Ann_DL_H8" />
-    <bpmn:textAnnotation id="Ann_DL_H9">
-      <bpmn:text>T_proc = 5m | p=10%</bpmn:text>
-    </bpmn:textAnnotation>
-    <bpmn:association id="Assoc_Ann_DL_H9" sourceRef="Task_HuyYeuCau" targetRef="Ann_DL_H9" />
-    <bpmn:textAnnotation id="Ann_DL_H10">
-      <bpmn:text>T_proc = 10m | 7.290đ</bpmn:text>
-    </bpmn:textAnnotation>
-    <bpmn:association id="Assoc_Ann_DL_H10" sourceRef="Task_ThuHoi" targetRef="Ann_DL_H10" />
-    <bpmn:textAnnotation id="Ann_DL_H11">
-      <bpmn:text>T_proc = 20m | 14.580đ</bpmn:text>
-    </bpmn:textAnnotation>
-    <bpmn:association id="Assoc_Ann_DL_H11" sourceRef="Task_VanChuyen" targetRef="Ann_DL_H11" />
-    <bpmn:textAnnotation id="Ann_DL_H12">
-      <bpmn:text>T_proc = 10m | 8.330đ</bpmn:text>
-    </bpmn:textAnnotation>
-    <bpmn:association id="Assoc_Ann_DL_H12" sourceRef="Task_KiemTraKho" targetRef="Ann_DL_H12" />
-    <bpmn:textAnnotation id="Ann_DL_H13">
-      <bpmn:text>T_proc = 15m | p=15%</bpmn:text>
-    </bpmn:textAnnotation>
-    <bpmn:association id="Assoc_Ann_DL_H13" sourceRef="Task_LapBienBan" targetRef="Ann_DL_H13" />
-    <bpmn:textAnnotation id="Ann_DL_H14">
-      <bpmn:text>T_proc = 5m | 4.165đ</bpmn:text>
-    </bpmn:textAnnotation>
-    <bpmn:association id="Assoc_Ann_DL_H14" sourceRef="Task_NhapKhoHoan" targetRef="Ann_DL_H14" />
-    <bpmn:textAnnotation id="Ann_DL_H15">
-      <bpmn:text>T_proc = 20m | 16.660đ</bpmn:text>
-    </bpmn:textAnnotation>
-    <bpmn:association id="Assoc_Ann_DL_H15" sourceRef="Task_XuatTraShop" targetRef="Ann_DL_H15" />
-    <bpmn:textAnnotation id="Ann_DL_H16">
-      <bpmn:text>T_proc = 15m | p=20%</bpmn:text>
-    </bpmn:textAnnotation>
-    <bpmn:association id="Assoc_Ann_DL_H16" sourceRef="Task_ChuyenBoiThuong" targetRef="Ann_DL_H16" />
-    <bpmn:textAnnotation id="Ann_DL_H17">
-      <bpmn:text>T_proc = 5m | 5.208đ</bpmn:text>
-    </bpmn:textAnnotation>
-    <bpmn:association id="Assoc_Ann_DL_H17" sourceRef="Task_ThongBao" targetRef="Ann_DL_H17" />
-    <bpmn:textAnnotation id="Ann_DL_H18">
-      <bpmn:text>T_proc = 5m | 0đ</bpmn:text>
-    </bpmn:textAnnotation>
-    <bpmn:association id="Assoc_Ann_DL_H18" sourceRef="Task_NhanKetQua" targetRef="Ann_DL_H18" />
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_Process_HoanTra">
     <bpmndi:BPMNPlane id="BPMNPlane_Process_HoanTra" bpmnElement="Collaboration_Process_HoanTra">
       <bpmndi:BPMNShape id="Participant_ViettelPost_di" bpmnElement="Participant_ViettelPost" isHorizontal="true">
-        <dc:Bounds x="30" y="60" width="2820" height="710" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Lane_KhachHang_di" bpmnElement="Lane_KhachHang" isHorizontal="true">
-        <dc:Bounds x="70" y="60" width="2780" height="160" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Lane_CSKH_di" bpmnElement="Lane_CSKH" isHorizontal="true">
-        <dc:Bounds x="70" y="220" width="2780" height="170" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Lane_Shipper_di" bpmnElement="Lane_Shipper" isHorizontal="true">
-        <dc:Bounds x="70" y="390" width="2780" height="180" />
+        <dc:Bounds x="160" y="60" width="2870" height="775" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Lane_Kho_di" bpmnElement="Lane_Kho" isHorizontal="true">
-        <dc:Bounds x="70" y="570" width="2780" height="200" />
+        <dc:Bounds x="200" y="570" width="2830" height="265" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_Shipper_di" bpmnElement="Lane_Shipper" isHorizontal="true">
+        <dc:Bounds x="200" y="390" width="2830" height="180" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_CSKH_di" bpmnElement="Lane_CSKH" isHorizontal="true">
+        <dc:Bounds x="200" y="220" width="2830" height="170" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_KhachHang_di" bpmnElement="Lane_KhachHang" isHorizontal="true">
+        <dc:Bounds x="200" y="60" width="2830" height="160" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="StartEvent_HoanTra_di" bpmnElement="StartEvent_HoanTra">
-        <dc:Bounds x="80" y="125" width="36" height="36" />
+        <dc:Bounds x="260" y="125" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="236" y="161" width="84" height="27" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Task_GuiYeuCau_di" bpmnElement="Task_GuiYeuCau">
-        <dc:Bounds x="160" y="105" width="110" height="70" />
+        <dc:Bounds x="340" y="105" width="110" height="70" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="GW_Merge_HoSo_di" bpmnElement="GW_Merge_HoSo" isMarkerVisible="true">
-        <dc:Bounds x="300" y="285" width="50" height="50" />
+        <dc:Bounds x="480" y="285" width="50" height="50" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Task_TiepNhan_di" bpmnElement="Task_TiepNhan">
-        <dc:Bounds x="380" y="275" width="110" height="70" />
+        <dc:Bounds x="560" y="275" width="110" height="70" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="GW_Split_HoSo_di" bpmnElement="GW_Split_HoSo" isMarkerVisible="true">
-        <dc:Bounds x="520" y="285" width="50" height="50" />
+        <dc:Bounds x="700" y="285" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="690" y="335" width="71" height="14" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Task_BoSungChungTu_di" bpmnElement="Task_BoSungChungTu">
-        <dc:Bounds x="490" y="105" width="110" height="70" />
+        <dc:Bounds x="670" y="105" width="110" height="70" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Task_XacMinh_di" bpmnElement="Task_XacMinh">
-        <dc:Bounds x="610" y="275" width="110" height="70" />
+        <dc:Bounds x="790" y="275" width="110" height="70" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Task_LenhThuHoi_di" bpmnElement="Task_LenhThuHoi">
-        <dc:Bounds x="760" y="445" width="110" height="70" />
+        <dc:Bounds x="940" y="445" width="110" height="70" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="GW_Merge_LienHe_di" bpmnElement="GW_Merge_LienHe" isMarkerVisible="true">
-        <dc:Bounds x="900" y="455" width="50" height="50" />
+        <dc:Bounds x="1080" y="455" width="50" height="50" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Task_LienHeKhach_di" bpmnElement="Task_LienHeKhach">
-        <dc:Bounds x="980" y="445" width="110" height="70" />
+        <dc:Bounds x="1160" y="445" width="110" height="70" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="GW_Split_LienHe_di" bpmnElement="GW_Split_LienHe" isMarkerVisible="true">
-        <dc:Bounds x="1120" y="455" width="50" height="50" />
+        <dc:Bounds x="1300" y="455" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1292" y="505" width="67" height="27" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Task_HenLai_di" bpmnElement="Task_HenLai">
-        <dc:Bounds x="1090" y="370" width="110" height="70" />
+        <dc:Bounds x="1270" y="370" width="110" height="70" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Task_DenLayHang_di" bpmnElement="Task_DenLayHang">
-        <dc:Bounds x="1210" y="445" width="110" height="70" />
+        <dc:Bounds x="1390" y="445" width="110" height="70" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="GW_Split_LayHang_di" bpmnElement="GW_Split_LayHang" isMarkerVisible="true">
-        <dc:Bounds x="1350" y="455" width="50" height="50" />
+        <dc:Bounds x="1530" y="455" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1517" y="505" width="77" height="27" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Task_HuyYeuCau_di" bpmnElement="Task_HuyYeuCau">
-        <dc:Bounds x="1320" y="275" width="110" height="70" />
+        <dc:Bounds x="1500" y="275" width="110" height="70" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="EndEvent_Huy_di" bpmnElement="EndEvent_Huy">
-        <dc:Bounds x="1460" y="292" width="36" height="36" />
+        <dc:Bounds x="1640" y="292" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1616" y="328" width="84" height="27" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Task_ThuHoi_di" bpmnElement="Task_ThuHoi">
-        <dc:Bounds x="1440" y="445" width="110" height="70" />
+        <dc:Bounds x="1620" y="445" width="110" height="70" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Task_VanChuyen_di" bpmnElement="Task_VanChuyen">
-        <dc:Bounds x="1580" y="445" width="110" height="70" />
+        <dc:Bounds x="1760" y="445" width="110" height="70" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Task_KiemTraKho_di" bpmnElement="Task_KiemTraKho">
-        <dc:Bounds x="1720" y="625" width="110" height="70" />
+        <dc:Bounds x="1900" y="625" width="110" height="70" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="GW_Split_NgoaiQuan_di" bpmnElement="GW_Split_NgoaiQuan" isMarkerVisible="true">
-        <dc:Bounds x="1860" y="635" width="50" height="50" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Task_LapBienBan_di" bpmnElement="Task_LapBienBan">
-        <dc:Bounds x="1830" y="715" width="110" height="70" />
+        <dc:Bounds x="2040" y="635" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2027" y="597.5" width="75" height="27" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Task_NhapKhoHoan_di" bpmnElement="Task_NhapKhoHoan">
-        <dc:Bounds x="1950" y="625" width="110" height="70" />
+        <dc:Bounds x="2130" y="625" width="110" height="70" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="GW_Merge_NgoaiQuan_di" bpmnElement="GW_Merge_NgoaiQuan" isMarkerVisible="true">
-        <dc:Bounds x="2090" y="635" width="50" height="50" />
+        <dc:Bounds x="2270" y="635" width="50" height="50" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="GW_Split_PhanLoai_di" bpmnElement="GW_Split_PhanLoai" isMarkerVisible="true">
-        <dc:Bounds x="2160" y="635" width="50" height="50" />
+        <dc:Bounds x="2340" y="635" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2321" y="685" width="89" height="14" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Task_XuatTraShop_di" bpmnElement="Task_XuatTraShop">
-        <dc:Bounds x="2250" y="625" width="110" height="70" />
+        <dc:Bounds x="2430" y="625" width="110" height="70" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Task_ChuyenBoiThuong_di" bpmnElement="Task_ChuyenBoiThuong">
-        <dc:Bounds x="2250" y="275" width="110" height="70" />
+        <dc:Bounds x="2430" y="275" width="110" height="70" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="GW_Merge_KetQua_di" bpmnElement="GW_Merge_KetQua" isMarkerVisible="true">
-        <dc:Bounds x="2400" y="285" width="50" height="50" />
+        <dc:Bounds x="2580" y="285" width="50" height="50" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Task_ThongBao_di" bpmnElement="Task_ThongBao">
-        <dc:Bounds x="2480" y="275" width="110" height="70" />
+        <dc:Bounds x="2660" y="275" width="110" height="70" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Task_NhanKetQua_di" bpmnElement="Task_NhanKetQua">
-        <dc:Bounds x="2630" y="105" width="110" height="70" />
+        <dc:Bounds x="2810" y="105" width="110" height="70" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="EndEvent_HoanTra_di" bpmnElement="EndEvent_HoanTra">
-        <dc:Bounds x="2780" y="125" width="36" height="36" />
+        <dc:Bounds x="2960" y="125" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2934" y="161" width="89" height="27" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Ann_DL_H1_di" bpmnElement="Ann_DL_H1">
-        <dc:Bounds x="160" y="45" width="110" height="30" />
+      <bpmndi:BPMNShape id="Task_LapBienBan_di" bpmnElement="Task_LapBienBan">
+        <dc:Bounds x="2010" y="721" width="110" height="70" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Ann_DL_H2_di" bpmnElement="Ann_DL_H2">
-        <dc:Bounds x="380" y="215" width="110" height="30" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Ann_DL_H3_di" bpmnElement="Ann_DL_H3">
-        <dc:Bounds x="490" y="45" width="110" height="30" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Ann_DL_H4_di" bpmnElement="Ann_DL_H4">
-        <dc:Bounds x="610" y="215" width="110" height="30" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Ann_DL_H5_di" bpmnElement="Ann_DL_H5">
-        <dc:Bounds x="760" y="385" width="110" height="30" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Ann_DL_H6_di" bpmnElement="Ann_DL_H6">
-        <dc:Bounds x="980" y="385" width="110" height="30" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Ann_DL_H7_di" bpmnElement="Ann_DL_H7">
-        <dc:Bounds x="1090" y="310" width="110" height="30" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Ann_DL_H8_di" bpmnElement="Ann_DL_H8">
-        <dc:Bounds x="1210" y="385" width="110" height="30" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Ann_DL_H9_di" bpmnElement="Ann_DL_H9">
-        <dc:Bounds x="1320" y="215" width="110" height="30" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Ann_DL_H10_di" bpmnElement="Ann_DL_H10">
-        <dc:Bounds x="1440" y="385" width="110" height="30" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Ann_DL_H11_di" bpmnElement="Ann_DL_H11">
-        <dc:Bounds x="1580" y="385" width="110" height="30" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Ann_DL_H12_di" bpmnElement="Ann_DL_H12">
-        <dc:Bounds x="1720" y="565" width="110" height="30" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Ann_DL_H13_di" bpmnElement="Ann_DL_H13">
-        <dc:Bounds x="1830" y="785" width="110" height="30" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Ann_DL_H14_di" bpmnElement="Ann_DL_H14">
-        <dc:Bounds x="1950" y="565" width="110" height="30" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Ann_DL_H15_di" bpmnElement="Ann_DL_H15">
-        <dc:Bounds x="2250" y="565" width="110" height="30" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Ann_DL_H16_di" bpmnElement="Ann_DL_H16">
-        <dc:Bounds x="2250" y="215" width="110" height="30" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Ann_DL_H17_di" bpmnElement="Ann_DL_H17">
-        <dc:Bounds x="2480" y="215" width="110" height="30" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Ann_DL_H18_di" bpmnElement="Ann_DL_H18">
-        <dc:Bounds x="2630" y="45" width="110" height="30" />
-      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Assoc_Ann_DL_H13_di" bpmnElement="Assoc_Ann_DL_H13">
+        <di:waypoint x="2065" y="791" />
+        <di:waypoint x="2065" y="795" />
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_H1_di" bpmnElement="Flow_H1">
-        <di:waypoint x="116" y="143" />
-        <di:waypoint x="160" y="143" />
+        <di:waypoint x="296" y="143" />
+        <di:waypoint x="340" y="143" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_H2_di" bpmnElement="Flow_H2">
-        <di:waypoint x="270" y="140" />
-        <di:waypoint x="325" y="140" />
-        <di:waypoint x="325" y="285" />
+        <di:waypoint x="450" y="140" />
+        <di:waypoint x="505" y="140" />
+        <di:waypoint x="505" y="285" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_H3_di" bpmnElement="Flow_H3">
-        <di:waypoint x="350" y="310" />
-        <di:waypoint x="380" y="310" />
+        <di:waypoint x="530" y="310" />
+        <di:waypoint x="560" y="310" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_H4_di" bpmnElement="Flow_H4">
-        <di:waypoint x="490" y="310" />
-        <di:waypoint x="520" y="310" />
+        <di:waypoint x="670" y="310" />
+        <di:waypoint x="700" y="310" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_H5_di" bpmnElement="Flow_H5">
-        <di:waypoint x="545" y="285" />
-        <di:waypoint x="545" y="175" />
+        <di:waypoint x="725" y="285" />
+        <di:waypoint x="725" y="175" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="525" y="216" width="90" height="14" />
+          <dc:Bounds x="717" y="226" width="86" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_H6_di" bpmnElement="Flow_H6">
-        <di:waypoint x="490" y="140" />
-        <di:waypoint x="325" y="140" />
-        <di:waypoint x="325" y="285" />
+        <di:waypoint x="670" y="140" />
+        <di:waypoint x="505" y="140" />
+        <di:waypoint x="505" y="285" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_H7_di" bpmnElement="Flow_H7">
-        <di:waypoint x="570" y="310" />
-        <di:waypoint x="610" y="310" />
+        <di:waypoint x="750" y="310" />
+        <di:waypoint x="790" y="310" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="570" y="296" width="90" height="14" />
+          <dc:Bounds x="728" y="266" width="83" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_H8_di" bpmnElement="Flow_H8">
-        <di:waypoint x="720" y="310" />
-        <di:waypoint x="740" y="310" />
-        <di:waypoint x="740" y="480" />
-        <di:waypoint x="760" y="480" />
+        <di:waypoint x="900" y="310" />
+        <di:waypoint x="920" y="310" />
+        <di:waypoint x="920" y="480" />
+        <di:waypoint x="940" y="480" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_H9_di" bpmnElement="Flow_H9">
-        <di:waypoint x="870" y="480" />
-        <di:waypoint x="900" y="480" />
+        <di:waypoint x="1050" y="480" />
+        <di:waypoint x="1080" y="480" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_H10_di" bpmnElement="Flow_H10">
-        <di:waypoint x="950" y="480" />
-        <di:waypoint x="980" y="480" />
+        <di:waypoint x="1130" y="480" />
+        <di:waypoint x="1160" y="480" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_H11_di" bpmnElement="Flow_H11">
-        <di:waypoint x="1090" y="480" />
-        <di:waypoint x="1120" y="480" />
+        <di:waypoint x="1270" y="480" />
+        <di:waypoint x="1300" y="480" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_H12_di" bpmnElement="Flow_H12">
-        <di:waypoint x="1145" y="455" />
-        <di:waypoint x="1145" y="440" />
+        <di:waypoint x="1325" y="455" />
+        <di:waypoint x="1325" y="440" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1125" y="433" width="90" height="14" />
+          <dc:Bounds x="1326" y="442" width="67" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_H13_di" bpmnElement="Flow_H13">
-        <di:waypoint x="1090" y="405" />
-        <di:waypoint x="925" y="405" />
-        <di:waypoint x="925" y="455" />
+        <di:waypoint x="1270" y="405" />
+        <di:waypoint x="1105" y="405" />
+        <di:waypoint x="1105" y="455" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_H14_di" bpmnElement="Flow_H14">
-        <di:waypoint x="1170" y="480" />
-        <di:waypoint x="1210" y="480" />
+        <di:waypoint x="1350" y="480" />
+        <di:waypoint x="1390" y="480" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1170" y="466" width="90" height="14" />
+          <dc:Bounds x="1355" y="466" width="81" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_H15_di" bpmnElement="Flow_H15">
-        <di:waypoint x="1320" y="480" />
-        <di:waypoint x="1350" y="480" />
+        <di:waypoint x="1500" y="480" />
+        <di:waypoint x="1530" y="480" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_H16_di" bpmnElement="Flow_H16">
-        <di:waypoint x="1375" y="455" />
-        <di:waypoint x="1375" y="345" />
+        <di:waypoint x="1555" y="455" />
+        <di:waypoint x="1555" y="345" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1355" y="386" width="90" height="14" />
+          <dc:Bounds x="1555" y="373" width="80" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_H17_di" bpmnElement="Flow_H17">
-        <di:waypoint x="1430" y="310" />
-        <di:waypoint x="1460" y="310" />
+        <di:waypoint x="1610" y="310" />
+        <di:waypoint x="1640" y="310" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_H18_di" bpmnElement="Flow_H18">
-        <di:waypoint x="1400" y="480" />
-        <di:waypoint x="1440" y="480" />
+        <di:waypoint x="1580" y="480" />
+        <di:waypoint x="1620" y="480" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1400" y="466" width="90" height="14" />
+          <dc:Bounds x="1559" y="449" width="71" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_H19_di" bpmnElement="Flow_H19">
-        <di:waypoint x="1550" y="480" />
-        <di:waypoint x="1580" y="480" />
+        <di:waypoint x="1730" y="480" />
+        <di:waypoint x="1760" y="480" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_H20_di" bpmnElement="Flow_H20">
-        <di:waypoint x="1690" y="480" />
-        <di:waypoint x="1705" y="480" />
-        <di:waypoint x="1705" y="660" />
-        <di:waypoint x="1720" y="660" />
+        <di:waypoint x="1870" y="480" />
+        <di:waypoint x="1885" y="480" />
+        <di:waypoint x="1885" y="660" />
+        <di:waypoint x="1900" y="660" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_H21_di" bpmnElement="Flow_H21">
-        <di:waypoint x="1830" y="660" />
-        <di:waypoint x="1860" y="660" />
+        <di:waypoint x="2010" y="660" />
+        <di:waypoint x="2040" y="660" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_H22_di" bpmnElement="Flow_H22">
-        <di:waypoint x="1885" y="685" />
-        <di:waypoint x="1885" y="715" />
+        <di:waypoint x="2065" y="685" />
+        <di:waypoint x="2065" y="721" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1865" y="686" width="90" height="14" />
+          <dc:Bounds x="2068" y="699" width="84" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_H23_di" bpmnElement="Flow_H23">
-        <di:waypoint x="1910" y="660" />
-        <di:waypoint x="1950" y="660" />
+        <di:waypoint x="2090" y="660" />
+        <di:waypoint x="2130" y="660" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1910" y="646" width="90" height="14" />
+          <dc:Bounds x="2078" y="633" width="83" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_H24_di" bpmnElement="Flow_H24">
-        <di:waypoint x="1940" y="750" />
-        <di:waypoint x="2115" y="750" />
-        <di:waypoint x="2115" y="685" />
+        <di:waypoint x="2120" y="756" />
+        <di:waypoint x="2295" y="756" />
+        <di:waypoint x="2295" y="685" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_H25_di" bpmnElement="Flow_H25">
-        <di:waypoint x="2060" y="660" />
-        <di:waypoint x="2090" y="660" />
+        <di:waypoint x="2240" y="660" />
+        <di:waypoint x="2270" y="660" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_H26_di" bpmnElement="Flow_H26">
-        <di:waypoint x="2140" y="660" />
-        <di:waypoint x="2160" y="660" />
+        <di:waypoint x="2320" y="660" />
+        <di:waypoint x="2340" y="660" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_H27_di" bpmnElement="Flow_H27">
-        <di:waypoint x="2210" y="660" />
-        <di:waypoint x="2250" y="660" />
+        <di:waypoint x="2390" y="660" />
+        <di:waypoint x="2430" y="660" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="2210" y="646" width="90" height="14" />
+          <dc:Bounds x="2366" y="616" width="68" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_H28_di" bpmnElement="Flow_H28">
-        <di:waypoint x="2185" y="635" />
-        <di:waypoint x="2185" y="310" />
-        <di:waypoint x="2250" y="310" />
+        <di:waypoint x="2365" y="635" />
+        <di:waypoint x="2365" y="310" />
+        <di:waypoint x="2430" y="310" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="2197" y="458" width="90" height="14" />
+          <dc:Bounds x="2388" y="458" width="69" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_H29_di" bpmnElement="Flow_H29">
-        <di:waypoint x="2360" y="660" />
-        <di:waypoint x="2425" y="660" />
-        <di:waypoint x="2425" y="335" />
+        <di:waypoint x="2540" y="660" />
+        <di:waypoint x="2605" y="660" />
+        <di:waypoint x="2605" y="335" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_H30_di" bpmnElement="Flow_H30">
-        <di:waypoint x="2360" y="310" />
-        <di:waypoint x="2400" y="310" />
+        <di:waypoint x="2540" y="310" />
+        <di:waypoint x="2580" y="310" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_H31_di" bpmnElement="Flow_H31">
-        <di:waypoint x="2450" y="310" />
-        <di:waypoint x="2480" y="310" />
+        <di:waypoint x="2630" y="310" />
+        <di:waypoint x="2660" y="310" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_H32_di" bpmnElement="Flow_H32">
-        <di:waypoint x="2590" y="310" />
-        <di:waypoint x="2610" y="310" />
-        <di:waypoint x="2610" y="140" />
-        <di:waypoint x="2630" y="140" />
+        <di:waypoint x="2770" y="310" />
+        <di:waypoint x="2790" y="310" />
+        <di:waypoint x="2790" y="140" />
+        <di:waypoint x="2810" y="140" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_H33_di" bpmnElement="Flow_H33">
-        <di:waypoint x="2740" y="143" />
-        <di:waypoint x="2780" y="143" />
+        <di:waypoint x="2920" y="143" />
+        <di:waypoint x="2960" y="143" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Assoc_Ann_DL_H1_di" bpmnElement="Assoc_Ann_DL_H1">
-        <di:waypoint x="215" y="105" />
-        <di:waypoint x="215" y="75" />
+        <di:waypoint x="395" y="105" />
+        <di:waypoint x="395" y="96" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Assoc_Ann_DL_H2_di" bpmnElement="Assoc_Ann_DL_H2">
-        <di:waypoint x="435" y="275" />
-        <di:waypoint x="435" y="245" />
+        <di:waypoint x="615" y="275" />
+        <di:waypoint x="615" y="270" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Assoc_Ann_DL_H3_di" bpmnElement="Assoc_Ann_DL_H3">
-        <di:waypoint x="545" y="105" />
-        <di:waypoint x="545" y="75" />
+        <di:waypoint x="720" y="105" />
+        <di:waypoint x="719" y="101" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Assoc_Ann_DL_H4_di" bpmnElement="Assoc_Ann_DL_H4">
-        <di:waypoint x="665" y="275" />
-        <di:waypoint x="665" y="245" />
+        <di:waypoint x="845" y="275" />
+        <di:waypoint x="845" y="280" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Assoc_Ann_DL_H5_di" bpmnElement="Assoc_Ann_DL_H5">
-        <di:waypoint x="815" y="445" />
-        <di:waypoint x="815" y="415" />
+        <di:waypoint x="995" y="445" />
+        <di:waypoint x="995" y="450" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Assoc_Ann_DL_H6_di" bpmnElement="Assoc_Ann_DL_H6">
-        <di:waypoint x="1035" y="445" />
-        <di:waypoint x="1035" y="415" />
+        <di:waypoint x="1196" y="445" />
+        <di:waypoint x="1199" y="450" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Assoc_Ann_DL_H7_di" bpmnElement="Assoc_Ann_DL_H7">
-        <di:waypoint x="1145" y="370" />
-        <di:waypoint x="1145" y="340" />
+        <di:waypoint x="1325" y="370" />
+        <di:waypoint x="1325" y="380" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Assoc_Ann_DL_H8_di" bpmnElement="Assoc_Ann_DL_H8">
-        <di:waypoint x="1265" y="445" />
-        <di:waypoint x="1265" y="415" />
+        <di:waypoint x="1445" y="445" />
+        <di:waypoint x="1445" y="450" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Assoc_Ann_DL_H9_di" bpmnElement="Assoc_Ann_DL_H9">
-        <di:waypoint x="1375" y="275" />
-        <di:waypoint x="1375" y="245" />
+        <di:waypoint x="1555" y="275" />
+        <di:waypoint x="1555" y="280" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Assoc_Ann_DL_H10_di" bpmnElement="Assoc_Ann_DL_H10">
-        <di:waypoint x="1495" y="445" />
-        <di:waypoint x="1495" y="415" />
+        <di:waypoint x="1669" y="445" />
+        <di:waypoint x="1670" y="450" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Assoc_Ann_DL_H11_di" bpmnElement="Assoc_Ann_DL_H11">
-        <di:waypoint x="1635" y="445" />
-        <di:waypoint x="1635" y="415" />
+        <di:waypoint x="1815" y="445" />
+        <di:waypoint x="1815" y="440" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Assoc_Ann_DL_H12_di" bpmnElement="Assoc_Ann_DL_H12">
-        <di:waypoint x="1775" y="625" />
-        <di:waypoint x="1775" y="595" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Assoc_Ann_DL_H13_di" bpmnElement="Assoc_Ann_DL_H13">
-        <di:waypoint x="1885" y="715" />
-        <di:waypoint x="1885" y="815" />
+        <di:waypoint x="1951" y="625" />
+        <di:waypoint x="1952" y="630" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Assoc_Ann_DL_H14_di" bpmnElement="Assoc_Ann_DL_H14">
-        <di:waypoint x="2005" y="625" />
-        <di:waypoint x="2005" y="595" />
+        <di:waypoint x="2185" y="625" />
+        <di:waypoint x="2185" y="630" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Assoc_Ann_DL_H15_di" bpmnElement="Assoc_Ann_DL_H15">
-        <di:waypoint x="2305" y="625" />
-        <di:waypoint x="2305" y="595" />
+        <di:waypoint x="2485" y="625" />
+        <di:waypoint x="2485" y="620" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Assoc_Ann_DL_H16_di" bpmnElement="Assoc_Ann_DL_H16">
-        <di:waypoint x="2305" y="275" />
-        <di:waypoint x="2305" y="245" />
+        <di:waypoint x="2485" y="275" />
+        <di:waypoint x="2485" y="270" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Assoc_Ann_DL_H17_di" bpmnElement="Assoc_Ann_DL_H17">
-        <di:waypoint x="2535" y="275" />
-        <di:waypoint x="2535" y="245" />
+        <di:waypoint x="2715" y="275" />
+        <di:waypoint x="2715" y="280" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Assoc_Ann_DL_H18_di" bpmnElement="Assoc_Ann_DL_H18">
-        <di:waypoint x="2685" y="105" />
-        <di:waypoint x="2685" y="75" />
+        <di:waypoint x="2865" y="105" />
+        <di:waypoint x="2865" y="101" />
       </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Ann_DL_H1_di" bpmnElement="Ann_DL_H1">
+        <dc:Bounds x="340" y="66" width="110" height="30" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Ann_DL_H2_di" bpmnElement="Ann_DL_H2">
+        <dc:Bounds x="560" y="230" width="130" height="40" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Ann_DL_H3_di" bpmnElement="Ann_DL_H3">
+        <dc:Bounds x="660" y="61" width="180" height="40" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Ann_DL_H4_di" bpmnElement="Ann_DL_H4">
+        <dc:Bounds x="790" y="240" width="160" height="40" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Ann_DL_H5_di" bpmnElement="Ann_DL_H5">
+        <dc:Bounds x="940" y="410" width="150" height="40" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Ann_DL_H6_di" bpmnElement="Ann_DL_H6">
+        <dc:Bounds x="1130" y="410" width="160" height="40" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Ann_DL_H7_di" bpmnElement="Ann_DL_H7">
+        <dc:Bounds x="1270" y="340" width="140" height="40" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Ann_DL_H8_di" bpmnElement="Ann_DL_H8">
+        <dc:Bounds x="1390" y="410" width="200" height="40" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Ann_DL_H9_di" bpmnElement="Ann_DL_H9">
+        <dc:Bounds x="1500" y="240" width="190" height="40" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Ann_DL_H10_di" bpmnElement="Ann_DL_H10">
+        <dc:Bounds x="1610" y="410" width="180" height="40" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Ann_DL_H11_di" bpmnElement="Ann_DL_H11">
+        <dc:Bounds x="1760" y="400" width="170" height="40" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Ann_DL_H13_di" bpmnElement="Ann_DL_H13">
+        <dc:Bounds x="2010" y="795" width="140" height="40" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Ann_DL_H12_di" bpmnElement="Ann_DL_H12">
+        <dc:Bounds x="1894" y="590" width="170" height="40" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Ann_DL_H14_di" bpmnElement="Ann_DL_H14">
+        <dc:Bounds x="2130" y="590" width="170" height="40" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Ann_DL_H15_di" bpmnElement="Ann_DL_H15">
+        <dc:Bounds x="2430" y="580" width="170" height="40" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Ann_DL_H16_di" bpmnElement="Ann_DL_H16">
+        <dc:Bounds x="2430" y="230" width="150" height="40" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Ann_DL_H17_di" bpmnElement="Ann_DL_H17">
+        <dc:Bounds x="2660" y="240" width="140" height="40" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Ann_DL_H18_di" bpmnElement="Ann_DL_H18">
+        <dc:Bounds x="2810" y="61" width="190" height="40" />
+      </bpmndi:BPMNShape>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
 </bpmn:definitions>
