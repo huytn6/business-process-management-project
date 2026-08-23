@@ -57,6 +57,10 @@
       <text>OVER-DO Defects – giao hàng thất bại phải xử lý hoàn hàng</text>
     </textAnnotation>
     <association id="Association_0i7pvjt" associationDirection="None" sourceRef="Activity_01xnnow" targetRef="TextAnnotation_1vbufxd" />
+    <textAnnotation id="TextAnnotation_1jalj3n">
+      <text>MOVE Motion – nhân viên lấy hàng di chuyển về bưu cục sau mỗi lượt lấy hàng</text>
+    </textAnnotation>
+    <association id="Association_0s7kns7" associationDirection="None" sourceRef="Activity_0axgpnk" targetRef="TextAnnotation_1jalj3n" />
   </collaboration>
   <process id="Process_1" isExecutable="false">
     <laneSet id="LaneSet_0i7p49e">
@@ -866,41 +870,9 @@
         <omgdi:waypoint x="340" y="1176" />
         <omgdi:waypoint x="380" y="1176" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Association_19f9h28_di" bpmnElement="Association_19f9h28">
-        <omgdi:waypoint x="559" y="1136" />
-        <omgdi:waypoint x="539" y="1097" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Association_1c1l45o_di" bpmnElement="Association_1c1l45o">
-        <omgdi:waypoint x="730" y="1216" />
-        <omgdi:waypoint x="730" y="1260" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Association_19bid61_di" bpmnElement="Association_19bid61">
-        <omgdi:waypoint x="870" y="1136" />
-        <omgdi:waypoint x="869" y="1075" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Association_1t3pwb7_di" bpmnElement="Association_1t3pwb7">
-        <omgdi:waypoint x="2143" y="1433" />
-        <omgdi:waypoint x="2165" y="1409" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Association_1sxtfr4_di" bpmnElement="Association_1sxtfr4">
-        <omgdi:waypoint x="3285" y="1922" />
-        <omgdi:waypoint x="3240" y="1915" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Association_1nnlh79_di" bpmnElement="Association_1nnlh79">
-        <omgdi:waypoint x="3782" y="1630" />
-        <omgdi:waypoint x="3796" y="1553" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Association_0x7cllx_di" bpmnElement="Association_0x7cllx">
-        <omgdi:waypoint x="3775" y="1820" />
-        <omgdi:waypoint x="3775" y="1877" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Association_1tk27cj_di" bpmnElement="Association_1tk27cj">
-        <omgdi:waypoint x="3971" y="1820" />
-        <omgdi:waypoint x="4007" y="1877" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Association_0i7pvjt_di" bpmnElement="Association_0i7pvjt">
-        <omgdi:waypoint x="2147" y="510" />
-        <omgdi:waypoint x="2209" y="433" />
+      <bpmndi:BPMNEdge id="Association_0s7kns7_di" bpmnElement="Association_0s7kns7">
+        <omgdi:waypoint x="1685" y="910" />
+        <omgdi:waypoint x="1685" y="847" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="TextAnnotation_0v5wn0l_di" bpmnElement="TextAnnotation_0v5wn0l">
         <omgdc:Bounds x="1715" y="1056" width="102.69905327141849" height="43" />
@@ -912,6 +884,42 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="TextAnnotation_0ptxoln_di" bpmnElement="TextAnnotation_0ptxoln">
         <omgdc:Bounds x="1225" y="1246" width="102.69905327141849" height="43" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_0jtqdka_di" bpmnElement="TextAnnotation_0jtqdka" bioc:stroke="#6b3c00" bioc:fill="#ffe0b2" color:background-color="#ffe0b2" color:border-color="#6b3c00">
+        <omgdc:Bounds x="470" y="1040" width="180" height="57" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_0rwa1cp_di" bpmnElement="TextAnnotation_0rwa1cp" bioc:stroke="#6b3c00" bioc:fill="#ffe0b2" color:background-color="#ffe0b2" color:border-color="#6b3c00">
+        <omgdc:Bounds x="680" y="1260" width="230" height="43" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_12urmw6_di" bpmnElement="TextAnnotation_12urmw6" bioc:stroke="#6b3c00" bioc:fill="#ffe0b2" color:background-color="#ffe0b2" color:border-color="#6b3c00">
+        <omgdc:Bounds x="819" y="1032" width="161" height="43" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_0xfvl8e_di" bpmnElement="TextAnnotation_0xfvl8e" bioc:stroke="#0d4372" bioc:fill="#bbdefb" color:background-color="#bbdefb" color:border-color="#0d4372">
+        <omgdc:Bounds x="2150" y="1352" width="160" height="57" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_1w1e7hf_di" bpmnElement="TextAnnotation_1w1e7hf" bioc:stroke="#831311" bioc:fill="#ffcdd2" color:background-color="#ffcdd2" color:border-color="#831311">
+        <omgdc:Bounds x="3030" y="1870" width="210" height="57" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_1shy7zv_di" bpmnElement="TextAnnotation_1shy7zv" bioc:stroke="#831311" bioc:fill="#ffcdd2" color:background-color="#ffcdd2" color:border-color="#831311">
+        <omgdc:Bounds x="3750" y="1510" width="240" height="43" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_0b1rieh_di" bpmnElement="TextAnnotation_0b1rieh" bioc:stroke="#6b3c00" bioc:fill="#ffe0b2" color:background-color="#ffe0b2" color:border-color="#6b3c00">
+        <omgdc:Bounds x="3725" y="1877" width="170" height="43" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_08gxnxq_di" bpmnElement="TextAnnotation_08gxnxq" bioc:stroke="#831311" bioc:fill="#ffcdd2" color:background-color="#ffcdd2" color:border-color="#831311">
+        <omgdc:Bounds x="3970" y="1877" width="190" height="43" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_1vbufxd_di" bpmnElement="TextAnnotation_1vbufxd" bioc:stroke="#831311" bioc:fill="#ffcdd2" color:background-color="#ffcdd2" color:border-color="#831311">
+        <omgdc:Bounds x="2178" y="390" width="252" height="43" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_0ei4g40_di" bpmnElement="Flow_0ei4g40">
@@ -956,40 +964,44 @@
         <omgdi:waypoint x="1175" y="1358" />
         <omgdi:waypoint x="1250" y="1289" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="TextAnnotation_0jtqdka_di" bpmnElement="TextAnnotation_0jtqdka" bioc:stroke="#6b3c00" bioc:fill="#ffe0b2" color:background-color="#ffe0b2" color:border-color="#6b3c00">
-        <omgdc:Bounds x="470" y="1040" width="180" height="57" />
-        <bpmndi:BPMNLabel />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="TextAnnotation_0rwa1cp_di" bpmnElement="TextAnnotation_0rwa1cp" bioc:stroke="#6b3c00" bioc:fill="#ffe0b2" color:background-color="#ffe0b2" color:border-color="#6b3c00">
-        <omgdc:Bounds x="680" y="1260" width="230" height="43" />
-        <bpmndi:BPMNLabel />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="TextAnnotation_12urmw6_di" bpmnElement="TextAnnotation_12urmw6" bioc:stroke="#6b3c00" bioc:fill="#ffe0b2" color:background-color="#ffe0b2" color:border-color="#6b3c00">
-        <omgdc:Bounds x="819" y="1032" width="161" height="43" />
-        <bpmndi:BPMNLabel />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="TextAnnotation_0xfvl8e_di" bpmnElement="TextAnnotation_0xfvl8e" bioc:stroke="#0d4372" bioc:fill="#bbdefb" color:background-color="#bbdefb" color:border-color="#0d4372">
-        <omgdc:Bounds x="2150" y="1352" width="160" height="57" />
-        <bpmndi:BPMNLabel />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="TextAnnotation_1w1e7hf_di" bpmnElement="TextAnnotation_1w1e7hf" bioc:stroke="#831311" bioc:fill="#ffcdd2" color:background-color="#ffcdd2" color:border-color="#831311">
-        <omgdc:Bounds x="3030" y="1870" width="210" height="57" />
-        <bpmndi:BPMNLabel />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="TextAnnotation_1shy7zv_di" bpmnElement="TextAnnotation_1shy7zv" bioc:stroke="#831311" bioc:fill="#ffcdd2" color:background-color="#ffcdd2" color:border-color="#831311">
-        <omgdc:Bounds x="3750" y="1510" width="240" height="43" />
-        <bpmndi:BPMNLabel />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="TextAnnotation_0b1rieh_di" bpmnElement="TextAnnotation_0b1rieh" bioc:stroke="#6b3c00" bioc:fill="#ffe0b2" color:background-color="#ffe0b2" color:border-color="#6b3c00">
-        <omgdc:Bounds x="3725" y="1877" width="170" height="43" />
-        <bpmndi:BPMNLabel />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="TextAnnotation_08gxnxq_di" bpmnElement="TextAnnotation_08gxnxq" bioc:stroke="#831311" bioc:fill="#ffcdd2" color:background-color="#ffcdd2" color:border-color="#831311">
-        <omgdc:Bounds x="3970" y="1877" width="190" height="43" />
-        <bpmndi:BPMNLabel />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="TextAnnotation_1vbufxd_di" bpmnElement="TextAnnotation_1vbufxd" bioc:stroke="#831311" bioc:fill="#ffcdd2" color:background-color="#ffcdd2" color:border-color="#831311">
-        <omgdc:Bounds x="2178" y="390" width="252" height="43" />
+      <bpmndi:BPMNEdge id="Association_19f9h28_di" bpmnElement="Association_19f9h28">
+        <omgdi:waypoint x="559" y="1136" />
+        <omgdi:waypoint x="539" y="1097" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_1c1l45o_di" bpmnElement="Association_1c1l45o">
+        <omgdi:waypoint x="730" y="1216" />
+        <omgdi:waypoint x="730" y="1260" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_19bid61_di" bpmnElement="Association_19bid61">
+        <omgdi:waypoint x="870" y="1136" />
+        <omgdi:waypoint x="869" y="1075" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_1t3pwb7_di" bpmnElement="Association_1t3pwb7">
+        <omgdi:waypoint x="2143" y="1433" />
+        <omgdi:waypoint x="2165" y="1409" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_1sxtfr4_di" bpmnElement="Association_1sxtfr4">
+        <omgdi:waypoint x="3285" y="1922" />
+        <omgdi:waypoint x="3240" y="1915" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_1nnlh79_di" bpmnElement="Association_1nnlh79">
+        <omgdi:waypoint x="3782" y="1630" />
+        <omgdi:waypoint x="3796" y="1553" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_0x7cllx_di" bpmnElement="Association_0x7cllx">
+        <omgdi:waypoint x="3775" y="1820" />
+        <omgdi:waypoint x="3775" y="1877" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_1tk27cj_di" bpmnElement="Association_1tk27cj">
+        <omgdi:waypoint x="3971" y="1820" />
+        <omgdi:waypoint x="4007" y="1877" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_0i7pvjt_di" bpmnElement="Association_0i7pvjt">
+        <omgdi:waypoint x="2147" y="510" />
+        <omgdi:waypoint x="2209" y="433" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="TextAnnotation_1jalj3n_di" bpmnElement="TextAnnotation_1jalj3n" bioc:stroke="#0d4372" bioc:fill="#bbdefb" color:background-color="#bbdefb" color:border-color="#0d4372">
+        <omgdc:Bounds x="1635" y="790" width="200" height="57" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
     </bpmndi:BPMNPlane>
