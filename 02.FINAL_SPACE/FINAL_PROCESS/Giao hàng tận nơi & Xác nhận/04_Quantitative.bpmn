@@ -185,7 +185,7 @@
           <dc:Bounds x="265" y="92" width="76" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" id="Task_ValidateOrder_di" bpmnElement="Task_ValidateOrder" bioc:stroke="#1565C0" bioc:fill="#E3F2FD">
+      <bpmndi:BPMNShape xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" id="Task_ValidateOrder_di" bpmnElement="Task_ValidateOrder" bioc:stroke="#000000" bioc:fill="#FFFFFF">
         <dc:Bounds x="355" y="120" width="160" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Gateway_InfoComplete_di" bpmnElement="Gateway_InfoComplete" isMarkerVisible="true">
@@ -194,22 +194,22 @@
           <dc:Bounds x="530" y="111" width="89" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" id="Task_CreateShipment_di" bpmnElement="Task_CreateShipment" bioc:stroke="#1565C0" bioc:fill="#E3F2FD">
+      <bpmndi:BPMNShape xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" id="Task_CreateShipment_di" bpmnElement="Task_CreateShipment" bioc:stroke="#000000" bioc:fill="#FFFFFF">
         <dc:Bounds x="640" y="300" width="165" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" id="Task_AssignCourier_di" bpmnElement="Task_AssignCourier" bioc:stroke="#F9A825" bioc:fill="#FFF8E1">
+      <bpmndi:BPMNShape xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" id="Task_AssignCourier_di" bpmnElement="Task_AssignCourier" bioc:stroke="#000000" bioc:fill="#FFFFFF">
         <dc:Bounds x="840" y="300" width="165" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" id="Task_HandoverPackage_di" bpmnElement="Task_HandoverPackage" bioc:stroke="#EF6C00" bioc:fill="#FFF3E0">
+      <bpmndi:BPMNShape xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" id="Task_HandoverPackage_di" bpmnElement="Task_HandoverPackage" bioc:stroke="#000000" bioc:fill="#FFFFFF">
         <dc:Bounds x="1040" y="300" width="165" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" id="Task_CheckPickup_di" bpmnElement="Task_CheckPickup" bioc:stroke="#1565C0" bioc:fill="#E3F2FD">
+      <bpmndi:BPMNShape xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" id="Task_CheckPickup_di" bpmnElement="Task_CheckPickup" bioc:stroke="#000000" bioc:fill="#FFFFFF">
         <dc:Bounds x="1040" y="480" width="165" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" id="Task_NotifyCustomer_di" bpmnElement="Task_NotifyCustomer" bioc:stroke="#1565C0" bioc:fill="#E3F2FD">
+      <bpmndi:BPMNShape xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" id="Task_NotifyCustomer_di" bpmnElement="Task_NotifyCustomer" bioc:stroke="#000000" bioc:fill="#FFFFFF">
         <dc:Bounds x="1240" y="480" width="165" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" id="Catch_CustomerReply_di" bpmnElement="Catch_CustomerReply" bioc:stroke="#F9A825" bioc:fill="#FFF8E1">
+      <bpmndi:BPMNShape xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" id="Catch_CustomerReply_di" bpmnElement="Catch_CustomerReply" bioc:stroke="#000000" bioc:fill="#FFFFFF">
         <dc:Bounds x="1440" y="502" width="36" height="36" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="1408" y="542" width="104" height="40" />
@@ -221,13 +221,13 @@
           <dc:Bounds x="1489" y="550" width="132" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" id="Task_RecordFailedAttempt_di" bpmnElement="Task_RecordFailedAttempt" bioc:stroke="#1565C0" bioc:fill="#E3F2FD">
+      <bpmndi:BPMNShape xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" id="Task_RecordFailedAttempt_di" bpmnElement="Task_RecordFailedAttempt" bioc:stroke="#000000" bioc:fill="#FFFFFF">
         <dc:Bounds x="1540" y="625" width="180" height="70" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" id="Task_DeliverPackage_di" bpmnElement="Task_DeliverPackage" bioc:stroke="#EF6C00" bioc:fill="#FFF3E0">
+      <bpmndi:BPMNShape xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" id="Task_DeliverPackage_di" bpmnElement="Task_DeliverPackage" bioc:stroke="#000000" bioc:fill="#FFFFFF">
         <dc:Bounds x="1650" y="480" width="165" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" id="Catch_DeliveryDecision_di" bpmnElement="Catch_DeliveryDecision" bioc:stroke="#F9A825" bioc:fill="#FFF8E1">
+      <bpmndi:BPMNShape xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" id="Catch_DeliveryDecision_di" bpmnElement="Catch_DeliveryDecision" bioc:stroke="#000000" bioc:fill="#FFFFFF">
         <dc:Bounds x="1850" y="502" width="36" height="36" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="1815" y="542" width="106" height="27" />
@@ -245,7 +245,7 @@
           <dc:Bounds x="2054" y="550" width="83" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" id="Task_CollectCOD_di" bpmnElement="Task_CollectCOD" bioc:stroke="#1565C0" bioc:fill="#E3F2FD">
+      <bpmndi:BPMNShape xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" id="Task_CollectCOD_di" bpmnElement="Task_CollectCOD" bioc:stroke="#000000" bioc:fill="#FFFFFF">
         <dc:Bounds x="2190" y="480" width="150" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Gateway_PaymentSuccess_di" bpmnElement="Gateway_PaymentSuccess" isMarkerVisible="true">
@@ -254,10 +254,10 @@
           <dc:Bounds x="2365" y="471" width="120" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" id="Task_ConfirmReceipt_di" bpmnElement="Task_ConfirmReceipt" bioc:stroke="#1565C0" bioc:fill="#E3F2FD">
+      <bpmndi:BPMNShape xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" id="Task_ConfirmReceipt_di" bpmnElement="Task_ConfirmReceipt" bioc:stroke="#000000" bioc:fill="#FFFFFF">
         <dc:Bounds x="2540" y="480" width="180" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" id="Task_UpdateFailed_di" bpmnElement="Task_UpdateFailed" bioc:stroke="#1565C0" bioc:fill="#E3F2FD">
+      <bpmndi:BPMNShape xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" id="Task_UpdateFailed_di" bpmnElement="Task_UpdateFailed" bioc:stroke="#000000" bioc:fill="#FFFFFF">
         <dc:Bounds x="2660" y="300" width="170" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="End_DeliveryFailed_di" bpmnElement="End_DeliveryFailed">
@@ -272,7 +272,7 @@
           <dc:Bounds x="2925" y="180" width="86" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" id="Task_RequestCorrection_di" bpmnElement="Task_RequestCorrection" bioc:stroke="#EF6C00" bioc:fill="#FFF3E0">
+      <bpmndi:BPMNShape xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" id="Task_RequestCorrection_di" bpmnElement="Task_RequestCorrection" bioc:stroke="#000000" bioc:fill="#FFFFFF">
         <dc:Bounds x="638" y="205" width="170" height="50" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Gateway_AttemptsLeft_di" bpmnElement="Gateway_AttemptsLeft" isMarkerVisible="true">
@@ -281,22 +281,22 @@
           <dc:Bounds x="1756" y="611" width="88" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" id="Task_ReturnPackage_di" bpmnElement="Task_ReturnPackage" bioc:stroke="#C62828" bioc:fill="#FFEBEE">
+      <bpmndi:BPMNShape xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" id="Task_ReturnPackage_di" bpmnElement="Task_ReturnPackage" bioc:stroke="#000000" bioc:fill="#FFFFFF">
         <dc:Bounds x="2730" y="605" width="170" height="70" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" id="Task_RecordPaymentFailure_di" bpmnElement="Task_RecordPaymentFailure" bioc:stroke="#1565C0" bioc:fill="#E3F2FD">
+      <bpmndi:BPMNShape xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" id="Task_RecordPaymentFailure_di" bpmnElement="Task_RecordPaymentFailure" bioc:stroke="#000000" bioc:fill="#FFFFFF">
         <dc:Bounds x="2337" y="565" width="175" height="70" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" id="Task_RecordRefusal_di" bpmnElement="Task_RecordRefusal" bioc:stroke="#1565C0" bioc:fill="#E3F2FD">
+      <bpmndi:BPMNShape xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" id="Task_RecordRefusal_di" bpmnElement="Task_RecordRefusal" bioc:stroke="#000000" bioc:fill="#FFFFFF">
         <dc:Bounds x="2072" y="605" width="175" height="70" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" id="Timer_Retry_di" bpmnElement="Timer_Retry" bioc:stroke="#C62828" bioc:fill="#FFEBEE">
+      <bpmndi:BPMNShape xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" id="Timer_Retry_di" bpmnElement="Timer_Retry" bioc:stroke="#000000" bioc:fill="#FFFFFF">
         <dc:Bounds x="1982" y="662" width="36" height="36" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="1942" y="702" width="120" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" id="Task_UpdateDelivered_di" bpmnElement="Task_UpdateDelivered" bioc:stroke="#1565C0" bioc:fill="#E3F2FD">
+      <bpmndi:BPMNShape xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" id="Task_UpdateDelivered_di" bpmnElement="Task_UpdateDelivered" bioc:stroke="#000000" bioc:fill="#FFFFFF">
         <dc:Bounds x="2765" y="120" width="170" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_Start_Validate_di" bpmnElement="Flow_Start_Validate">
@@ -500,7 +500,7 @@
           <dc:Bounds x="1157" y="912" width="103" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" id="Task_ConfirmAvailability_di" bpmnElement="Task_ConfirmAvailability" bioc:stroke="#F9A825" bioc:fill="#FFF8E1">
+      <bpmndi:BPMNShape xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" id="Task_ConfirmAvailability_di" bpmnElement="Task_ConfirmAvailability" bioc:stroke="#000000" bioc:fill="#FFFFFF">
         <dc:Bounds x="1270" y="850" width="170" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Catch_CustomerPackage_di" bpmnElement="Catch_CustomerPackage">
@@ -509,7 +509,7 @@
           <dc:Bounds x="1549" y="912" width="119" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" id="Task_InspectPackage_di" bpmnElement="Task_InspectPackage" bioc:stroke="#F9A825" bioc:fill="#FFF8E1">
+      <bpmndi:BPMNShape xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" id="Task_InspectPackage_di" bpmnElement="Task_InspectPackage" bioc:stroke="#000000" bioc:fill="#FFFFFF">
         <dc:Bounds x="1665" y="850" width="170" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Gateway_CustomerAccept_di" bpmnElement="Gateway_CustomerAccept" isMarkerVisible="true">
@@ -518,7 +518,7 @@
           <dc:Bounds x="1848" y="920" width="115" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" id="Task_SendRefusal_di" bpmnElement="Task_SendRefusal" bioc:stroke="#1565C0" bioc:fill="#E3F2FD">
+      <bpmndi:BPMNShape xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" id="Task_SendRefusal_di" bpmnElement="Task_SendRefusal" bioc:stroke="#000000" bioc:fill="#FFFFFF">
         <dc:Bounds x="1980" y="925" width="170" height="60" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="End_CustomerRefusal_di" bpmnElement="End_CustomerRefusal">
@@ -527,7 +527,7 @@
           <dc:Bounds x="2164" y="976" width="112" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" id="Task_SendAcceptance_di" bpmnElement="Task_SendAcceptance" bioc:stroke="#1565C0" bioc:fill="#E3F2FD">
+      <bpmndi:BPMNShape xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" id="Task_SendAcceptance_di" bpmnElement="Task_SendAcceptance" bioc:stroke="#000000" bioc:fill="#FFFFFF">
         <dc:Bounds x="1980" y="820" width="170" height="70" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Gateway_CustomerCOD_di" bpmnElement="Gateway_CustomerCOD" isMarkerVisible="true">
@@ -536,10 +536,10 @@
           <dc:Bounds x="2171" y="885" width="109" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" id="Task_PayCOD_di" bpmnElement="Task_PayCOD" bioc:stroke="#1565C0" bioc:fill="#E3F2FD">
+      <bpmndi:BPMNShape xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" id="Task_PayCOD_di" bpmnElement="Task_PayCOD" bioc:stroke="#000000" bioc:fill="#FFFFFF">
         <dc:Bounds x="2310" y="820" width="145" height="70" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" id="Task_ConfirmReceiptCustomer_di" bpmnElement="Task_ConfirmReceiptCustomer" bioc:stroke="#1565C0" bioc:fill="#E3F2FD">
+      <bpmndi:BPMNShape xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" id="Task_ConfirmReceiptCustomer_di" bpmnElement="Task_ConfirmReceiptCustomer" bioc:stroke="#000000" bioc:fill="#FFFFFF">
         <dc:Bounds x="2520" y="820" width="190" height="70" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="End_CustomerComplete_di" bpmnElement="End_CustomerComplete">
