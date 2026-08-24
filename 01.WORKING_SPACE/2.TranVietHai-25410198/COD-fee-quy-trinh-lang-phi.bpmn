@@ -365,7 +365,7 @@
       <incoming>Flow_0frlwgm</incoming>
       <outgoing>Flow_135l7j0</outgoing>
     </userTask>
-    <serviceTask id="Activity_16ymx8q" name="22. Xác nhận thông tin đơn hàng">
+    <serviceTask id="Activity_16ymx8q" name="22. Xác nhận thông tin đơn hàng và chuyển tiền">
       <incoming>Flow_135l7j0</incoming>
       <outgoing>Flow_0l3tjvn</outgoing>
     </serviceTask>
