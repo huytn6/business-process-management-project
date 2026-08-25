@@ -174,31 +174,31 @@ Gửi xác nhận và mã vận đơn</bpmn:text>
       <bpmndi:BPMNShape id="EndEvent_Recorded_di" bpmnElement="EndEvent_Recorded">
         <dc:Bounds x="2790.00" y="342.00" width="36.00" height="36.00" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Gateway_RequestEntry_di" bpmnElement="Gateway_RequestEntry">
+      <bpmndi:BPMNShape id="Gateway_RequestEntry_di" bpmnElement="Gateway_RequestEntry" isMarkerVisible="true">
         <dc:Bounds x="730.00" y="585.00" width="50.00" height="50.00" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Task_ValidateAndNormalize_di" bpmnElement="Task_ValidateAndNormalize">
         <dc:Bounds x="1013.00" y="570.00" width="160.00" height="80.00" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Gateway_InformationValid_di" bpmnElement="Gateway_InformationValid">
+      <bpmndi:BPMNShape id="Gateway_InformationValid_di" bpmnElement="Gateway_InformationValid" isMarkerVisible="true">
         <dc:Bounds x="1382.00" y="585.00" width="50.00" height="50.00" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Gateway_RecordJoin_di" bpmnElement="Gateway_RecordJoin">
+      <bpmndi:BPMNShape id="Gateway_RecordJoin_di" bpmnElement="Gateway_RecordJoin" isMarkerVisible="true">
         <dc:Bounds x="1498.00" y="585.00" width="50.00" height="50.00" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Task_RecordOrder_di" bpmnElement="Task_RecordOrder">
         <dc:Bounds x="1658.00" y="570.00" width="160.00" height="80.00" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Gateway_RecordAccepted_di" bpmnElement="Gateway_RecordAccepted">
+      <bpmndi:BPMNShape id="Gateway_RecordAccepted_di" bpmnElement="Gateway_RecordAccepted" isMarkerVisible="true">
         <dc:Bounds x="1911.00" y="585.00" width="50.00" height="50.00" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Task_CreateWaybill_di" bpmnElement="Task_CreateWaybill">
         <dc:Bounds x="2066.00" y="570.00" width="160.00" height="80.00" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Gateway_WaybillCreated_di" bpmnElement="Gateway_WaybillCreated">
+      <bpmndi:BPMNShape id="Gateway_WaybillCreated_di" bpmnElement="Gateway_WaybillCreated" isMarkerVisible="true">
         <dc:Bounds x="2324.00" y="585.00" width="50.00" height="50.00" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Gateway_ErrorJoin_di" bpmnElement="Gateway_ErrorJoin">
+      <bpmndi:BPMNShape id="Gateway_ErrorJoin_di" bpmnElement="Gateway_ErrorJoin" isMarkerVisible="true">
         <dc:Bounds x="1952.00" y="915.00" width="50.00" height="50.00" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Task_HandleCreationError_di" bpmnElement="Task_HandleCreationError">
