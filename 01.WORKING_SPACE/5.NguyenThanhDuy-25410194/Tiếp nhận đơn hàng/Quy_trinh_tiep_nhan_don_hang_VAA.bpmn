@@ -1,0 +1,418 @@
+<?xml version='1.0' encoding='utf-8'?>
+<bpmn:definitions xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_OrderIntake" targetNamespace="http://bpmn.io/schema/bpmn" exporter="BPMN order-intake reconstruction" exporterVersion="1.0">
+  <bpmn:collaboration id="Collaboration_OrderIntake">
+    <bpmn:participant id="Participant_Customer" name="Khách hàng / Đối tác" />
+    <bpmn:participant id="Participant_ViettelPost" name="Viettel Post" processRef="Process_OrderIntake" />
+    <bpmn:messageFlow id="MessageFlow_Request" name="Yêu cầu tạo đơn" sourceRef="Participant_Customer" targetRef="StartEvent_Request" />
+    <bpmn:messageFlow id="MessageFlow_RequestSupplement" name="Yêu cầu bổ sung thông tin" sourceRef="Task_RequestSupplement" targetRef="Participant_Customer" />
+    <bpmn:messageFlow id="MessageFlow_Supplement" name="Thông tin bổ sung" sourceRef="Participant_Customer" targetRef="Task_ReceiveSupplement" />
+    <bpmn:messageFlow id="MessageFlow_Confirmation" name="Xác nhận và mã vận đơn" sourceRef="Task_SendConfirmation" targetRef="Participant_Customer" />
+  </bpmn:collaboration>
+  <bpmn:process id="Process_OrderIntake" name="Quy trình tiếp nhận đơn hàng" isExecutable="false">
+    <bpmn:laneSet id="LaneSet_OrderIntake">
+      <bpmn:lane id="Lane_Channel" name="Kênh tiếp nhận / Nhân viên">
+        <bpmn:flowNodeRef>StartEvent_Request</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_ReceiveRequest</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_RequestSupplement</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_ReceiveSupplement</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_SendConfirmation</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>EndEvent_Recorded</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_OMS" name="Hệ thống OMS / API">
+        <bpmn:flowNodeRef>Gateway_RequestEntry</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_ValidateAndNormalize</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Gateway_InformationValid</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Gateway_RecordJoin</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_RecordOrder</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Gateway_RecordAccepted</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_CreateWaybill</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Gateway_WaybillCreated</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_CSKH" name="CSKH / Xử lý ngoại lệ">
+        <bpmn:flowNodeRef>Gateway_ErrorJoin</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_HandleCreationError</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_Pickup" name="Bộ phận nhận hàng / Thu gom (ngoài phạm vi)" />
+    </bpmn:laneSet>
+    <bpmn:startEvent id="StartEvent_Request" name="Yêu cầu đã nhận">
+      <bpmn:messageEventDefinition id="StartEvent_Request_definition" />
+    </bpmn:startEvent>
+    <bpmn:receiveTask id="Task_ReceiveRequest" name="Tiếp nhận yêu cầu tạo đơn" />
+    <bpmn:sendTask id="Task_RequestSupplement" name="Gửi yêu cầu bổ sung thông tin" />
+    <bpmn:receiveTask id="Task_ReceiveSupplement" name="Tiếp nhận thông tin đã bổ sung" />
+    <bpmn:sendTask id="Task_SendConfirmation" name="Gửi xác nhận và mã vận đơn" />
+    <bpmn:endEvent id="EndEvent_Recorded" name="Đơn đã được ghi nhận" />
+    <bpmn:exclusiveGateway id="Gateway_RequestEntry" name="" />
+    <bpmn:serviceTask id="Task_ValidateAndNormalize" name="Kiểm tra trường bắt buộc, định dạng và chuẩn hóa địa chỉ">
+      <bpmn:ioSpecification>
+        <bpmn:dataInput id="DataInput_Order" name="Dữ liệu đơn hàng đầu vào" />
+        <bpmn:inputSet id="Task_ValidateAndNormalize_InputSet">
+          <bpmn:dataInputRefs>DataInput_Order</bpmn:dataInputRefs>
+        </bpmn:inputSet>
+        <bpmn:outputSet id="Task_ValidateAndNormalize_OutputSet" />
+      </bpmn:ioSpecification>
+      <bpmn:dataInputAssociation id="DataAssociation_Validate_Read">
+        <bpmn:sourceRef>DataStore_OMS</bpmn:sourceRef>
+        <bpmn:targetRef>DataInput_Order</bpmn:targetRef>
+      </bpmn:dataInputAssociation>
+    </bpmn:serviceTask>
+    <bpmn:exclusiveGateway id="Gateway_InformationValid" name="Thông tin hợp lệ?" />
+    <bpmn:exclusiveGateway id="Gateway_RecordJoin" name="" />
+    <bpmn:serviceTask id="Task_RecordOrder" name="Ghi nhận đơn điện tử">
+      <bpmn:ioSpecification>
+        <bpmn:dataOutput id="DataOutput_Order" name="Dữ liệu đơn hàng đã ghi nhận" />
+        <bpmn:inputSet id="Task_RecordOrder_InputSet" />
+        <bpmn:outputSet id="Task_RecordOrder_OutputSet">
+          <bpmn:dataOutputRefs>DataOutput_Order</bpmn:dataOutputRefs>
+        </bpmn:outputSet>
+      </bpmn:ioSpecification>
+      <bpmn:dataOutputAssociation id="DataAssociation_Record_Write">
+        <bpmn:sourceRef>DataOutput_Order</bpmn:sourceRef>
+        <bpmn:targetRef>DataStore_OMS</bpmn:targetRef>
+      </bpmn:dataOutputAssociation>
+    </bpmn:serviceTask>
+    <bpmn:exclusiveGateway id="Gateway_RecordAccepted" name="" />
+    <bpmn:serviceTask id="Task_CreateWaybill" name="Khởi tạo mã vận đơn" />
+    <bpmn:exclusiveGateway id="Gateway_WaybillCreated" name="Tạo đơn thành công?" />
+    <bpmn:exclusiveGateway id="Gateway_ErrorJoin" name="" />
+    <bpmn:userTask id="Task_HandleCreationError" name="Tiếp nhận và xử lý lỗi tạo đơn" />
+    <bpmn:dataStoreReference id="DataStore_OMS" name="OMS / CSDL đơn hàng" />
+    <bpmn:sequenceFlow id="Flow_Start_Receive" sourceRef="StartEvent_Request" targetRef="Task_ReceiveRequest" name="Tiếp nhận yêu cầu" />
+    <bpmn:sequenceFlow id="Flow_Receive_Entry" sourceRef="Task_ReceiveRequest" targetRef="Gateway_RequestEntry" name="OMS" />
+    <bpmn:sequenceFlow id="Flow_Entry_Validate" sourceRef="Gateway_RequestEntry" targetRef="Task_ValidateAndNormalize" name="Kiểm tra" />
+    <bpmn:sequenceFlow id="Flow_Validate_Check" sourceRef="Task_ValidateAndNormalize" targetRef="Gateway_InformationValid" name="Kết quả" />
+    <bpmn:sequenceFlow id="Flow_Valid_RecordJoin" sourceRef="Gateway_InformationValid" targetRef="Gateway_RecordJoin" name="Có [92%]">
+      <bpmn:conditionExpression id="Flow_Valid_RecordJoin_condition" xsi:type="bpmn:tFormalExpression">Có [92%]</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_Invalid_RequestSupplement" sourceRef="Gateway_InformationValid" targetRef="Task_RequestSupplement" name="Không [8%]">
+      <bpmn:conditionExpression id="Flow_Invalid_RequestSupplement_condition" xsi:type="bpmn:tFormalExpression">Không [8%]</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_Request_ReceiveSupplement" sourceRef="Task_RequestSupplement" targetRef="Task_ReceiveSupplement" name="Bổ sung" />
+    <bpmn:sequenceFlow id="Flow_Supplement_Entry" sourceRef="Task_ReceiveSupplement" targetRef="Gateway_RequestEntry" name="Nhận bổ sung" />
+    <bpmn:sequenceFlow id="Flow_RecordJoin_Record" sourceRef="Gateway_RecordJoin" targetRef="Task_RecordOrder" name="Ghi nhận" />
+    <bpmn:sequenceFlow id="Flow_Record_Check" sourceRef="Task_RecordOrder" targetRef="Gateway_RecordAccepted" name="Kiểm tra" />
+    <bpmn:sequenceFlow id="Flow_Record_Create" sourceRef="Gateway_RecordAccepted" targetRef="Task_CreateWaybill" name="Có [95%]">
+      <bpmn:conditionExpression id="Flow_Record_Create_condition" xsi:type="bpmn:tFormalExpression">Có [95%]</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_Record_Error" sourceRef="Gateway_RecordAccepted" targetRef="Gateway_ErrorJoin" name="Không [5%]">
+      <bpmn:conditionExpression id="Flow_Record_Error_condition" xsi:type="bpmn:tFormalExpression">Không [5%]</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_ErrorJoin_Handle" sourceRef="Gateway_ErrorJoin" targetRef="Task_HandleCreationError" name="Xử lý lỗi" />
+    <bpmn:sequenceFlow id="Flow_Error_RecordJoin" sourceRef="Task_HandleCreationError" targetRef="Gateway_RecordJoin" name="Tạo lại" />
+    <bpmn:sequenceFlow id="Flow_Create_Check" sourceRef="Task_CreateWaybill" targetRef="Gateway_WaybillCreated" name="Kiểm tra mã" />
+    <bpmn:sequenceFlow id="Flow_Created_Notify" sourceRef="Gateway_WaybillCreated" targetRef="Task_SendConfirmation" name="Có [99.5%]">
+      <bpmn:conditionExpression id="Flow_Created_Notify_condition" xsi:type="bpmn:tFormalExpression">Có [99.5%]</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_Create_Error" sourceRef="Gateway_WaybillCreated" targetRef="Gateway_ErrorJoin" name="Không [0.5%]">
+      <bpmn:conditionExpression id="Flow_Create_Error_condition" xsi:type="bpmn:tFormalExpression">Không [0.5%]</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_Notify_End" sourceRef="Task_SendConfirmation" targetRef="EndEvent_Recorded" name="Xác nhận" />
+    <bpmn:textAnnotation id="VAA_Receive">
+      <bpmn:text>A1 - BVA
+Tiếp nhận yêu cầu tạo đơn</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:textAnnotation id="VAA_Validate">
+      <bpmn:text>A2 - BVA
+Kiểm tra và chuẩn hóa dữ liệu</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:textAnnotation id="VAA_Supplement">
+      <bpmn:text>A3 - NVA
+Yêu cầu bổ sung thông tin</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:textAnnotation id="VAA_Record">
+      <bpmn:text>A4 - VA
+Ghi nhận đơn điện tử</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:textAnnotation id="VAA_Waybill">
+      <bpmn:text>A5 - VA
+Khởi tạo mã vận đơn</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:textAnnotation id="VAA_Error">
+      <bpmn:text>A6 - NVA
+Xử lý lỗi và tạo lại</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:textAnnotation id="VAA_Confirm">
+      <bpmn:text>A7 - VA
+Gửi xác nhận và mã vận đơn</bpmn:text>
+    </bpmn:textAnnotation>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_OrderIntake">
+    <bpmndi:BPMNPlane id="BPMNPlane_OrderIntake" bpmnElement="Collaboration_OrderIntake">
+      <bpmndi:BPMNShape id="Participant_Customer_di" bpmnElement="Participant_Customer" isHorizontal="true">
+        <dc:Bounds x="160.00" y="80.00" width="2800.00" height="120.00" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Participant_ViettelPost_di" bpmnElement="Participant_ViettelPost" isHorizontal="true">
+        <dc:Bounds x="160.00" y="260.00" width="2800.00" height="1040.00" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_Channel_di" bpmnElement="Lane_Channel" isHorizontal="true">
+        <dc:Bounds x="190.00" y="260.00" width="2770.00" height="220.00" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_OMS_di" bpmnElement="Lane_OMS" isHorizontal="true">
+        <dc:Bounds x="190.00" y="480.00" width="2770.00" height="340.00" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_CSKH_di" bpmnElement="Lane_CSKH" isHorizontal="true">
+        <dc:Bounds x="190.00" y="820.00" width="2770.00" height="240.00" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_Pickup_di" bpmnElement="Lane_Pickup" isHorizontal="true">
+        <dc:Bounds x="190.00" y="1060.00" width="2770.00" height="240.00" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="StartEvent_Request_di" bpmnElement="StartEvent_Request">
+        <dc:Bounds x="320.00" y="342.00" width="36.00" height="36.00" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_ReceiveRequest_di" bpmnElement="Task_ReceiveRequest">
+        <dc:Bounds x="493.00" y="320.00" width="160.00" height="80.00" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_RequestSupplement_di" bpmnElement="Task_RequestSupplement">
+        <dc:Bounds x="1038.00" y="320.00" width="160.00" height="80.00" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_ReceiveSupplement_di" bpmnElement="Task_ReceiveSupplement">
+        <dc:Bounds x="778.00" y="320.00" width="160.00" height="80.00" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_SendConfirmation_di" bpmnElement="Task_SendConfirmation">
+        <dc:Bounds x="2500.00" y="320.00" width="160.00" height="80.00" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_Recorded_di" bpmnElement="EndEvent_Recorded">
+        <dc:Bounds x="2790.00" y="342.00" width="36.00" height="36.00" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_RequestEntry_di" bpmnElement="Gateway_RequestEntry">
+        <dc:Bounds x="730.00" y="585.00" width="50.00" height="50.00" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_ValidateAndNormalize_di" bpmnElement="Task_ValidateAndNormalize">
+        <dc:Bounds x="1013.00" y="570.00" width="160.00" height="80.00" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_InformationValid_di" bpmnElement="Gateway_InformationValid">
+        <dc:Bounds x="1382.00" y="585.00" width="50.00" height="50.00" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_RecordJoin_di" bpmnElement="Gateway_RecordJoin">
+        <dc:Bounds x="1498.00" y="585.00" width="50.00" height="50.00" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_RecordOrder_di" bpmnElement="Task_RecordOrder">
+        <dc:Bounds x="1658.00" y="570.00" width="160.00" height="80.00" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_RecordAccepted_di" bpmnElement="Gateway_RecordAccepted">
+        <dc:Bounds x="1911.00" y="585.00" width="50.00" height="50.00" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_CreateWaybill_di" bpmnElement="Task_CreateWaybill">
+        <dc:Bounds x="2066.00" y="570.00" width="160.00" height="80.00" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_WaybillCreated_di" bpmnElement="Gateway_WaybillCreated">
+        <dc:Bounds x="2324.00" y="585.00" width="50.00" height="50.00" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_ErrorJoin_di" bpmnElement="Gateway_ErrorJoin">
+        <dc:Bounds x="1952.00" y="915.00" width="50.00" height="50.00" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_HandleCreationError_di" bpmnElement="Task_HandleCreationError">
+        <dc:Bounds x="2153.00" y="900.00" width="160.00" height="80.00" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="DataStore_OMS_di" bpmnElement="DataStore_OMS">
+        <dc:Bounds x="1850.00" y="430.00" width="130.00" height="70.00" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_Start_Receive_di" bpmnElement="Flow_Start_Receive">
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="362.00" y="338.00" width="124.00" height="14.00" />
+        </bpmndi:BPMNLabel>
+        <di:waypoint x="356.00" y="360.00" />
+        <di:waypoint x="493.00" y="360.00" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_Receive_Entry_di" bpmnElement="Flow_Receive_Entry">
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="646.00" y="463.00" width="91.00" height="14.00" />
+        </bpmndi:BPMNLabel>
+        <di:waypoint x="653.00" y="360.00" />
+        <di:waypoint x="653.00" y="485.00" />
+        <di:waypoint x="730.00" y="485.00" />
+        <di:waypoint x="730.00" y="610.00" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_Entry_Validate_di" bpmnElement="Flow_Entry_Validate">
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="843.00" y="588.00" width="107.00" height="14.00" />
+        </bpmndi:BPMNLabel>
+        <di:waypoint x="780.00" y="610.00" />
+        <di:waypoint x="1013.00" y="610.00" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_Validate_Check_di" bpmnElement="Flow_Validate_Check">
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1208.00" y="588.00" width="140.00" height="14.00" />
+        </bpmndi:BPMNLabel>
+        <di:waypoint x="1173.00" y="610.00" />
+        <di:waypoint x="1382.00" y="610.00" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_Valid_RecordJoin_di" bpmnElement="Flow_Valid_RecordJoin">
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1320.00" y="550.00" width="149.00" height="14.00" />
+        </bpmndi:BPMNLabel>
+        <di:waypoint x="1432.00" y="610.00" />
+        <di:waypoint x="1498.00" y="610.00" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_Invalid_RequestSupplement_di" bpmnElement="Flow_Invalid_RequestSupplement">
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1184.00" y="470.00" width="157.00" height="14.00" />
+        </bpmndi:BPMNLabel>
+        <di:waypoint x="1407.00" y="585.00" />
+        <di:waypoint x="1407.00" y="492.00" />
+        <di:waypoint x="1118.00" y="492.00" />
+        <di:waypoint x="1118.00" y="400.00" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_Request_ReceiveSupplement_di" bpmnElement="Flow_Request_ReceiveSupplement">
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="961.00" y="291.00" width="124.00" height="14.00" />
+        </bpmndi:BPMNLabel>
+        <di:waypoint x="1038.00" y="360.00" />
+        <di:waypoint x="938.00" y="360.00" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_Supplement_Entry_di" bpmnElement="Flow_Supplement_Entry">
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="720.00" y="500.00" width="173.00" height="14.00" />
+        </bpmndi:BPMNLabel>
+        <di:waypoint x="858.00" y="400.00" />
+        <di:waypoint x="858.00" y="492.00" />
+        <di:waypoint x="755.00" y="492.00" />
+        <di:waypoint x="755.00" y="585.00" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_RecordJoin_Record_di" bpmnElement="Flow_RecordJoin_Record">
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1530.00" y="550.00" width="157.00" height="14.00" />
+        </bpmndi:BPMNLabel>
+        <di:waypoint x="1548.00" y="610.00" />
+        <di:waypoint x="1658.00" y="610.00" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_Record_Check_di" bpmnElement="Flow_Record_Check">
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1775.00" y="550.00" width="165.00" height="14.00" />
+        </bpmndi:BPMNLabel>
+        <di:waypoint x="1818.00" y="610.00" />
+        <di:waypoint x="1911.00" y="610.00" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_Record_Create_di" bpmnElement="Flow_Record_Create">
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1950.00" y="550.00" width="116.00" height="14.00" />
+        </bpmndi:BPMNLabel>
+        <di:waypoint x="1961.00" y="610.00" />
+        <di:waypoint x="2066.00" y="610.00" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_Record_Error_di" bpmnElement="Flow_Record_Error">
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1927.00" y="658.00" width="132.00" height="14.00" />
+        </bpmndi:BPMNLabel>
+        <di:waypoint x="1936.00" y="635.00" />
+        <di:waypoint x="1936.00" y="680.00" />
+        <di:waypoint x="2050.00" y="680.00" />
+        <di:waypoint x="2050.00" y="880.00" />
+        <di:waypoint x="1977.00" y="880.00" />
+        <di:waypoint x="1977.00" y="915.00" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_ErrorJoin_Handle_di" bpmnElement="Flow_ErrorJoin_Handle">
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2004.00" y="890.00" width="149.00" height="14.00" />
+        </bpmndi:BPMNLabel>
+        <di:waypoint x="2002.00" y="940.00" />
+        <di:waypoint x="2153.00" y="940.00" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_Error_RecordJoin_di" bpmnElement="Flow_Error_RecordJoin">
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1840.00" y="1000.00" width="116.00" height="14.00" />
+        </bpmndi:BPMNLabel>
+        <di:waypoint x="2233.00" y="980.00" />
+        <di:waypoint x="2233.00" y="1020.00" />
+        <di:waypoint x="1900.00" y="1020.00" />
+        <di:waypoint x="1900.00" y="700.00" />
+        <di:waypoint x="1523.00" y="700.00" />
+        <di:waypoint x="1523.00" y="635.00" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_Create_Check_di" bpmnElement="Flow_Create_Check">
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2225.00" y="550.00" width="140.00" height="14.00" />
+        </bpmndi:BPMNLabel>
+        <di:waypoint x="2226.00" y="610.00" />
+        <di:waypoint x="2324.00" y="610.00" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_Created_Notify_di" bpmnElement="Flow_Created_Notify">
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2386.00" y="438.00" width="157.00" height="14.00" />
+        </bpmndi:BPMNLabel>
+        <di:waypoint x="2349.00" y="585.00" />
+        <di:waypoint x="2349.00" y="460.00" />
+        <di:waypoint x="2580.00" y="460.00" />
+        <di:waypoint x="2580.00" y="400.00" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_Create_Error_di" bpmnElement="Flow_Create_Error">
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2142.00" y="758.00" width="165.00" height="14.00" />
+        </bpmndi:BPMNLabel>
+        <di:waypoint x="2349.00" y="635.00" />
+        <di:waypoint x="2349.00" y="780.00" />
+        <di:waypoint x="2100.00" y="780.00" />
+        <di:waypoint x="2100.00" y="915.00" />
+        <di:waypoint x="1977.00" y="915.00" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_Notify_End_di" bpmnElement="Flow_Notify_End">
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2646.00" y="297.00" width="140.00" height="14.00" />
+        </bpmndi:BPMNLabel>
+        <di:waypoint x="2660.00" y="360.00" />
+        <di:waypoint x="2790.00" y="360.00" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="MessageFlow_Request_di" bpmnElement="MessageFlow_Request">
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="346.00" y="264.00" width="198.00" height="14.00" />
+        </bpmndi:BPMNLabel>
+        <di:waypoint x="338.00" y="200.00" />
+        <di:waypoint x="338.00" y="342.00" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="MessageFlow_RequestSupplement_di" bpmnElement="MessageFlow_RequestSupplement">
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1126.00" y="253.00" width="297.00" height="14.00" />
+        </bpmndi:BPMNLabel>
+        <di:waypoint x="1118.00" y="320.00" />
+        <di:waypoint x="1118.00" y="200.00" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="MessageFlow_Supplement_di" bpmnElement="MessageFlow_Supplement">
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="866.00" y="253.00" width="240.00" height="14.00" />
+        </bpmndi:BPMNLabel>
+        <di:waypoint x="858.00" y="200.00" />
+        <di:waypoint x="858.00" y="320.00" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="MessageFlow_Confirmation_di" bpmnElement="MessageFlow_Confirmation">
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2588.00" y="253.00" width="281.00" height="14.00" />
+        </bpmndi:BPMNLabel>
+        <di:waypoint x="2580.00" y="320.00" />
+        <di:waypoint x="2580.00" y="200.00" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataAssociation_Validate_Read_di" bpmnElement="DataAssociation_Validate_Read">
+        <di:waypoint x="1915.00" y="430.00" />
+        <di:waypoint x="1915.00" y="400.00" />
+        <di:waypoint x="1093.00" y="400.00" />
+        <di:waypoint x="1093.00" y="570.00" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataAssociation_Record_Write_di" bpmnElement="DataAssociation_Record_Write">
+        <di:waypoint x="1738.00" y="570.00" />
+        <di:waypoint x="1738.00" y="550.00" />
+        <di:waypoint x="1915.00" y="550.00" />
+        <di:waypoint x="1915.00" y="500.00" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="VAA_Receive_di" bpmnElement="VAA_Receive" bioc:stroke="#0284c7" bioc:fill="#f0f9ff">
+        <dc:Bounds x="420.00" y="120.00" width="210.00" height="42.00" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="VAA_Validate_di" bpmnElement="VAA_Validate" bioc:stroke="#0284c7" bioc:fill="#f0f9ff">
+        <dc:Bounds x="980.00" y="700.00" width="250.00" height="42.00" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="VAA_Supplement_di" bpmnElement="VAA_Supplement" bioc:stroke="#0284c7" bioc:fill="#f0f9ff">
+        <dc:Bounds x="930.00" y="120.00" width="240.00" height="42.00" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="VAA_Record_di" bpmnElement="VAA_Record" bioc:stroke="#0284c7" bioc:fill="#f0f9ff">
+        <dc:Bounds x="1630.00" y="700.00" width="220.00" height="42.00" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="VAA_Waybill_di" bpmnElement="VAA_Waybill" bioc:stroke="#0284c7" bioc:fill="#f0f9ff">
+        <dc:Bounds x="1800.00" y="1100.00" width="220.00" height="42.00" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="VAA_Error_di" bpmnElement="VAA_Error" bioc:stroke="#0284c7" bioc:fill="#f0f9ff">
+        <dc:Bounds x="2110.00" y="1100.00" width="240.00" height="42.00" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="VAA_Confirm_di" bpmnElement="VAA_Confirm" bioc:stroke="#0284c7" bioc:fill="#f0f9ff">
+        <dc:Bounds x="2200.00" y="120.00" width="260.00" height="42.00" />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
