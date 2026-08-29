@@ -1,0 +1,20 @@
+{
+    "c:\\Users\\DAI LONG\\Downloads\\nyao_scalper_TESTER_FIXED.mq5": [
+        {
+            "file": "c:\\Users\\DAI LONG\\Downloads\\nyao_scalper_TESTER_FIXED.mq5",
+            "message": "file 'Include\\Include\\Controls\\Dialog.mqh' not found",
+            "range": {
+                "start": {
+                    "line": 24,
+                    "character": 9
+                },
+                "end": {
+                    "line": 24,
+                    "character": 109
+                }
+            },
+            "severity": "Error",
+            "code": "106"
+        }
+    ]
+}
