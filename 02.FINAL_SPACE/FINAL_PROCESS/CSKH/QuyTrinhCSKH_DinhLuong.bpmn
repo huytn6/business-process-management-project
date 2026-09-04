@@ -6,27 +6,27 @@
       <bpmn:text>T_proc = 15m | 15.625đ</bpmn:text>
     </bpmn:textAnnotation>
     <bpmn:textAnnotation id="Ann_DL_7">
-      <bpmn:text>T_proc = 15m | p=65%</bpmn:text>
+      <bpmn:text>T_proc = 15m | p=55,25%</bpmn:text>
     </bpmn:textAnnotation>
     <bpmn:textAnnotation id="Ann_DL_9">
       <bpmn:text>T_proc = 5m | 5.208đ</bpmn:text>
     </bpmn:textAnnotation>
     <bpmn:textAnnotation id="Ann_DL_10">
-      <bpmn:text>T_proc = 5m | 5.208đ</bpmn:text>
+      <bpmn:text>T_proc = 5m | 0đ</bpmn:text>
     </bpmn:textAnnotation>
     <bpmn:textAnnotation id="Ann_DL_12">
-      <bpmn:text>T_proc = 10m | 10.417đ</bpmn:text>
+      <bpmn:text>T_proc = 9m | 9.375đ</bpmn:text>
     </bpmn:textAnnotation>
     <bpmn:textAnnotation id="Ann_DL_1">
       <bpmn:text>T_proc = 5m | 0đ</bpmn:text>
     </bpmn:textAnnotation>
     <bpmn:association id="Assoc_Ann_DL_1" sourceRef="Task_GuiKhieuNai" targetRef="Ann_DL_1" />
     <bpmn:textAnnotation id="Ann_DL_2">
-      <bpmn:text>T_proc = 3m | 3.125đ</bpmn:text>
+      <bpmn:text>T_proc = 3,16m | 3.292đ</bpmn:text>
     </bpmn:textAnnotation>
     <bpmn:association id="Assoc_Ann_DL_2" sourceRef="Task_TiepNhan" targetRef="Ann_DL_2" />
     <bpmn:textAnnotation id="Ann_DL_3">
-      <bpmn:text>T_proc = 5m | 5.208đ</bpmn:text>
+      <bpmn:text>T_proc = 6,25m | 6.510đ</bpmn:text>
     </bpmn:textAnnotation>
     <bpmn:association id="Assoc_Ann_DL_3" sourceRef="Task_KiemTraDon" targetRef="Ann_DL_3" />
     <bpmn:textAnnotation id="Ann_DL_4">
@@ -38,7 +38,7 @@
     </bpmn:textAnnotation>
     <bpmn:association id="Assoc_Ann_DL_6" sourceRef="Task_TuVan" targetRef="Ann_DL_6" />
     <bpmn:textAnnotation id="Ann_DL_8">
-      <bpmn:text>T_proc = 10m | p=15%</bpmn:text>
+      <bpmn:text>T_proc = 10m | p=9,75%</bpmn:text>
     </bpmn:textAnnotation>
     <bpmn:association id="Assoc_Ann_DL_8" sourceRef="Task_TuChoiDenBu" targetRef="Ann_DL_8" />
     <bpmn:textAnnotation id="Ann_DL_11">
@@ -54,6 +54,10 @@
     <bpmn:association id="Assoc_Ann_DL_9" sourceRef="Task_ThongBao" targetRef="Ann_DL_9" />
     <bpmn:association id="Assoc_Ann_DL_10" sourceRef="Task_NhanPhanHoi" targetRef="Ann_DL_10" />
     <bpmn:association id="Assoc_Ann_DL_12" sourceRef="Task_ChiTra" targetRef="Ann_DL_12" />
+    <bpmn:textAnnotation id="Ann_DL_14">
+      <bpmn:text>T_proc = 5m | 0đ</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Assoc_Ann_DL_14" sourceRef="Task_CungCapLaiMa" targetRef="Ann_DL_14" />
   </bpmn:collaboration>
   <bpmn:process id="Process_CSKH" name="Quy trình Chăm sóc khách hàng (Dinh Luong)" isExecutable="false">
     <bpmn:laneSet id="LaneSet_Process_CSKH">
@@ -344,6 +348,9 @@
       <bpmndi:BPMNShape id="Ann_DL_1_di" bpmnElement="Ann_DL_1">
         <dc:Bounds x="340" y="105" width="110" height="30" />
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Ann_DL_14_di" bpmnElement="Ann_DL_14">
+        <dc:Bounds x="680" y="105" width="110" height="30" />
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Ann_DL_2_di" bpmnElement="Ann_DL_2">
         <dc:Bounds x="570" y="300" width="150" height="40" />
       </bpmndi:BPMNShape>
@@ -535,6 +542,10 @@
       <bpmndi:BPMNEdge id="Assoc_Ann_DL_1_di" bpmnElement="Assoc_Ann_DL_1">
         <di:waypoint x="395" y="165" />
         <di:waypoint x="395" y="135" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Assoc_Ann_DL_14_di" bpmnElement="Assoc_Ann_DL_14">
+        <di:waypoint x="735" y="165" />
+        <di:waypoint x="735" y="135" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Assoc_Ann_DL_2_di" bpmnElement="Assoc_Ann_DL_2">
         <di:waypoint x="625" y="360" />
