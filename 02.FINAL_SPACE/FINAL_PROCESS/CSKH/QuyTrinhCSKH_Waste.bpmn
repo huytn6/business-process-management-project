@@ -3,19 +3,19 @@
   <bpmn:collaboration id="Collaboration_Process_CSKH">
     <bpmn:participant id="Participant_ViettelPost" name="QUY TRÌNH CHĂM SÓC KHÁCH HÀNG – VIETTEL POST" processRef="Process_CSKH" />
     <bpmn:textAnnotation id="Ann_W_1">
-      <bpmn:text>W2: Lỗi sai mã đơn</bpmn:text>
+      <bpmn:text>Lỗi sai mã đơn</bpmn:text>
     </bpmn:textAnnotation>
     <bpmn:textAnnotation id="Ann_W_2">
       <bpmn:text>W2: Lỗi thiếu chứng từ</bpmn:text>
     </bpmn:textAnnotation>
     <bpmn:textAnnotation id="Ann_W_4">
-      <bpmn:text>W6: Tra cứu lặp lại</bpmn:text>
+      <bpmn:text>W3: Tra cứu lặp lại</bpmn:text>
     </bpmn:textAnnotation>
     <bpmn:textAnnotation id="Ann_W_3">
       <bpmn:text>W1: Chờ xác minh</bpmn:text>
     </bpmn:textAnnotation>
     <bpmn:textAnnotation id="Ann_W_5">
-      <bpmn:text>W1: Chờ phúc tra</bpmn:text>
+      <bpmn:text>Chờ phúc tra</bpmn:text>
     </bpmn:textAnnotation>
     <bpmn:association id="Assoc_Ann_W_5" sourceRef="Task_PhucTra" targetRef="Ann_W_5" />
     <bpmn:association id="Assoc_Ann_W_1" sourceRef="Task_CungCapLaiMa" targetRef="Ann_W_1" />
