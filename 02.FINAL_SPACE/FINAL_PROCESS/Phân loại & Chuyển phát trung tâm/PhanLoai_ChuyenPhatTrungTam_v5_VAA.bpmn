@@ -1,0 +1,951 @@
+<?xml version='1.0' encoding='UTF-8' standalone='yes'?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" xmlns:color="http://www.omg.org/spec/BPMN/non-normative/color/1.0" id="Definitions_PhanLoaiChuyenPhatTrungTam" targetNamespace="http://viettelpost.example/bpmn/phanloai-chuyenphat-trungtam" exporter="OpenAI Codex" exporterVersion="professional-layout-2.0">
+  <bpmn:collaboration id="Collaboration_1">
+    <bpmn:participant id="Participant_FEE" name="Bưu cục / Điểm tập kết &amp; xe feeder" processRef="Process_FEE"/>
+    <bpmn:participant id="Participant_HUB" name="Trung tâm khai thác Viettel Post" processRef="Process_HUB"/>
+    <bpmn:participant id="Participant_CAR" name="Đội vận tải liên tỉnh" processRef="Process_CAR"/>
+    <bpmn:messageFlow id="MsgFlow_F2B_IN1" name="Manifest bàn giao" sourceRef="F2B" targetRef="IN1"/>
+    <bpmn:messageFlow id="MsgFlow_OT6_C1" name="Thông báo bàn giao" sourceRef="OT6" targetRef="C1"/>
+    <bpmn:messageFlow id="MsgFlow_C2D_OW1" name="Xác nhận ký nhận" sourceRef="C2D" targetRef="OW1"/>
+    </bpmn:collaboration>
+  <bpmn:dataStore id="DataStore_WMS_TMS" name="Hệ thống WMS/TMS"/>
+  <bpmn:process id="Process_FEE" isExecutable="false">
+    <bpmn:startEvent id="F1" name="Xe feeder đã đến hub">
+      <bpmn:outgoing>Flow_F1_F2A</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:manualTask id="F2A" name="Bàn giao bưu gửi">
+      <bpmn:incoming>Flow_F1_F2A</bpmn:incoming>
+      <bpmn:outgoing>Flow_F2A_F2B</bpmn:outgoing>
+    </bpmn:manualTask>
+    <bpmn:sendTask id="F2B" name="Gửi manifest bàn giao">
+      <bpmn:incoming>Flow_F2A_F2B</bpmn:incoming>
+      <bpmn:outgoing>Flow_F2B_F3</bpmn:outgoing>
+    </bpmn:sendTask>
+    <bpmn:endEvent id="F3" name="Bưu gửi đã được bàn giao">
+      <bpmn:incoming>Flow_F2B_F3</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_F1_F2A" name="Đã đến hub" sourceRef="F1" targetRef="F2A"/>
+    <bpmn:sequenceFlow id="Flow_F2A_F2B" name="Đã bàn giao vật lý" sourceRef="F2A" targetRef="F2B"/>
+    <bpmn:sequenceFlow id="Flow_F2B_F3" name="Đã gửi manifest" sourceRef="F2B" targetRef="F3"/>
+  </bpmn:process>
+  <bpmn:process id="Process_HUB" isExecutable="false">
+    <bpmn:laneSet id="LaneSet_HUB">
+      <bpmn:lane id="Lane_IN" name="Inbound &amp; Kiểm soát bàn giao">
+        <bpmn:flowNodeRef>IN1</bpmn:flowNodeRef><bpmn:flowNodeRef>IN2</bpmn:flowNodeRef><bpmn:flowNodeRef>GW1</bpmn:flowNodeRef><bpmn:flowNodeRef>GWJ1</bpmn:flowNodeRef><bpmn:flowNodeRef>IN3</bpmn:flowNodeRef><bpmn:flowNodeRef>GW2</bpmn:flowNodeRef><bpmn:flowNodeRef>IN4</bpmn:flowNodeRef><bpmn:flowNodeRef>IN5</bpmn:flowNodeRef></bpmn:lane>
+      <bpmn:lane id="Lane_DWS" name="DWS &amp; Hệ thống chia chọn">
+        <bpmn:flowNodeRef>DT0</bpmn:flowNodeRef><bpmn:flowNodeRef>DT1</bpmn:flowNodeRef><bpmn:flowNodeRef>GW3</bpmn:flowNodeRef><bpmn:flowNodeRef>GW4</bpmn:flowNodeRef><bpmn:flowNodeRef>GWJ2</bpmn:flowNodeRef><bpmn:flowNodeRef>DT2</bpmn:flowNodeRef><bpmn:flowNodeRef>GW5</bpmn:flowNodeRef><bpmn:flowNodeRef>DT3</bpmn:flowNodeRef><bpmn:flowNodeRef>DT4</bpmn:flowNodeRef></bpmn:lane>
+      <bpmn:lane id="Lane_EXC" name="Khai thác ngoại lệ / An ninh">
+        <bpmn:flowNodeRef>EX1</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>EE1</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>EX2</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>EE2</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_OUT" name="Outbound &amp; Điều vận">
+        <bpmn:flowNodeRef>OJ1</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>SUB_STAGE</bpmn:flowNodeRef><bpmn:flowNodeRef>OT2</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>SUB_RECON</bpmn:flowNodeRef><bpmn:flowNodeRef>OT6</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>OW1</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>OE1</bpmn:flowNodeRef>
+      </bpmn:lane>
+    </bpmn:laneSet>
+    <bpmn:dataStoreReference id="DS1" name="Hệ thống WMS/TMS" dataStoreRef="DataStore_WMS_TMS"/>
+    <bpmn:dataStoreReference id="DS2" name="Hệ thống WMS/TMS" dataStoreRef="DataStore_WMS_TMS"/>
+    <bpmn:startEvent id="IN1" name="Manifest đã được bàn giao">
+      <bpmn:outgoing>Flow_IN1_IN2</bpmn:outgoing>
+      <bpmn:messageEventDefinition id="MsgDef_IN1"/>
+    </bpmn:startEvent>
+    <bpmn:userTask id="IN2" name="Kiểm tra bàn giao &amp; niêm phong">
+      <bpmn:incoming>Flow_IN1_IN2</bpmn:incoming>
+      <bpmn:outgoing>Flow_IN2_GW1</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:exclusiveGateway id="GW1" name="Bàn giao khớp?" default="Flow_GW1_GWJ1">
+      <bpmn:incoming>Flow_IN2_GW1</bpmn:incoming>
+      <bpmn:outgoing>Flow_GW1_GWJ1</bpmn:outgoing>
+      <bpmn:outgoing>Flow_GW1_EX1</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:serviceTask id="IN5" name="Ghi trạng thái đến hub vào WMS">
+      <bpmn:incoming>Flow_GW2_IN5</bpmn:incoming><bpmn:outgoing>Flow_IN5_DT0</bpmn:outgoing>
+      <bpmn:property id="Property_IN5_StatusArrived" name="Trạng thái đến hub"/>
+      <bpmn:dataOutputAssociation id="DataOut_IN5_DS1">
+        <bpmn:documentation>Ghi "Trạng thái đến hub" vào WMS/TMS.</bpmn:documentation>
+        <bpmn:sourceRef>Property_IN5_StatusArrived</bpmn:sourceRef>
+        <bpmn:targetRef>DS1</bpmn:targetRef>
+      </bpmn:dataOutputAssociation>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="DT0" name="Đọc dữ liệu khai báo từ WMS">
+      <bpmn:incoming>Flow_IN5_DT0</bpmn:incoming>
+      <bpmn:outgoing>Flow_DT0_DT1</bpmn:outgoing>
+      <bpmn:property id="Property_DT0_DeclarationData" name="Dữ liệu khai báo"/>
+      <bpmn:dataInputAssociation id="DataIn_DS1_DT0">
+        <bpmn:documentation>Đọc "Dữ liệu khai báo" (đã tồn tại từ trước, ngoài phạm vi quy trình này) từ WMS/TMS.</bpmn:documentation>
+        <bpmn:sourceRef>DS1</bpmn:sourceRef>
+        <bpmn:targetRef>Property_DT0_DeclarationData</bpmn:targetRef>
+      </bpmn:dataInputAssociation>
+    </bpmn:serviceTask>
+    <bpmn:subProcess id="DT1" name="Kiểm tra bưu gửi bằng DWS">
+      <bpmn:incoming>Flow_DT0_DT1</bpmn:incoming>
+      <bpmn:outgoing>Flow_DT1_GW3</bpmn:outgoing>
+      <bpmn:startEvent id="DT1_S" name="Bưu gửi đã đến DWS">
+        <bpmn:outgoing>Flow_DT1S_DT1a</bpmn:outgoing>
+      </bpmn:startEvent>
+      <bpmn:serviceTask id="DT1a" name="Quét mã tại DWS">
+        <bpmn:incoming>Flow_DT1S_DT1a</bpmn:incoming>
+        <bpmn:outgoing>Flow_DT1a_DT1b</bpmn:outgoing>
+      </bpmn:serviceTask>
+      <bpmn:serviceTask id="DT1b" name="Cân đo kích thước">
+        <bpmn:incoming>Flow_DT1a_DT1b</bpmn:incoming>
+        <bpmn:outgoing>Flow_DT1b_DT1c</bpmn:outgoing>
+      </bpmn:serviceTask>
+      <bpmn:serviceTask id="DT1c" name="Đối chiếu khai báo">
+        <bpmn:incoming>Flow_DT1b_DT1c</bpmn:incoming>
+        <bpmn:outgoing>Flow_DT1c_DT1d</bpmn:outgoing>
+      </bpmn:serviceTask>
+      <bpmn:userTask id="DT1d" name="Soi chiếu &amp; kiểm tra bao bì">
+        <bpmn:incoming>Flow_DT1c_DT1d</bpmn:incoming>
+        <bpmn:outgoing>Flow_DT1d_DT1E</bpmn:outgoing>
+      </bpmn:userTask>
+      <bpmn:endEvent id="DT1_E" name="Bưu gửi đã được kiểm tra DWS">
+        <bpmn:incoming>Flow_DT1d_DT1E</bpmn:incoming>
+      </bpmn:endEvent>
+      <bpmn:sequenceFlow id="Flow_DT1S_DT1a" name="Bắt đầu" sourceRef="DT1_S" targetRef="DT1a"/>
+      <bpmn:sequenceFlow id="Flow_DT1a_DT1b" name="Đã quét" sourceRef="DT1a" targetRef="DT1b"/>
+      <bpmn:sequenceFlow id="Flow_DT1b_DT1c" name="Đã cân đo" sourceRef="DT1b" targetRef="DT1c"/>
+      <bpmn:sequenceFlow id="Flow_DT1c_DT1d" name="Đã đối chiếu" sourceRef="DT1c" targetRef="DT1d"/>
+      <bpmn:sequenceFlow id="Flow_DT1d_DT1E" name="Đã soi chiếu" sourceRef="DT1d" targetRef="DT1_E"/>
+    </bpmn:subProcess>
+    <bpmn:exclusiveGateway id="GW3" name="Hàng cấm / nguy hiểm?" default="Flow_GW3_GW4">
+      <bpmn:incoming>Flow_DT1_GW3</bpmn:incoming>
+      <bpmn:outgoing>Flow_GW3_GW4</bpmn:outgoing>
+      <bpmn:outgoing>Flow_GW3_EX2</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:exclusiveGateway id="GW4" name="Hàng đặc biệt được phép?" default="Flow_GW4_GWJ2">
+      <bpmn:incoming>Flow_GW3_GW4</bpmn:incoming>
+      <bpmn:outgoing>Flow_GW4_GWJ2</bpmn:outgoing>
+      <bpmn:outgoing>Flow_GW4_DT3</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:userTask id="DT3" name="Phân loại và xác nhận đúng tuyến thủ công (hàng đặc biệt)">
+      <bpmn:incoming>Flow_GW4_DT3</bpmn:incoming>
+      <bpmn:outgoing>Flow_DT3_OJ1</bpmn:outgoing></bpmn:userTask>
+    <bpmn:userTask id="EX1" name="Cách ly &amp; lập biên bản sai lệch">
+      <bpmn:incoming>Flow_GW1_EX1</bpmn:incoming>
+      <bpmn:outgoing>Flow_EX1_EE1</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:endEvent id="EE1" name="Lô hàng đã bị cách ly do sai lệch">
+      <bpmn:incoming>Flow_EX1_EE1</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:userTask id="EX2" name="Cách ly &amp; lập biên bản hàng cấm/nguy hiểm">
+      <bpmn:incoming>Flow_GW3_EX2</bpmn:incoming>
+      <bpmn:outgoing>Flow_EX2_EE2</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:endEvent id="EE2" name="Hàng cấm/nguy hiểm đã được cách ly">
+      <bpmn:incoming>Flow_EX2_EE2</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:exclusiveGateway id="OJ1" name="Hợp nhất luồng phân loại">
+      <bpmn:incoming>Flow_DT3_OJ1</bpmn:incoming>
+      <bpmn:incoming>Flow_GW5_OJ1</bpmn:incoming><bpmn:outgoing>Flow_OJ1_OT1</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:subProcess id="SUB_STAGE" name="Tập kết theo tuyến"><bpmn:incoming>Flow_OJ1_OT1</bpmn:incoming><bpmn:outgoing>Flow_SUBSTAGE_OT2</bpmn:outgoing><bpmn:startEvent id="STAGE_S" name="Lô hàng đã sẵn sàng tập kết"><bpmn:outgoing>Flow_STAGES_OT1</bpmn:outgoing></bpmn:startEvent><bpmn:userTask id="OT1" name="Tập kết &amp; đối chiếu kế hoạch xuất tuyến">
+      <bpmn:incoming>Flow_STAGES_OT1</bpmn:incoming><bpmn:outgoing>Flow_OT1_GWJ3</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="Flow_OT1_GWJ3" name="Tập kết" sourceRef="OT1" targetRef="STAGE_JOIN"/>
+    <bpmn:exclusiveGateway id="STAGE_JOIN" name="Hợp nhất luồng xuất tuyến"><bpmn:incoming>Flow_OT1_GWJ3</bpmn:incoming><bpmn:incoming>Flow_TM1_GWJ3</bpmn:incoming><bpmn:outgoing>Flow_GWJ3_OTPLAN</bpmn:outgoing></bpmn:exclusiveGateway><bpmn:serviceTask id="OT_READPLAN" name="Đọc kế hoạch chuyến kế tiếp từ TMS">
+      <bpmn:incoming>Flow_GWJ3_OTPLAN</bpmn:incoming>
+      <bpmn:outgoing>Flow_OTPLAN_GW6</bpmn:outgoing>
+      <bpmn:property id="Property_OTPLAN_TripPlanInput" name="Kế hoạch chuyến kế tiếp"/>
+      <bpmn:dataInputAssociation id="DataIn_DS2_OTPLAN">
+        <bpmn:documentation>Đọc property "Kế hoạch chuyến kế tiếp" (kế hoạch line-haul do bộ phận điều vận/TMS lập từ trước, ngoài phạm vi quy trình này – tương tự cách DT0 đọc "Dữ liệu khai báo") từ WMS/TMS – KHÔNG đọc property "Manifest lô hàng" (do OT5A ghi) cũng đang lưu trên cùng Data Store.</bpmn:documentation>
+        <bpmn:sourceRef>DS2</bpmn:sourceRef>
+        <bpmn:targetRef>Property_OTPLAN_TripPlanInput</bpmn:targetRef>
+      </bpmn:dataInputAssociation>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_OTPLAN_GW6" name="Đã đọc kế hoạch" sourceRef="OT_READPLAN" targetRef="GW6"/>
+    <bpmn:exclusiveGateway id="GW6" name="Đủ điều kiện xuất tuyến?" default="Flow_GW6_OT2">
+      <bpmn:incoming>Flow_OTPLAN_GW6</bpmn:incoming>
+      <bpmn:outgoing>Flow_GW6_OT2</bpmn:outgoing>
+      <bpmn:outgoing>Flow_GW6_TM1</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:intermediateCatchEvent id="TM1" name="Thời gian chờ đã kết thúc (~20 phút)">
+      <bpmn:incoming>Flow_GW6_TM1</bpmn:incoming>
+      <bpmn:outgoing>Flow_TM1_GWJ3</bpmn:outgoing><bpmn:timerEventDefinition id="TimerDef_TM1">
+        <bpmn:timeDuration xsi:type="bpmn:tFormalExpression">PT20M</bpmn:timeDuration>
+      </bpmn:timerEventDefinition>
+    </bpmn:intermediateCatchEvent>
+    <bpmn:endEvent id="STAGE_E" name="Lô hàng đủ điều kiện xuất tuyến"><bpmn:incoming>Flow_GW6_OT2</bpmn:incoming></bpmn:endEvent><bpmn:sequenceFlow id="Flow_STAGES_OT1" sourceRef="STAGE_S" targetRef="OT1" name="Bắt đầu"/><bpmn:sequenceFlow id="Flow_GWJ3_OTPLAN" name="Sẵn sàng" sourceRef="STAGE_JOIN" targetRef="OT_READPLAN"/>
+    <bpmn:sequenceFlow id="Flow_GW6_OT2" name="Đủ (80%*)" sourceRef="GW6" targetRef="STAGE_E"/>
+    <bpmn:sequenceFlow id="Flow_GW6_TM1" name="Chưa đủ (20%*)" sourceRef="GW6" targetRef="TM1">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${duDieuKienXuatTuyen == false}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_TM1_GWJ3" sourceRef="TM1" targetRef="STAGE_JOIN" name="Đến giờ kiểm tra lại"/></bpmn:subProcess><bpmn:subProcess id="OT2" name="Đóng bao/container">
+      <bpmn:incoming>Flow_SUBSTAGE_OT2</bpmn:incoming><bpmn:outgoing>Flow_OT2_OJ2</bpmn:outgoing>
+      <bpmn:startEvent id="OT2_S" name="Lô hàng đã đủ điều kiện đóng bao">
+        <bpmn:outgoing>Flow_OT2S_OT2a</bpmn:outgoing>
+      </bpmn:startEvent>
+      <bpmn:userTask id="OT2a" name="Tạo mã bao/container">
+        <bpmn:incoming>Flow_OT2S_OT2a</bpmn:incoming>
+        <bpmn:outgoing>Flow_OT2a_OT2b</bpmn:outgoing>
+      </bpmn:userTask>
+      <bpmn:userTask id="OT2b" name="Quét liên kết kiện vào bao/container">
+        <bpmn:incoming>Flow_OT2a_OT2b</bpmn:incoming>
+        <bpmn:outgoing>Flow_OT2b_OT2c</bpmn:outgoing>
+      </bpmn:userTask>
+      <bpmn:userTask id="OT2c" name="Kiểm tra số lượng &amp; khối lượng">
+        <bpmn:incoming>Flow_OT2b_OT2c</bpmn:incoming>
+        <bpmn:outgoing>Flow_OT2c_OT2d</bpmn:outgoing>
+      </bpmn:userTask>
+      <bpmn:userTask id="OT2d" name="Ghi số seal">
+        <bpmn:incoming>Flow_OT2c_OT2d</bpmn:incoming>
+        <bpmn:outgoing>Flow_OT2d_OT2e</bpmn:outgoing>
+      </bpmn:userTask>
+      <bpmn:manualTask id="OT2e" name="Niêm phong bao/container">
+        <bpmn:incoming>Flow_OT2d_OT2e</bpmn:incoming>
+        <bpmn:outgoing>Flow_OT2e_OT2E</bpmn:outgoing>
+      </bpmn:manualTask>
+      <bpmn:endEvent id="OT2_E" name="Bao/container đã được niêm phong">
+        <bpmn:incoming>Flow_OT2e_OT2E</bpmn:incoming>
+      </bpmn:endEvent>
+      <bpmn:sequenceFlow id="Flow_OT2S_OT2a" name="Bắt đầu" sourceRef="OT2_S" targetRef="OT2a"/>
+      <bpmn:sequenceFlow id="Flow_OT2a_OT2b" name="Đã tạo mã" sourceRef="OT2a" targetRef="OT2b"/>
+      <bpmn:sequenceFlow id="Flow_OT2b_OT2c" name="Đã liên kết" sourceRef="OT2b" targetRef="OT2c"/>
+      <bpmn:sequenceFlow id="Flow_OT2c_OT2d" name="Đã kiểm tra" sourceRef="OT2c" targetRef="OT2d"/>
+      <bpmn:sequenceFlow id="Flow_OT2d_OT2e" name="Đã ghi seal" sourceRef="OT2d" targetRef="OT2e"/>
+      <bpmn:sequenceFlow id="Flow_OT2e_OT2E" name="Đã niêm phong" sourceRef="OT2e" targetRef="OT2_E"/>
+    </bpmn:subProcess>
+    <bpmn:subProcess id="SUB_RECON" name="Đối soát &amp; đóng manifest"><bpmn:incoming>Flow_OT2_OJ2</bpmn:incoming><bpmn:outgoing>Flow_SUBRECON_OT6</bpmn:outgoing><bpmn:startEvent id="RECON_S" name="Bao/container đã đóng xong"><bpmn:outgoing>Flow_RECONS_JOIN</bpmn:outgoing></bpmn:startEvent><bpmn:exclusiveGateway id="RECON_JOIN" name="Hợp nhất luồng đối soát"><bpmn:incoming>Flow_RECONS_JOIN</bpmn:incoming><bpmn:incoming>Flow_OT4_OJ2</bpmn:incoming><bpmn:outgoing>Flow_OJ2_OT3</bpmn:outgoing></bpmn:exclusiveGateway><bpmn:userTask id="OT3" name="Đối soát số liệu bao/container">
+      <bpmn:incoming>Flow_OJ2_OT3</bpmn:incoming>
+      <bpmn:outgoing>Flow_OT3_GW7</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:exclusiveGateway id="GW7" name="Đối soát khớp?" default="Flow_GW7_OT5">
+      <bpmn:incoming>Flow_OT3_GW7</bpmn:incoming>
+      <bpmn:outgoing>Flow_GW7_OT5</bpmn:outgoing>
+      <bpmn:outgoing>Flow_GW7_OT4</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:userTask id="OT4" name="Mở kiểm tra &amp; đối soát lại">
+      <bpmn:incoming>Flow_GW7_OT4</bpmn:incoming>
+      <bpmn:outgoing>Flow_OT4_OJ2</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:userTask id="OT5" name="Đóng manifest lô hàng">
+      <bpmn:incoming>Flow_GW7_OT5</bpmn:incoming>
+      <bpmn:outgoing>Flow_OT5_OT5A</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:serviceTask id="OT5A" name="Ghi manifest vào WMS/TMS">
+      <bpmn:incoming>Flow_OT5_OT5A</bpmn:incoming>
+      <bpmn:outgoing>Flow_OT5A_OT6</bpmn:outgoing>
+      <bpmn:property id="Property_OT5A_ManifestOutput" name="Manifest lô hàng"/>
+      <bpmn:dataOutputAssociation id="DataOut_OT5A_DS2">
+        <bpmn:documentation>Ghi property "Manifest lô hàng" vào WMS/TMS; đội vận tải đọc lại qua DS3 tại bước C2G.</bpmn:documentation>
+        <bpmn:sourceRef>Property_OT5A_ManifestOutput</bpmn:sourceRef>
+        <bpmn:targetRef>DS2</bpmn:targetRef>
+      </bpmn:dataOutputAssociation>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_OT3_GW7" name="Hoàn tất" sourceRef="OT3" targetRef="GW7"/>
+    <bpmn:sequenceFlow id="Flow_OT5_OT5A" name="Đã đóng manifest" sourceRef="OT5" targetRef="OT5A"/>
+    <bpmn:endEvent id="RECON_E" name="Manifest đã được đóng"><bpmn:incoming>Flow_OT5A_OT6</bpmn:incoming></bpmn:endEvent><bpmn:sequenceFlow id="Flow_RECONS_JOIN" sourceRef="RECON_S" targetRef="RECON_JOIN" name="Bắt đầu"/><bpmn:sequenceFlow id="Flow_OJ2_OT3" name="Sẵn sàng" sourceRef="RECON_JOIN" targetRef="OT3"/>
+    <bpmn:sequenceFlow id="Flow_GW7_OT5" name="Khớp (97%)" sourceRef="GW7" targetRef="OT5"/>
+    <bpmn:sequenceFlow id="Flow_GW7_OT4" name="Chưa khớp (3%)" sourceRef="GW7" targetRef="OT4">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${doiSoatKhop == false}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_OT5A_OT6" name="Đã ghi manifest" sourceRef="OT5A" targetRef="RECON_E"/>
+    <bpmn:sequenceFlow id="Flow_OT4_OJ2" name="Đối soát lại" sourceRef="OT4" targetRef="RECON_JOIN"/>
+    </bpmn:subProcess><bpmn:sendTask id="OT6" name="Thông báo sẵn sàng bàn giao lô hàng">
+      <bpmn:incoming>Flow_SUBRECON_OT6</bpmn:incoming><bpmn:outgoing>Flow_OT6_OW1</bpmn:outgoing>
+    </bpmn:sendTask>
+    <bpmn:intermediateCatchEvent id="OW1" name="Xác nhận bàn giao đã được tiếp nhận">
+      <bpmn:incoming>Flow_OT6_OW1</bpmn:incoming>
+      <bpmn:outgoing>Flow_OW1_OE1</bpmn:outgoing>
+      <bpmn:messageEventDefinition id="MsgDef_OW1"/>
+    </bpmn:intermediateCatchEvent>
+    <bpmn:endEvent id="OE1" name="Bưu gửi đã được bàn giao thành công">
+      <bpmn:incoming>Flow_OW1_OE1</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_IN1_IN2" name="Bắt đầu" sourceRef="IN1" targetRef="IN2"/>
+    <bpmn:sequenceFlow id="Flow_IN2_GW1" name="Hoàn tất" sourceRef="IN2" targetRef="GW1"/>
+    <bpmn:sequenceFlow id="Flow_GW1_GWJ1" name="Khớp (99%)" sourceRef="GW1" targetRef="GWJ1"/>
+    <bpmn:sequenceFlow id="Flow_GW1_EX1" name="Không khớp (1%)" sourceRef="GW1" targetRef="EX1">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${banGiaoKhop == false}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_EX1_EE1" name="Cách ly" sourceRef="EX1" targetRef="EE1"/>
+    <bpmn:sequenceFlow id="Flow_IN5_DT0" name="Đã ghi trạng thái" sourceRef="IN5" targetRef="DT0"/>
+    <bpmn:sequenceFlow id="Flow_DT0_DT1" name="Đã đọc dữ liệu" sourceRef="DT0" targetRef="DT1"/>
+    <bpmn:sequenceFlow id="Flow_DT1_GW3" name="Đã kiểm tra" sourceRef="DT1" targetRef="GW3"/>
+    <bpmn:sequenceFlow id="Flow_GW3_GW4" name="Không (99%)" sourceRef="GW3" targetRef="GW4"/>
+    <bpmn:sequenceFlow id="Flow_GW3_EX2" name="Có (1%)" sourceRef="GW3" targetRef="EX2">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${hangCamNguyHiem == true}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_EX2_EE2" name="Cách ly" sourceRef="EX2" targetRef="EE2"/>
+    <bpmn:sequenceFlow id="Flow_GW4_GWJ2" name="Không (95,96%)" sourceRef="GW4" targetRef="GWJ2"/>
+    <bpmn:sequenceFlow id="Flow_GW4_DT3" name="Có (4,04%)" sourceRef="GW4" targetRef="DT3">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${hangDacBietDuocPhep == true}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_DT3_OJ1" name="Đã xác nhận đúng tuyến" sourceRef="DT3" targetRef="OJ1"/>
+    <bpmn:sequenceFlow id="Flow_OJ1_OT1" name="Hợp lệ" sourceRef="OJ1" targetRef="SUB_STAGE"/>
+    <bpmn:sequenceFlow id="Flow_OT2_OJ2" name="Đã đóng bao" sourceRef="OT2" targetRef="SUB_RECON"/>
+    <bpmn:sequenceFlow id="Flow_OT6_OW1" name="Đã gửi" sourceRef="OT6" targetRef="OW1"/>
+    <bpmn:sequenceFlow id="Flow_OW1_OE1" name="Đã xác nhận" sourceRef="OW1" targetRef="OE1"/>
+    <bpmn:sequenceFlow id="Flow_SUBSTAGE_OT2" sourceRef="SUB_STAGE" targetRef="OT2" name="Đủ điều kiện"/><bpmn:sequenceFlow id="Flow_SUBRECON_OT6" sourceRef="SUB_RECON" targetRef="OT6" name="Manifest sẵn sàng"/><bpmn:userTask id="IN3" name="Quét mã vận đơn">
+      <bpmn:incoming>Flow_GWJ1_IN3</bpmn:incoming>
+      <bpmn:outgoing>Flow_IN3_GW2</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:exclusiveGateway id="GW2" name="Mã đọc được?" default="Flow_GW2_IN5">
+      <bpmn:incoming>Flow_IN3_GW2</bpmn:incoming>
+      <bpmn:outgoing>Flow_GW2_IN5</bpmn:outgoing>
+      <bpmn:outgoing>Flow_GW2_IN4</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:userTask id="IN4" name="Nhận dạng &amp; dán lại nhãn">
+      <bpmn:incoming>Flow_GW2_IN4</bpmn:incoming>
+      <bpmn:outgoing>Flow_IN4_GWJ1</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:exclusiveGateway id="GWJ1" name="Hợp nhất luồng đọc mã"><bpmn:incoming>Flow_IN4_GWJ1</bpmn:incoming><bpmn:incoming>Flow_GW1_GWJ1</bpmn:incoming><bpmn:outgoing>Flow_GWJ1_IN3</bpmn:outgoing></bpmn:exclusiveGateway><bpmn:sequenceFlow id="Flow_GWJ1_IN3" name="Sẵn sàng" sourceRef="GWJ1" targetRef="IN3"/>
+    <bpmn:sequenceFlow id="Flow_IN3_GW2" name="Đã quét" sourceRef="IN3" targetRef="GW2"/>
+    <bpmn:sequenceFlow id="Flow_GW2_IN5" name="Đọc được (98%)" sourceRef="GW2" targetRef="IN5"/>
+    <bpmn:sequenceFlow id="Flow_GW2_IN4" name="Lỗi đọc (2%)" sourceRef="GW2" targetRef="IN4">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${maDocDuoc == false}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_IN4_GWJ1" name="Đã dán nhãn" sourceRef="IN4" targetRef="GWJ1"/>
+    <bpmn:serviceTask id="DT2" name="Chia chọn tự động theo tuyến (AGV/Sorter)">
+      <bpmn:incoming>Flow_GWJ2_DT2</bpmn:incoming>
+      <bpmn:outgoing>Flow_DT2_GW5</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:exclusiveGateway id="GW5" name="Kết quả chia chọn hợp lệ?" default="Flow_GW5_OJ1">
+      <bpmn:incoming>Flow_DT2_GW5</bpmn:incoming>
+      <bpmn:outgoing>Flow_GW5_OJ1</bpmn:outgoing>
+      <bpmn:outgoing>Flow_GW5_DT4</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:userTask id="DT4" name="Xử lý ngoại lệ chia chọn (nhận dạng lại, điều hướng lại hoặc khắc phục lỗi thiết bị)">
+      <bpmn:incoming>Flow_GW5_DT4</bpmn:incoming>
+      <bpmn:outgoing>Flow_DT4_GWJ2</bpmn:outgoing>
+      </bpmn:userTask>
+    <bpmn:exclusiveGateway id="GWJ2" name="Hợp nhất luồng chia chọn"><bpmn:incoming>Flow_DT4_GWJ2</bpmn:incoming><bpmn:incoming>Flow_GW4_GWJ2</bpmn:incoming><bpmn:outgoing>Flow_GWJ2_DT2</bpmn:outgoing></bpmn:exclusiveGateway><bpmn:sequenceFlow id="Flow_GWJ2_DT2" name="Sẵn sàng" sourceRef="GWJ2" targetRef="DT2"/>
+    <bpmn:sequenceFlow id="Flow_DT2_GW5" name="Đã chia chọn" sourceRef="DT2" targetRef="GW5"/>
+    <bpmn:sequenceFlow id="Flow_GW5_OJ1" name="Hợp lệ (97%)" sourceRef="GW5" targetRef="OJ1"/>
+    <bpmn:sequenceFlow id="Flow_GW5_DT4" name="Không hợp lệ (3%)" sourceRef="GW5" targetRef="DT4">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${ketQuaChiaChonHopLe == false}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_DT4_GWJ2" name="Đã xử lý" sourceRef="DT4" targetRef="GWJ2"/>
+        <bpmn:textAnnotation id="VA_B1">
+      <bpmn:text>BVA</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:textAnnotation id="VA_B2a">
+      <bpmn:text>BVA</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:textAnnotation id="VA_B2b">
+      <bpmn:text>NVA</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:textAnnotation id="VA_B3a">
+      <bpmn:text>BVA</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:textAnnotation id="VA_B3b">
+      <bpmn:text>BVA</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:textAnnotation id="VA_B0logging">
+      <bpmn:text>BVA</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:textAnnotation id="VA_B4a">
+      <bpmn:text>VA</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:textAnnotation id="VA_B4b">
+      <bpmn:text>VA</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:textAnnotation id="VA_B4c">
+      <bpmn:text>NVA</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:textAnnotation id="VA_EX1">
+      <bpmn:text>BVA</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:textAnnotation id="VA_EX2">
+      <bpmn:text>BVA</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:textAnnotation id="VA_B5">
+      <bpmn:text>NVA</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:textAnnotation id="VA_B6">
+      <bpmn:text>VA</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:textAnnotation id="VA_B7">
+      <bpmn:text>BVA</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:textAnnotation id="VA_B8a">
+      <bpmn:text>BVA</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:textAnnotation id="VA_B8b">
+      <bpmn:text>BVA</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:textAnnotation id="VA_Legend">
+      <bpmn:text>CHÚ THÍCH GIÁ TRỊ GIA TĂNG (Bảng 13-15)
+VA = tạo giá trị trực tiếp cho khách hàng
+BVA = cần cho kiểm soát/vận hành, KH không cảm nhận trực tiếp
+NVA = làm lại/chờ đợi, không tạo giá trị</bpmn:text>
+    </bpmn:textAnnotation>
+</bpmn:process>
+  <bpmn:process id="Process_CAR" isExecutable="false">
+    <bpmn:dataStoreReference id="DS3" name="Hệ thống WMS/TMS" dataStoreRef="DataStore_WMS_TMS"/>
+    <bpmn:startEvent id="C1" name="Thông báo bàn giao đã được tiếp nhận">
+      <bpmn:outgoing>Flow_C1_C2A</bpmn:outgoing>
+      <bpmn:messageEventDefinition id="MsgDef_C1"/>
+    </bpmn:startEvent>
+    <bpmn:manualTask id="C2A" name="Xếp lô hàng lên phương tiện">
+      <bpmn:incoming>Flow_C1_C2A</bpmn:incoming>
+      <bpmn:outgoing>Flow_C2A_C2G</bpmn:outgoing>
+    </bpmn:manualTask>
+    <bpmn:serviceTask id="C2G" name="Đọc manifest bàn giao từ WMS/TMS">
+      <bpmn:incoming>Flow_C2A_C2G</bpmn:incoming>
+      <bpmn:outgoing>Flow_C2G_C2B</bpmn:outgoing>
+      <bpmn:property id="Property_C2G_ManifestInput" name="Manifest bàn giao"/>
+      <bpmn:dataInputAssociation id="DataIn_DS3_C2G">
+        <bpmn:documentation>Đọc property "Manifest lô hàng" mà OT5A đã ghi (tham chiếu chung Data Store WMS/TMS, phía HUB gọi là DS2, phía đội vận tải gọi là DS3).</bpmn:documentation>
+        <bpmn:sourceRef>DS3</bpmn:sourceRef>
+        <bpmn:targetRef>Property_C2G_ManifestInput</bpmn:targetRef>
+      </bpmn:dataInputAssociation>
+    </bpmn:serviceTask>
+    <bpmn:userTask id="C2B" name="Đối chiếu lô hàng lần cuối">
+      <bpmn:incoming>Flow_C2G_C2B</bpmn:incoming>
+      <bpmn:outgoing>Flow_C2B_C2C</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:userTask id="C2C" name="Ký nhận bàn giao">
+      <bpmn:incoming>Flow_C2B_C2C</bpmn:incoming>
+      <bpmn:outgoing>Flow_C2C_C2E</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:userTask id="C2E" name="Cập nhật trạng thái rời hub">
+      <bpmn:incoming>Flow_C2C_C2E</bpmn:incoming>
+      <bpmn:outgoing>Flow_C2E_C2EW</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:serviceTask id="C2EW" name="Ghi trạng thái rời hub vào WMS/TMS">
+      <bpmn:incoming>Flow_C2E_C2EW</bpmn:incoming>
+      <bpmn:outgoing>Flow_C2E_C2D</bpmn:outgoing>
+      <bpmn:property id="Property_C2E_DepartureStatusOutput" name="Trạng thái rời hub"/>
+      <bpmn:dataOutputAssociation id="DataOut_C2E_DS3">
+        <bpmn:documentation>Ghi property "Trạng thái rời hub" vào WMS/TMS sau khi ký nhận bàn giao.</bpmn:documentation>
+        <bpmn:sourceRef>Property_C2E_DepartureStatusOutput</bpmn:sourceRef>
+        <bpmn:targetRef>DS3</bpmn:targetRef>
+      </bpmn:dataOutputAssociation>
+    </bpmn:serviceTask>
+    <bpmn:sendTask id="C2D" name="Gửi xác nhận ký nhận">
+      <bpmn:incoming>Flow_C2E_C2D</bpmn:incoming>
+      <bpmn:outgoing>Flow_C2D_C3</bpmn:outgoing>
+    </bpmn:sendTask>
+    <bpmn:endEvent id="C3" name="Lô hàng đã rời hub thành công">
+      <bpmn:incoming>Flow_C2D_C3</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_C1_C2A" name="Đã nhận" sourceRef="C1" targetRef="C2A"/>
+    <bpmn:sequenceFlow id="Flow_C2A_C2G" name="Đã xếp hàng" sourceRef="C2A" targetRef="C2G"/>
+    <bpmn:sequenceFlow id="Flow_C2G_C2B" name="Đã đọc manifest" sourceRef="C2G" targetRef="C2B"/>
+    <bpmn:sequenceFlow id="Flow_C2B_C2C" name="Đã đối chiếu" sourceRef="C2B" targetRef="C2C"/>
+    <bpmn:sequenceFlow id="Flow_C2C_C2E" name="Đã ký nhận" sourceRef="C2C" targetRef="C2E"/>
+    <bpmn:sequenceFlow id="Flow_C2E_C2EW" name="Đã cập nhật trạng thái" sourceRef="C2E" targetRef="C2EW"/>
+    <bpmn:sequenceFlow id="Flow_C2E_C2D" name="Đã ghi trạng thái" sourceRef="C2EW" targetRef="C2D"/>
+    <bpmn:sequenceFlow id="Flow_C2D_C3" name="Đã gửi xác nhận" sourceRef="C2D" targetRef="C3"/>
+    </bpmn:process>
+  <bpmndi:BPMNDiagram id="Diagram_1" name="Sơ đồ BPMN gắn nhãn giá trị gia tăng (VA/BVA/NVA) – Phân loại &amp; Chuyển phát trung tâm">
+    <bpmndi:BPMNPlane id="Plane_1" bpmnElement="Collaboration_1">
+      <bpmndi:BPMNShape id="Shape_Participant_FEE" bpmnElement="Participant_FEE" isHorizontal="true">
+        <dc:Bounds x="40" y="60" width="3550" height="160"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_Participant_HUB" bpmnElement="Participant_HUB" isHorizontal="true">
+        <dc:Bounds x="40" y="220" width="3550" height="990"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_Participant_CAR" bpmnElement="Participant_CAR" isHorizontal="true">
+        <dc:Bounds x="40" y="1210" width="3550" height="300"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_Lane_IN" bpmnElement="Lane_IN" isHorizontal="true">
+        <dc:Bounds x="82" y="220" width="3508" height="260"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_Lane_DWS" bpmnElement="Lane_DWS" isHorizontal="true">
+        <dc:Bounds x="82" y="480" width="3508" height="340"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_Lane_EXC" bpmnElement="Lane_EXC" isHorizontal="true">
+        <dc:Bounds x="82" y="820" width="3508" height="190"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_Lane_OUT" bpmnElement="Lane_OUT" isHorizontal="true">
+        <dc:Bounds x="82" y="1010" width="3508" height="200"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_F1" bpmnElement="F1">
+        <dc:Bounds x="150" y="122" width="36" height="36"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="93" y="164" width="150" height="34"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_F2A" bpmnElement="F2A">
+        <dc:Bounds x="250" y="105" width="140" height="70"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_F2B" bpmnElement="F2B">
+        <dc:Bounds x="440" y="105" width="140" height="70"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_F3" bpmnElement="F3">
+        <dc:Bounds x="630" y="122" width="36" height="36"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="590" y="164" width="150" height="34"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_IN1" bpmnElement="IN1">
+        <dc:Bounds x="150" y="317" width="36" height="36"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="93" y="375" width="150" height="34"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_IN2" bpmnElement="IN2">
+        <dc:Bounds x="226" y="300" width="150" height="70"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_GW1" bpmnElement="GW1">
+        <dc:Bounds x="416" y="310" width="50" height="50"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="420" y="366" width="130" height="34"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_IN5" bpmnElement="IN5">
+        <dc:Bounds x="916" y="300" width="155" height="70"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_DT0" bpmnElement="DT0">
+        <dc:Bounds x="916" y="545" width="155" height="70"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_DT1" bpmnElement="DT1" isExpanded="false">
+        <dc:Bounds x="1111" y="545" width="150" height="70"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_GW3" bpmnElement="GW3">
+        <dc:Bounds x="1301" y="555" width="50" height="50"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1335" y="608" width="150" height="27"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_GW4" bpmnElement="GW4">
+        <dc:Bounds x="1451" y="555" width="50" height="50"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1401" y="500" width="150" height="24"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_DT3" bpmnElement="DT3">
+        <dc:Bounds x="1421" y="690" width="195" height="70"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_EX1" bpmnElement="EX1">
+        <dc:Bounds x="391" y="850" width="150" height="70"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_EE1" bpmnElement="EE1">
+        <dc:Bounds x="581" y="867" width="36" height="36"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="613" y="909" width="150" height="34"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_EX2" bpmnElement="EX2">
+        <dc:Bounds x="1271" y="850" width="170" height="70"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_EE2" bpmnElement="EE2">
+        <dc:Bounds x="1481" y="867" width="36" height="36"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1424" y="925" width="150" height="34"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_OJ1" bpmnElement="OJ1">
+        <dc:Bounds x="1911" y="1075" width="50" height="50"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1861" y="1140" width="150" height="34"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_OT2" bpmnElement="OT2" isExpanded="false">
+        <dc:Bounds x="2191" y="1065" width="145" height="70"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_OT6" bpmnElement="OT6">
+        <dc:Bounds x="2566" y="1065" width="170" height="70"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_OW1" bpmnElement="OW1">
+        <dc:Bounds x="2776" y="1078" width="44" height="44"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2728" y="1162" width="140" height="34"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_OE1" bpmnElement="OE1">
+        <dc:Bounds x="2860" y="1082" width="36" height="36"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2808" y="1124" width="140" height="34"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_C1" bpmnElement="C1">
+        <dc:Bounds x="2090" y="1387" width="36" height="36"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2033" y="1445" width="150" height="34"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_C2A" bpmnElement="C2A">
+        <dc:Bounds x="2166" y="1370" width="140" height="70"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_C2G" bpmnElement="C2G">
+        <dc:Bounds x="2346" y="1370" width="150" height="70"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_C2B" bpmnElement="C2B">
+        <dc:Bounds x="2536" y="1370" width="150" height="70"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_C2C" bpmnElement="C2C">
+        <dc:Bounds x="2726" y="1370" width="140" height="70"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_C2E" bpmnElement="C2E">
+        <dc:Bounds x="2906" y="1370" width="150" height="70"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_C2EW" bpmnElement="C2EW">
+        <dc:Bounds x="3096" y="1370" width="150" height="70"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_C2D" bpmnElement="C2D">
+        <dc:Bounds x="3286" y="1370" width="150" height="70"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_C3" bpmnElement="C3">
+        <dc:Bounds x="3476" y="1387" width="36" height="36"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="3419" y="1445" width="150" height="34"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_DS1" bpmnElement="DS1">
+        <dc:Bounds x="899" y="475" width="90" height="60"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1010" y="478" width="150" height="34"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_DS3" bpmnElement="DS3">
+        <dc:Bounds x="2626" y="1245" width="90" height="60"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2731" y="1258" width="150" height="34"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Edge_Flow_F1_F2A" bpmnElement="Flow_F1_F2A">
+        <di:waypoint x="186" y="140"/>
+        <di:waypoint x="250" y="140"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="194" y="105" width="48" height="30"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_Flow_F2A_F2B" bpmnElement="Flow_F2A_F2B">
+        <di:waypoint x="390" y="140"/>
+        <di:waypoint x="440" y="140"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="375.4" y="58" width="79.2" height="42"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_Flow_F2B_F3" bpmnElement="Flow_F2B_F3">
+        <di:waypoint x="580" y="140"/>
+        <di:waypoint x="630" y="140"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="585" y="87" width="66" height="30"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_Flow_IN1_IN2" bpmnElement="Flow_IN1_IN2">
+        <di:waypoint x="186" y="335"/><di:waypoint x="226" y="335"/><bpmndi:BPMNLabel>
+          <dc:Bounds x="171" y="273" width="95" height="22"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_Flow_IN2_GW1" bpmnElement="Flow_IN2_GW1">
+        <di:waypoint x="376" y="335"/><di:waypoint x="416" y="335"/><bpmndi:BPMNLabel>
+          <dc:Bounds x="361" y="272" width="95" height="22"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_Flow_GW1_EX1" bpmnElement="Flow_GW1_EX1">
+        <di:waypoint x="441" y="360"/><di:waypoint x="441" y="605"/><di:waypoint x="466" y="605"/><di:waypoint x="466" y="850"/><bpmndi:BPMNLabel>
+          <dc:Bounds x="230" y="600" width="90" height="20"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_Flow_EX1_EE1" bpmnElement="Flow_EX1_EE1">
+        <di:waypoint x="541" y="885"/><di:waypoint x="581" y="885"/><bpmndi:BPMNLabel>
+          <dc:Bounds x="622" y="850" width="48" height="30"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_Flow_GW2_DT0" bpmnElement="Flow_IN5_DT0">
+        <di:waypoint x="993.5" y="370"/><di:waypoint x="993.5" y="545"/><bpmndi:BPMNLabel>
+          <dc:Bounds x="1000" y="447.5" width="90" height="20"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_Flow_DT0_DT1" bpmnElement="Flow_DT0_DT1">
+        <di:waypoint x="1071" y="580"/><di:waypoint x="1111" y="580"/><bpmndi:BPMNLabel>
+          <dc:Bounds x="1056" y="517" width="95" height="22"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_Flow_DT1_GW3" bpmnElement="Flow_DT1_GW3">
+        <di:waypoint x="1261" y="580"/><di:waypoint x="1301" y="580"/><bpmndi:BPMNLabel>
+          <dc:Bounds x="1246" y="517" width="95" height="22"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_Flow_GW3_GW4" bpmnElement="Flow_GW3_GW4">
+        <di:waypoint x="1351" y="580"/><di:waypoint x="1451" y="580"/><bpmndi:BPMNLabel>
+          <dc:Bounds x="1366" y="527" width="95" height="22"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_Flow_GW3_EX2" bpmnElement="Flow_GW3_EX2">
+        <di:waypoint x="1326" y="605"/><di:waypoint x="1326" y="727.5"/><di:waypoint x="1356" y="727.5"/><di:waypoint x="1356" y="850"/><bpmndi:BPMNLabel>
+          <dc:Bounds x="1411" y="660" width="90" height="20"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_Flow_EX2_EE2" bpmnElement="Flow_EX2_EE2">
+        <di:waypoint x="1441" y="885"/><di:waypoint x="1481" y="885"/><bpmndi:BPMNLabel>
+          <dc:Bounds x="1386" y="822" width="90" height="22"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_Flow_GW4_DT3" bpmnElement="Flow_GW4_DT3">
+        <di:waypoint x="1476" y="605"/><di:waypoint x="1476" y="647.5"/><di:waypoint x="1518.5" y="647.5"/><di:waypoint x="1518.5" y="690"/><bpmndi:BPMNLabel>
+          <dc:Bounds x="1561" y="660" width="90" height="20"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_Flow_DT3_OJ1" bpmnElement="Flow_DT3_OJ1">
+        <di:waypoint x="1518.5" y="760"/><di:waypoint x="1518.5" y="790"/><di:waypoint x="1600" y="790"/><di:waypoint x="1600" y="1100"/><di:waypoint x="1911" y="1100"/><bpmndi:BPMNLabel>
+          <dc:Bounds x="1609" y="940" width="100" height="22"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_Flow_OT6_OW1" bpmnElement="Flow_OT6_OW1">
+        <di:waypoint x="2736" y="1100"/><di:waypoint x="2776" y="1100"/><bpmndi:BPMNLabel>
+          <dc:Bounds x="2700" y="1030" width="90" height="20"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_Flow_OW1_OE1" bpmnElement="Flow_OW1_OE1">
+        <di:waypoint x="2820" y="1100"/><di:waypoint x="2860" y="1100"/><bpmndi:BPMNLabel>
+          <dc:Bounds x="2800" y="1058" width="90" height="20"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_Flow_C1_C2A" bpmnElement="Flow_C1_C2A">
+        <di:waypoint x="2126" y="1405"/><di:waypoint x="2166" y="1405"/><bpmndi:BPMNLabel>
+          <dc:Bounds x="2111" y="1343" width="95" height="22"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_Flow_C2A_C2G" bpmnElement="Flow_C2A_C2G">
+        <di:waypoint x="2306" y="1405"/><di:waypoint x="2346" y="1405"/><bpmndi:BPMNLabel>
+          <dc:Bounds x="2291" y="1342" width="95" height="22"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_Flow_C2G_C2B" bpmnElement="Flow_C2G_C2B">
+        <di:waypoint x="2496" y="1405"/><di:waypoint x="2536" y="1405"/><bpmndi:BPMNLabel>
+          <dc:Bounds x="2481" y="1342" width="95" height="22"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_Flow_C2B_C2C" bpmnElement="Flow_C2B_C2C">
+        <di:waypoint x="2686" y="1405"/><di:waypoint x="2726" y="1405"/><bpmndi:BPMNLabel>
+          <dc:Bounds x="2671" y="1342" width="95" height="22"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_Flow_C2C_C2E" bpmnElement="Flow_C2C_C2E">
+        <di:waypoint x="2866" y="1405"/><di:waypoint x="2906" y="1405"/><bpmndi:BPMNLabel>
+          <dc:Bounds x="2851" y="1342" width="95" height="22"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_Flow_C2E_C2EW" bpmnElement="Flow_C2E_C2EW">
+        <di:waypoint x="3056" y="1405"/><di:waypoint x="3096" y="1405"/><bpmndi:BPMNLabel>
+          <dc:Bounds x="3041" y="1342" width="95" height="22"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_Flow_C2E_C2D" bpmnElement="Flow_C2E_C2D">
+        <di:waypoint x="3246" y="1405"/><di:waypoint x="3286" y="1405"/><bpmndi:BPMNLabel>
+          <dc:Bounds x="3231" y="1342" width="95" height="22"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_Flow_C2D_C3" bpmnElement="Flow_C2D_C3">
+        <di:waypoint x="3436" y="1405"/><di:waypoint x="3476" y="1405"/><bpmndi:BPMNLabel>
+          <dc:Bounds x="3421" y="1342" width="95" height="22"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_MsgFlow_F2B_IN1" bpmnElement="MsgFlow_F2B_IN1">
+        <di:waypoint x="510" y="175"/>
+        <di:waypoint x="510" y="245"/>
+        <di:waypoint x="168" y="245"/>
+        <di:waypoint x="168" y="317"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="301.6" y="198" width="74.8" height="42"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_MsgFlow_OT6_C1" bpmnElement="MsgFlow_OT6_C1">
+        <di:waypoint x="2651" y="1135"/><di:waypoint x="2651" y="1230"/><di:waypoint x="2108" y="1230"/><di:waypoint x="2108" y="1387"/><bpmndi:BPMNLabel>
+          <dc:Bounds x="2320" y="1214" width="110" height="27"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_MsgFlow_C2D_OW1" bpmnElement="MsgFlow_C2D_OW1">
+        <di:waypoint x="3361" y="1370"/><di:waypoint x="3361" y="1150"/><di:waypoint x="2798" y="1150"/><di:waypoint x="2798" y="1122"/><bpmndi:BPMNLabel>
+          <dc:Bounds x="2960" y="1134" width="110" height="27"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_DataOut_IN5_DS1" bpmnElement="DataOut_IN5_DS1">
+        <di:waypoint x="993.5" y="370"/><di:waypoint x="993.5" y="468"/><di:waypoint x="944" y="475"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_DataIn_DS1_DT0" bpmnElement="DataIn_DS1_DT0">
+        <di:waypoint x="944" y="535"/><di:waypoint x="993.5" y="545"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_DataIn_DS3_C2G" bpmnElement="DataIn_DS3_C2G">
+        <di:waypoint x="2671" y="1305"/><di:waypoint x="2650" y="1305"/><di:waypoint x="2650" y="1367"/><di:waypoint x="2421" y="1367"/><di:waypoint x="2421" y="1370"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_DataOut_C2E_DS3" bpmnElement="DataOut_C2E_DS3">
+        <di:waypoint x="3171" y="1370"/><di:waypoint x="3171" y="1360"/><di:waypoint x="2800" y="1360"/><di:waypoint x="2800" y="1305"/><di:waypoint x="2691" y="1305"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="Flow_OJ1_OT1" id="Edge_Flow_OJ1_OT1"><di:waypoint x="1961" y="1100"/><di:waypoint x="2001" y="1100"/><bpmndi:BPMNLabel><dc:Bounds x="1946" y="1038" width="95" height="22"/></bpmndi:BPMNLabel></bpmndi:BPMNEdge><bpmndi:BPMNEdge bpmnElement="Flow_SUBSTAGE_OT2" id="Edge_Flow_SUBSTAGE_OT2"><di:waypoint x="2151" y="1100"/><di:waypoint x="2191" y="1100"/><bpmndi:BPMNLabel><dc:Bounds x="2136" y="1037" width="95" height="22"/></bpmndi:BPMNLabel></bpmndi:BPMNEdge><bpmndi:BPMNEdge bpmnElement="Flow_OT2_OJ2" id="Edge_Flow_OT2_OJ2"><di:waypoint x="2336" y="1100"/><di:waypoint x="2376" y="1100"/><bpmndi:BPMNLabel><dc:Bounds x="2321" y="1037" width="95" height="22"/></bpmndi:BPMNLabel></bpmndi:BPMNEdge><bpmndi:BPMNEdge bpmnElement="Flow_SUBRECON_OT6" id="Edge_Flow_SUBRECON_OT6"><di:waypoint x="2526" y="1100"/><di:waypoint x="2566" y="1100"/><bpmndi:BPMNLabel><dc:Bounds x="2511" y="1037" width="95" height="22"/></bpmndi:BPMNLabel></bpmndi:BPMNEdge><bpmndi:BPMNShape bpmnElement="SUB_STAGE" id="Shape_SUB_STAGE"><dc:Bounds x="2001" y="1065" width="150" height="70"/></bpmndi:BPMNShape><bpmndi:BPMNShape bpmnElement="SUB_RECON" id="Shape_SUB_RECON"><dc:Bounds x="2376" y="1065" width="150" height="70"/></bpmndi:BPMNShape><bpmndi:BPMNShape bpmnElement="GWJ1" id="Shape_GWJ1"><dc:Bounds x="556" y="310" width="50" height="50"/><bpmndi:BPMNLabel><dc:Bounds x="506" y="238" width="150" height="27"/></bpmndi:BPMNLabel></bpmndi:BPMNShape><bpmndi:BPMNShape bpmnElement="IN3" id="Shape_IN3"><dc:Bounds x="646" y="300" width="140" height="70"/></bpmndi:BPMNShape><bpmndi:BPMNShape bpmnElement="GW2" id="Shape_GW2"><dc:Bounds x="826" y="310" width="50" height="50"/><bpmndi:BPMNLabel><dc:Bounds x="781" y="253" width="140" height="14"/></bpmndi:BPMNLabel></bpmndi:BPMNShape><bpmndi:BPMNShape bpmnElement="IN4" id="Shape_IN4"><dc:Bounds x="811" y="400" width="155" height="65"/></bpmndi:BPMNShape><bpmndi:BPMNShape bpmnElement="GWJ2" id="Shape_GWJ2"><dc:Bounds x="1601" y="555" width="50" height="50"/><bpmndi:BPMNLabel><dc:Bounds x="1556" y="470" width="140" height="27" /></bpmndi:BPMNLabel></bpmndi:BPMNShape><bpmndi:BPMNShape bpmnElement="DT2" id="Shape_DT2"><dc:Bounds x="1711" y="545" width="160" height="70"/></bpmndi:BPMNShape><bpmndi:BPMNShape bpmnElement="GW5" id="Shape_GW5"><dc:Bounds x="1911" y="555" width="50" height="50"/><bpmndi:BPMNLabel><dc:Bounds x="1866" y="470" width="170" height="27" /></bpmndi:BPMNLabel></bpmndi:BPMNShape><bpmndi:BPMNShape bpmnElement="DT4" id="Shape_DT4"><dc:Bounds x="1871" y="690" width="165" height="70"/></bpmndi:BPMNShape><bpmndi:BPMNEdge bpmnElement="Flow_GW1_GWJ1" id="Edge_Flow_GW1_GWJ1"><di:waypoint x="466" y="335"/><di:waypoint x="556" y="335"/><bpmndi:BPMNLabel><dc:Bounds x="476" y="282" width="95" height="22"/></bpmndi:BPMNLabel></bpmndi:BPMNEdge><bpmndi:BPMNEdge bpmnElement="Flow_GWJ1_IN3" id="Edge_Flow_GWJ1_IN3"><di:waypoint x="606" y="335"/><di:waypoint x="646" y="335"/><bpmndi:BPMNLabel><dc:Bounds x="591" y="273" width="95" height="22"/></bpmndi:BPMNLabel></bpmndi:BPMNEdge><bpmndi:BPMNEdge bpmnElement="Flow_IN3_GW2" id="Edge_Flow_IN3_GW2"><di:waypoint x="786" y="335"/><di:waypoint x="826" y="335"/><bpmndi:BPMNLabel><dc:Bounds x="700" y="270" width="75" height="20"/></bpmndi:BPMNLabel></bpmndi:BPMNEdge><bpmndi:BPMNEdge bpmnElement="Flow_GW2_IN5" id="Edge_Flow_GW2_IN5"><di:waypoint x="876" y="335"/><di:waypoint x="916" y="335"/><bpmndi:BPMNLabel><dc:Bounds x="880" y="275" width="90" height="20"/></bpmndi:BPMNLabel></bpmndi:BPMNEdge><bpmndi:BPMNEdge bpmnElement="Flow_GW2_IN4" id="Edge_Flow_GW2_IN4"><di:waypoint x="851" y="360"/><di:waypoint x="851" y="380"/><di:waypoint x="888.5" y="380"/><di:waypoint x="888.5" y="400"/><bpmndi:BPMNLabel><dc:Bounds x="755" y="372" width="90" height="20"/></bpmndi:BPMNLabel></bpmndi:BPMNEdge><bpmndi:BPMNEdge bpmnElement="Flow_IN4_GWJ1" id="Edge_Flow_IN4_GWJ1"><di:waypoint x="888.5" y="465"/><di:waypoint x="888.5" y="495"/><di:waypoint x="581" y="495"/><di:waypoint x="581" y="360"/><bpmndi:BPMNLabel><dc:Bounds x="696" y="408" width="85" height="22"/></bpmndi:BPMNLabel></bpmndi:BPMNEdge><bpmndi:BPMNEdge bpmnElement="Flow_GW4_GWJ2" id="Edge_Flow_GW4_GWJ2"><di:waypoint x="1501" y="580"/><di:waypoint x="1601" y="580"/><bpmndi:BPMNLabel><dc:Bounds x="1516" y="527" width="95" height="22"/></bpmndi:BPMNLabel></bpmndi:BPMNEdge><bpmndi:BPMNEdge bpmnElement="Flow_GWJ2_DT2" id="Edge_Flow_GWJ2_DT2"><di:waypoint x="1651" y="580"/><di:waypoint x="1711" y="580"/><bpmndi:BPMNLabel><dc:Bounds x="1646" y="518" width="95" height="22"/></bpmndi:BPMNLabel></bpmndi:BPMNEdge><bpmndi:BPMNEdge bpmnElement="Flow_DT2_GW5" id="Edge_Flow_DT2_GW5"><di:waypoint x="1871" y="580"/><di:waypoint x="1911" y="580"/><bpmndi:BPMNLabel><dc:Bounds x="1856" y="517" width="95" height="22" /></bpmndi:BPMNLabel></bpmndi:BPMNEdge><bpmndi:BPMNEdge bpmnElement="Flow_GW5_DT4" id="Edge_Flow_GW5_DT4"><di:waypoint x="1936" y="605"/><di:waypoint x="1936" y="647.5"/><di:waypoint x="1953.5" y="647.5"/><di:waypoint x="1953.5" y="690"/><bpmndi:BPMNLabel><dc:Bounds x="2021" y="660" width="90" height="20"/></bpmndi:BPMNLabel></bpmndi:BPMNEdge><bpmndi:BPMNEdge bpmnElement="Flow_DT4_GWJ2" id="Edge_Flow_DT4_GWJ2"><di:waypoint x="1953.5" y="690"/><di:waypoint x="1953.5" y="640"/><di:waypoint x="1626" y="640"/><di:waypoint x="1626" y="605"/><bpmndi:BPMNLabel><dc:Bounds x="1836" y="770" width="75" height="22"/></bpmndi:BPMNLabel></bpmndi:BPMNEdge><bpmndi:BPMNEdge bpmnElement="Flow_GW5_OJ1" id="Edge_Flow_GW5_OJ1"><di:waypoint x="1936" y="605"/><di:waypoint x="1936" y="660"/><di:waypoint x="1790" y="660"/><di:waypoint x="1790" y="1100"/><di:waypoint x="1911" y="1100"/><bpmndi:BPMNLabel><dc:Bounds x="1799" y="940" width="85" height="20"/></bpmndi:BPMNLabel></bpmndi:BPMNEdge><bpmndi:BPMNShape bpmnElement="DS2" id="Shape_DS2_main"><dc:Bounds x="2260" y="1145" width="90" height="60"/><bpmndi:BPMNLabel><dc:Bounds x="2365" y="1162" width="180" height="27"/></bpmndi:BPMNLabel></bpmndi:BPMNShape>      <bpmndi:BPMNShape id="VA_B1_di" bpmnElement="VA_B1" bioc:stroke="none" bioc:fill="none" color:border-color="#ea580c" color:background-color="none">
+        <dc:Bounds x="201" y="230" width="46" height="24" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="VA_B2a_di" bpmnElement="VA_B2a" bioc:stroke="none" bioc:fill="none" color:border-color="#ea580c" color:background-color="none">
+        <dc:Bounds x="666" y="230" width="46" height="24" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="VA_B2b_di" bpmnElement="VA_B2b" bioc:stroke="none" bioc:fill="none" color:border-color="#ea580c" color:background-color="none">
+        <dc:Bounds x="798" y="280" width="46" height="24" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="VA_B3a_di" bpmnElement="VA_B3a" bioc:stroke="none" bioc:fill="none" color:border-color="#ea580c" color:background-color="none">
+        <dc:Bounds x="844" y="475" width="46" height="24" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="VA_B3b_di" bpmnElement="VA_B3b" bioc:stroke="none" bioc:fill="none" color:border-color="#ea580c" color:background-color="none">
+        <dc:Bounds x="1096" y="445" width="46" height="24" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="VA_B0logging_di" bpmnElement="VA_B0logging" bioc:stroke="none" bioc:fill="none" color:border-color="#ea580c" color:background-color="none">
+        <dc:Bounds x="894" y="220" width="46" height="24" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="VA_B4a_di" bpmnElement="VA_B4a" bioc:stroke="none" bioc:fill="none" color:border-color="#ea580c" color:background-color="none">
+        <dc:Bounds x="1701" y="475" width="46" height="24" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="VA_B4b_di" bpmnElement="VA_B4b" bioc:stroke="none" bioc:fill="none" color:border-color="#ea580c" color:background-color="none">
+        <dc:Bounds x="1398" y="570" width="46" height="24" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="VA_B4c_di" bpmnElement="VA_B4c" bioc:stroke="none" bioc:fill="none" color:border-color="#ea580c" color:background-color="none">
+        <dc:Bounds x="1854" y="620" width="46" height="24" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="VA_EX1_di" bpmnElement="VA_EX1" bioc:stroke="none" bioc:fill="none" color:border-color="#ea580c" color:background-color="none">
+        <dc:Bounds x="366" y="780" width="46" height="24" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="VA_EX2_di" bpmnElement="VA_EX2" bioc:stroke="none" bioc:fill="none" color:border-color="#ea580c" color:background-color="none">
+        <dc:Bounds x="1256" y="780" width="46" height="24" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="VA_B5_di" bpmnElement="VA_B5" bioc:stroke="none" bioc:fill="none" color:border-color="#ea580c" color:background-color="none">
+        <dc:Bounds x="1976" y="995" width="46" height="24" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="VA_B6_di" bpmnElement="VA_B6" bioc:stroke="none" bioc:fill="none" color:border-color="#ea580c" color:background-color="none">
+        <dc:Bounds x="2164" y="995" width="46" height="24" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="VA_B7_di" bpmnElement="VA_B7" bioc:stroke="none" bioc:fill="none" color:border-color="#ea580c" color:background-color="none">
+        <dc:Bounds x="2351" y="995" width="46" height="24" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="VA_B8a_di" bpmnElement="VA_B8a" bioc:stroke="none" bioc:fill="none" color:border-color="#ea580c" color:background-color="none">
+        <dc:Bounds x="2551" y="995" width="46" height="24" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="VA_B8b_di" bpmnElement="VA_B8b" bioc:stroke="none" bioc:fill="none" color:border-color="#ea580c" color:background-color="none">
+        <dc:Bounds x="2566" y="1290" width="46" height="24" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="VA_Legend_di" bpmnElement="VA_Legend" bioc:stroke="#ea580c" bioc:fill="#fff7ed" color:border-color="#ea580c" color:background-color="#fff7ed">
+        <dc:Bounds x="168" y="414" width="422" height="84" />
+      </bpmndi:BPMNShape>
+</bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+  <bpmndi:BPMNDiagram id="Diagram_DT1" name="Chi tiết subprocess – Kiểm tra bưu gửi bằng DWS">
+    <bpmndi:BPMNPlane id="Plane_DT1" bpmnElement="DT1">
+      <bpmndi:BPMNShape id="Shape_DT1_S" bpmnElement="DT1_S">
+        <dc:Bounds x="60" y="112" width="36" height="36"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="20" y="154" width="120" height="36"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_DT1a" bpmnElement="DT1a">
+        <dc:Bounds x="140" y="95" width="160" height="70"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_DT1b" bpmnElement="DT1b">
+        <dc:Bounds x="350" y="95" width="160" height="70"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_DT1c" bpmnElement="DT1c">
+        <dc:Bounds x="560" y="95" width="160" height="70"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_DT1d" bpmnElement="DT1d">
+        <dc:Bounds x="770" y="95" width="190" height="70"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_DT1_E" bpmnElement="DT1_E">
+        <dc:Bounds x="1020" y="112" width="36" height="36"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="975" y="154" width="130" height="36"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Edge_Flow_DT1S_DT1a" bpmnElement="Flow_DT1S_DT1a">
+        <di:waypoint x="96" y="130"/>
+        <di:waypoint x="140" y="130"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="98" y="72" width="60" height="20"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_Flow_DT1a_DT1b" bpmnElement="Flow_DT1a_DT1b">
+        <di:waypoint x="300" y="130"/>
+        <di:waypoint x="350" y="130"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="300" y="72" width="70" height="20"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_Flow_DT1b_DT1c" bpmnElement="Flow_DT1b_DT1c">
+        <di:waypoint x="510" y="130"/>
+        <di:waypoint x="560" y="130"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="510" y="72" width="80" height="20"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_Flow_DT1c_DT1d" bpmnElement="Flow_DT1c_DT1d">
+        <di:waypoint x="720" y="130"/>
+        <di:waypoint x="770" y="130"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="715" y="72" width="90" height="20"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_Flow_DT1d_DT1E" bpmnElement="Flow_DT1d_DT1E">
+        <di:waypoint x="960" y="130"/>
+        <di:waypoint x="1020" y="130"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="960" y="72" width="95" height="20"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+  <bpmndi:BPMNDiagram id="Diagram_OT2" name="Chi tiết subprocess – Đóng bao/container">
+    <bpmndi:BPMNPlane id="Plane_OT2" bpmnElement="OT2">
+      <bpmndi:BPMNShape id="Shape_OT2_S" bpmnElement="OT2_S">
+        <dc:Bounds x="50" y="112" width="36" height="36"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="15" y="154" width="120" height="36"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_OT2a" bpmnElement="OT2a">
+        <dc:Bounds x="140" y="95" width="160" height="70"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_OT2b" bpmnElement="OT2b">
+        <dc:Bounds x="350" y="95" width="190" height="70"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_OT2c" bpmnElement="OT2c">
+        <dc:Bounds x="590" y="95" width="190" height="70"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_OT2d" bpmnElement="OT2d">
+        <dc:Bounds x="830" y="95" width="150" height="70"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_OT2e" bpmnElement="OT2e">
+        <dc:Bounds x="1030" y="95" width="190" height="70"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_OT2_E" bpmnElement="OT2_E">
+        <dc:Bounds x="1280" y="112" width="36" height="36"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1230" y="154" width="150" height="36"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Edge_Flow_OT2S_OT2a" bpmnElement="Flow_OT2S_OT2a">
+        <di:waypoint x="86" y="130"/>
+        <di:waypoint x="140" y="130"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="90" y="72" width="60" height="20"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_Flow_OT2a_OT2b" bpmnElement="Flow_OT2a_OT2b">
+        <di:waypoint x="300" y="130"/>
+        <di:waypoint x="350" y="130"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="300" y="72" width="75" height="20"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_Flow_OT2b_OT2c" bpmnElement="Flow_OT2b_OT2c">
+        <di:waypoint x="540" y="130"/>
+        <di:waypoint x="590" y="130"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="540" y="72" width="85" height="20"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_Flow_OT2c_OT2d" bpmnElement="Flow_OT2c_OT2d">
+        <di:waypoint x="780" y="130"/>
+        <di:waypoint x="830" y="130"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="780" y="72" width="90" height="20"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_Flow_OT2d_OT2e" bpmnElement="Flow_OT2d_OT2e">
+        <di:waypoint x="980" y="130"/>
+        <di:waypoint x="1030" y="130"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="980" y="72" width="85" height="20"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_Flow_OT2e_OT2E" bpmnElement="Flow_OT2e_OT2E">
+        <di:waypoint x="1220" y="130"/>
+        <di:waypoint x="1280" y="130"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1220" y="72" width="95" height="20"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+<bpmndi:BPMNDiagram id="Diagram_SUB_STAGE"><bpmndi:BPMNPlane id="Diagram_SUB_STAGE_Plane" bpmnElement="SUB_STAGE"><bpmndi:BPMNShape bpmnElement="STAGE_S" id="Shape_STAGE_S_Diagram_SUB_STAGE_Plane"><dc:Bounds x="50" y="112" width="36" height="36"/></bpmndi:BPMNShape><bpmndi:BPMNShape bpmnElement="OT1" id="Shape_OT1_Diagram_SUB_STAGE_Plane"><dc:Bounds x="120" y="95" width="150" height="70"/></bpmndi:BPMNShape><bpmndi:BPMNShape bpmnElement="STAGE_JOIN" id="Shape_STAGE_JOIN_Diagram_SUB_STAGE_Plane"><dc:Bounds x="310" y="105" width="50" height="50"/></bpmndi:BPMNShape><bpmndi:BPMNShape bpmnElement="OT_READPLAN" id="Shape_OT_READPLAN_Diagram_SUB_STAGE_Plane"><dc:Bounds x="400" y="95" width="150" height="70"/></bpmndi:BPMNShape><bpmndi:BPMNShape bpmnElement="GW6" id="Shape_GW6_Diagram_SUB_STAGE_Plane"><dc:Bounds x="590" y="105" width="50" height="50"/><bpmndi:BPMNLabel><dc:Bounds x="560" y="50" width="140" height="20" /></bpmndi:BPMNLabel></bpmndi:BPMNShape><bpmndi:BPMNShape bpmnElement="STAGE_E" id="Shape_STAGE_E_Diagram_SUB_STAGE_Plane"><dc:Bounds x="680" y="112" width="36" height="36"/></bpmndi:BPMNShape><bpmndi:BPMNShape bpmnElement="TM1" id="Shape_TM1_Diagram_SUB_STAGE_Plane"><dc:Bounds x="592" y="248" width="44" height="44"/></bpmndi:BPMNShape><bpmndi:BPMNShape bpmnElement="DS2" id="Shape_DS2_Diagram_SUB_STAGE_Plane"><dc:Bounds x="445" y="10" width="90" height="60"/></bpmndi:BPMNShape><bpmndi:BPMNEdge bpmnElement="Flow_STAGES_OT1" id="Edge_Flow_STAGES_OT1_Diagram_SUB_STAGE_Plane"><di:waypoint x="86" y="130"/><di:waypoint x="120" y="130"/><bpmndi:BPMNLabel><dc:Bounds x="78" y="74" width="60" height="18"/></bpmndi:BPMNLabel></bpmndi:BPMNEdge><bpmndi:BPMNEdge bpmnElement="Flow_OT1_GWJ3" id="Edge_Flow_OT1_GWJ3_Diagram_SUB_STAGE_Plane"><di:waypoint x="270" y="130"/><di:waypoint x="310" y="130"/><bpmndi:BPMNLabel><dc:Bounds x="247" y="75" width="85" height="20"/></bpmndi:BPMNLabel></bpmndi:BPMNEdge><bpmndi:BPMNEdge bpmnElement="Flow_GWJ3_OTPLAN" id="Edge_Flow_GWJ3_OTPLAN_Diagram_SUB_STAGE_Plane"><di:waypoint x="360" y="130"/><di:waypoint x="400" y="130"/><bpmndi:BPMNLabel><dc:Bounds x="337" y="75" width="85" height="20"/></bpmndi:BPMNLabel></bpmndi:BPMNEdge><bpmndi:BPMNEdge bpmnElement="Flow_OTPLAN_GW6" id="Edge_Flow_OTPLAN_GW6_Diagram_SUB_STAGE_Plane"><di:waypoint x="550" y="130"/><di:waypoint x="590" y="130"/><bpmndi:BPMNLabel><dc:Bounds x="527" y="75" width="85" height="20"/></bpmndi:BPMNLabel></bpmndi:BPMNEdge><bpmndi:BPMNEdge bpmnElement="Flow_GW6_OT2" id="Edge_Flow_GW6_OT2_Diagram_SUB_STAGE_Plane"><di:waypoint x="640" y="130"/><di:waypoint x="680" y="130"/><bpmndi:BPMNLabel><dc:Bounds x="617" y="75" width="85" height="20"/></bpmndi:BPMNLabel></bpmndi:BPMNEdge><bpmndi:BPMNEdge bpmnElement="Flow_GW6_TM1" id="Edge_Flow_GW6_TM1_Diagram_SUB_STAGE_Plane"><di:waypoint x="615" y="155"/><di:waypoint x="615" y="201.5"/><di:waypoint x="614" y="201.5"/><di:waypoint x="614" y="248"/><bpmndi:BPMNLabel><dc:Bounds x="655" y="200" width="100" height="26"/></bpmndi:BPMNLabel></bpmndi:BPMNEdge><bpmndi:BPMNEdge bpmnElement="Flow_TM1_GWJ3" id="Edge_Flow_TM1_GWJ3_Diagram_SUB_STAGE_Plane"><di:waypoint x="636" y="270"/><di:waypoint x="660" y="270"/><di:waypoint x="660" y="340"/><di:waypoint x="335" y="340"/><di:waypoint x="335" y="155"/><bpmndi:BPMNLabel><dc:Bounds x="560" y="346" width="140" height="24"/></bpmndi:BPMNLabel></bpmndi:BPMNEdge><bpmndi:BPMNEdge bpmnElement="DataIn_DS2_OTPLAN" id="Edge_DataIn_DS2_OTPLAN_Diagram_SUB_STAGE_Plane"><di:waypoint x="490" y="70"/><di:waypoint x="475" y="95"/></bpmndi:BPMNEdge></bpmndi:BPMNPlane></bpmndi:BPMNDiagram><bpmndi:BPMNDiagram id="Diagram_SUB_RECON"><bpmndi:BPMNPlane id="Diagram_SUB_RECON_Plane" bpmnElement="SUB_RECON"><bpmndi:BPMNShape bpmnElement="RECON_S" id="Shape_RECON_S_Diagram_SUB_RECON_Plane"><dc:Bounds x="50" y="112" width="36" height="36"/></bpmndi:BPMNShape><bpmndi:BPMNShape bpmnElement="RECON_JOIN" id="Shape_RECON_JOIN_Diagram_SUB_RECON_Plane"><dc:Bounds x="130" y="105" width="50" height="50"/><bpmndi:BPMNLabel><dc:Bounds x="95" y="30" width="120" height="27" /></bpmndi:BPMNLabel></bpmndi:BPMNShape><bpmndi:BPMNShape bpmnElement="OT3" id="Shape_OT3_Diagram_SUB_RECON_Plane"><dc:Bounds x="220" y="95" width="150" height="70"/></bpmndi:BPMNShape><bpmndi:BPMNShape bpmnElement="GW7" id="Shape_GW7_Diagram_SUB_RECON_Plane"><dc:Bounds x="410" y="105" width="50" height="50"/><bpmndi:BPMNLabel><dc:Bounds x="390" y="55" width="120" height="20"/></bpmndi:BPMNLabel></bpmndi:BPMNShape><bpmndi:BPMNShape bpmnElement="OT5" id="Shape_OT5_Diagram_SUB_RECON_Plane"><dc:Bounds x="500" y="95" width="130" height="70"/></bpmndi:BPMNShape><bpmndi:BPMNShape bpmnElement="OT5A" id="Shape_OT5A_Diagram_SUB_RECON_Plane"><dc:Bounds x="670" y="95" width="145" height="70"/></bpmndi:BPMNShape><bpmndi:BPMNShape bpmnElement="RECON_E" id="Shape_RECON_E_Diagram_SUB_RECON_Plane"><dc:Bounds x="855" y="112" width="36" height="36"/></bpmndi:BPMNShape><bpmndi:BPMNShape bpmnElement="OT4" id="Shape_OT4_Diagram_SUB_RECON_Plane"><dc:Bounds x="385" y="235" width="150" height="70"/></bpmndi:BPMNShape><bpmndi:BPMNShape bpmnElement="DS2" id="Shape_DS2_Diagram_SUB_RECON_Plane"><dc:Bounds x="700" y="10" width="90" height="60"/></bpmndi:BPMNShape><bpmndi:BPMNEdge bpmnElement="Flow_RECONS_JOIN" id="Edge_Flow_RECONS_JOIN_Diagram_SUB_RECON_Plane"><di:waypoint x="86" y="130"/><di:waypoint x="130" y="130"/><bpmndi:BPMNLabel><dc:Bounds x="83" y="84" width="60" height="18"/></bpmndi:BPMNLabel></bpmndi:BPMNEdge><bpmndi:BPMNEdge bpmnElement="Flow_OJ2_OT3" id="Edge_Flow_OJ2_OT3_Diagram_SUB_RECON_Plane"><di:waypoint x="180" y="130"/><di:waypoint x="220" y="130"/><bpmndi:BPMNLabel><dc:Bounds x="152" y="75" width="85" height="20"/></bpmndi:BPMNLabel></bpmndi:BPMNEdge><bpmndi:BPMNEdge bpmnElement="Flow_OT3_GW7" id="Edge_Flow_OT3_GW7_Diagram_SUB_RECON_Plane"><di:waypoint x="370" y="130"/><di:waypoint x="410" y="130"/><bpmndi:BPMNLabel><dc:Bounds x="347" y="75" width="85" height="20"/></bpmndi:BPMNLabel></bpmndi:BPMNEdge><bpmndi:BPMNEdge bpmnElement="Flow_GW7_OT5" id="Edge_Flow_GW7_OT5_Diagram_SUB_RECON_Plane"><di:waypoint x="460" y="130"/><di:waypoint x="500" y="130"/><bpmndi:BPMNLabel><dc:Bounds x="437" y="75" width="85" height="20"/></bpmndi:BPMNLabel></bpmndi:BPMNEdge><bpmndi:BPMNEdge bpmnElement="Flow_OT5_OT5A" id="Edge_Flow_OT5_OT5A_Diagram_SUB_RECON_Plane"><di:waypoint x="630" y="130"/><di:waypoint x="670" y="130"/><bpmndi:BPMNLabel><dc:Bounds x="610" y="75" width="85" height="20"/></bpmndi:BPMNLabel></bpmndi:BPMNEdge><bpmndi:BPMNEdge bpmnElement="Flow_OT5A_OT6" id="Edge_Flow_OT5A_OT6_Diagram_SUB_RECON_Plane"><di:waypoint x="815" y="130"/><di:waypoint x="855" y="130"/><bpmndi:BPMNLabel><dc:Bounds x="792" y="75" width="85" height="20"/></bpmndi:BPMNLabel></bpmndi:BPMNEdge><bpmndi:BPMNEdge bpmnElement="Flow_GW7_OT4" id="Edge_Flow_GW7_OT4_Diagram_SUB_RECON_Plane"><di:waypoint x="435" y="155"/><di:waypoint x="435" y="195"/><di:waypoint x="460" y="195"/><di:waypoint x="460" y="235"/><bpmndi:BPMNLabel><dc:Bounds x="475" y="192" width="110" height="26"/></bpmndi:BPMNLabel></bpmndi:BPMNEdge><bpmndi:BPMNEdge bpmnElement="Flow_OT4_OJ2" id="Edge_Flow_OT4_OJ2_Diagram_SUB_RECON_Plane"><di:waypoint x="385" y="270"/><di:waypoint x="385" y="330"/><di:waypoint x="195" y="330"/><di:waypoint x="195" y="155"/><di:waypoint x="155" y="155"/><bpmndi:BPMNLabel><dc:Bounds x="60" y="200" width="110" height="24"/></bpmndi:BPMNLabel></bpmndi:BPMNEdge><bpmndi:BPMNEdge bpmnElement="DataOut_OT5A_DS2" id="Edge_DataOut_OT5A_DS2_Diagram_SUB_RECON_Plane"><di:waypoint x="742.5" y="95"/><di:waypoint x="745" y="70"/></bpmndi:BPMNEdge></bpmndi:BPMNPlane></bpmndi:BPMNDiagram></bpmn:definitions>
