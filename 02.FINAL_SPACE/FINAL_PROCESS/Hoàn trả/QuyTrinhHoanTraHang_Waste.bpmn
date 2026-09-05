@@ -15,7 +15,7 @@
       <bpmn:text>W3: Vận chuyển trung gian</bpmn:text>
     </bpmn:textAnnotation>
     <bpmn:textAnnotation id="Ann_W_H6">
-      <bpmn:text>W2: Hàng hư hỏng/lỗi</bpmn:text>
+      <bpmn:text>Hàng hư hỏng/lỗi</bpmn:text>
     </bpmn:textAnnotation>
     <bpmn:textAnnotation id="Ann_W_H7">
       <bpmn:text>W5: Tồn đọng lưu kho</bpmn:text>
@@ -24,15 +24,15 @@
       <bpmn:text>W6: Đối soát lặp lại</bpmn:text>
     </bpmn:textAnnotation>
     <bpmn:textAnnotation id="Ann_W_H4">
-      <bpmn:text>W1: Khách hủy đơn</bpmn:text>
+      <bpmn:text>Khách hủy đơn</bpmn:text>
     </bpmn:textAnnotation>
     <bpmn:association id="Assoc_Ann_W_H1" sourceRef="Task_BoSungChungTu" targetRef="Ann_W_H1" />
     <bpmn:association id="Assoc_Ann_W_H2" sourceRef="Task_XacMinh" targetRef="Ann_W_H2" />
     <bpmn:association id="Assoc_Ann_W_H3" sourceRef="Task_HenLai" targetRef="Ann_W_H3" />
     <bpmn:association id="Assoc_Ann_W_H5" sourceRef="Task_VanChuyen" targetRef="Ann_W_H5" />
     <bpmn:association id="Assoc_Ann_W_H6" sourceRef="Task_LapBienBan" targetRef="Ann_W_H6" />
-    <bpmn:association id="Assoc_Ann_W_H7" sourceRef="Task_NhapKhoHoan" targetRef="Ann_W_H7" />
-    <bpmn:association id="Assoc_Ann_W_H8" sourceRef="Task_ChuyenBoiThuong" targetRef="Ann_W_H8" />
+    <bpmn:association id="Assoc_Ann_W_H7" sourceRef="Task_XuatTraShop" targetRef="Ann_W_H7" />
+    <bpmn:association id="Assoc_Ann_W_H8" sourceRef="Task_KiemTraKho" targetRef="Ann_W_H8" />
     <bpmn:association id="Assoc_Ann_W_H4" sourceRef="Task_HuyYeuCau" targetRef="Ann_W_H4" />
   </bpmn:collaboration>
   <bpmn:process id="Process_HoanTra" name="Quy trình Quản lý hoàn trả hàng (Waste Analysis)" isExecutable="false">
@@ -560,12 +560,12 @@
         <di:waypoint x="2006" y="840" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Assoc_Ann_W_H7_di" bpmnElement="Assoc_Ann_W_H7">
-        <di:waypoint x="2175" y="673" />
-        <di:waypoint x="2175" y="677" />
+        <di:waypoint x="2510" y="673" />
+        <di:waypoint x="2510" y="677" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Assoc_Ann_W_H8_di" bpmnElement="Assoc_Ann_W_H8">
-        <di:waypoint x="2475" y="275" />
-        <di:waypoint x="2475" y="280" />
+        <di:waypoint x="1890" y="673" />
+        <di:waypoint x="1890" y="677" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Assoc_Ann_W_H4_di" bpmnElement="Assoc_Ann_W_H4">
         <di:waypoint x="1545" y="275" />
@@ -589,10 +589,10 @@
         <dc:Bounds x="1950" y="840" width="170" height="40" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Ann_W_H7_di" bpmnElement="Ann_W_H7">
-        <dc:Bounds x="2120" y="637" width="160" height="40" />
+        <dc:Bounds x="2430" y="637" width="160" height="40" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Ann_W_H8_di" bpmnElement="Ann_W_H8">
-        <dc:Bounds x="2420" y="240" width="140" height="40" />
+        <dc:Bounds x="1820" y="637" width="140" height="40" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Ann_W_H4_di" bpmnElement="Ann_W_H4">
         <dc:Bounds x="1490" y="240" width="160" height="40" />
