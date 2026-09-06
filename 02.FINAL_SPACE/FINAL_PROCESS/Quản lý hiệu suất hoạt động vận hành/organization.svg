@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="360" viewBox="0 0 1000 360">
+<polygon points="364,16 636,16 640,20 640,77 636,81 364,81 360,77 360,20" fill="#1f4e79" stroke="#183a59" stroke-width="1"/>
+<text x="500" y="36" font-family="Arial, sans-serif" font-size="12px" font-weight="700" fill="#ffffff" text-anchor="middle">LÃNH ĐẠO / CHỦ KPI</text>
+<text x="500" y="55" font-family="Arial, sans-serif" font-size="10px" font-weight="400" fill="#ffffff" text-anchor="middle">Phê duyệt KPI, ngưỡng và action</text>
+<polyline points="500,81 500,126" fill="none" stroke="#7f8c8d" stroke-width="1.5"/>
+<polyline points="135,126 860.5,126" fill="none" stroke="#7f8c8d" stroke-width="1.5"/>
+<polyline points="135,126 135,160" fill="none" stroke="#7f8c8d" stroke-width="1.5"/>
+<polygon points="135,160 132,154 138,154" fill="#7f8c8d" stroke="none" stroke-width="1"/>
+<polygon points="34,161 236,161 240,165 240,331 236,335 34,335 30,331 30,165" fill="#eaf2f8" stroke="#2980b9" stroke-width="1"/>
+<text x="135" y="182" font-family="Arial, sans-serif" font-size="12px" font-weight="700" fill="#1f4e79" text-anchor="middle">CHỦ QUY TRÌNH / VẬN HÀNH</text>
+<text x="135" y="201" font-family="Arial, sans-serif" font-size="10px" font-weight="400" fill="#404040" text-anchor="middle">• Sở hữu hiệu suất quy trình</text>
+<text x="135" y="216" font-family="Arial, sans-serif" font-size="10px" font-weight="400" fill="#404040" text-anchor="middle">• Chốt phạm vi và KPI register</text>
+<text x="135" y="231" font-family="Arial, sans-serif" font-size="10px" font-weight="400" fill="#404040" text-anchor="middle">• Phân tích chênh lệch, RCA</text>
+<text x="135" y="246" font-family="Arial, sans-serif" font-size="10px" font-weight="400" fill="#404040" text-anchor="middle">• Hậu kiểm và đóng action</text>
+<polyline points="378,126 378,160" fill="none" stroke="#7f8c8d" stroke-width="1.5"/>
+<polygon points="378,160 375,154 381,154" fill="#7f8c8d" stroke="none" stroke-width="1"/>
+<polygon points="270,161 486,161 490,165 490,331 486,335 270,335 266,331 266,165" fill="#eaf2f8" stroke="#2980b9" stroke-width="1"/>
+<text x="378" y="182" font-family="Arial, sans-serif" font-size="12px" font-weight="700" fill="#1f4e79" text-anchor="middle">ĐIỀU PHỐI HIỆU SUẤT &amp; BI</text>
+<text x="378" y="201" font-family="Arial, sans-serif" font-size="10px" font-weight="400" fill="#404040" text-anchor="middle">• Quản trị KPI và quality gate</text>
+<text x="378" y="216" font-family="Arial, sans-serif" font-size="10px" font-weight="400" fill="#404040" text-anchor="middle">• Làm sạch, chuẩn hóa dữ liệu</text>
+<text x="378" y="231" font-family="Arial, sans-serif" font-size="10px" font-weight="400" fill="#404040" text-anchor="middle">• Tính KPI và dashboard</text>
+<text x="378" y="246" font-family="Arial, sans-serif" font-size="10px" font-weight="400" fill="#404040" text-anchor="middle">• Đối chiếu nguồn chuẩn</text>
+<polyline points="620.5,126 620.5,160" fill="none" stroke="#7f8c8d" stroke-width="1.5"/>
+<polygon points="620.5,160 617.5,154 623.5,154" fill="#7f8c8d" stroke="none" stroke-width="1"/>
+<polygon points="520,161 721,161 725,165 725,331 721,335 520,335 516,331 516,165" fill="#eaf2f8" stroke="#2980b9" stroke-width="1"/>
+<text x="620.5" y="182" font-family="Arial, sans-serif" font-size="12px" font-weight="700" fill="#1f4e79" text-anchor="middle">QUẢN TRỊ DỮ LIỆU &amp; CNTT</text>
+<text x="620.5" y="201" font-family="Arial, sans-serif" font-size="10px" font-weight="400" fill="#404040" text-anchor="middle">• Trích xuất event log</text>
+<text x="620.5" y="216" font-family="Arial, sans-serif" font-size="10px" font-weight="400" fill="#404040" text-anchor="middle">• Ghi/đọc SSOT có version</text>
+<text x="620.5" y="231" font-family="Arial, sans-serif" font-size="10px" font-weight="400" fill="#404040" text-anchor="middle">• Hiệu chỉnh và nạp lại dữ liệu</text>
+<text x="620.5" y="246" font-family="Arial, sans-serif" font-size="10px" font-weight="400" fill="#404040" text-anchor="middle">• Bảo trì đường ống dữ liệu</text>
+<polyline points="860.5,126 860.5,160" fill="none" stroke="#7f8c8d" stroke-width="1.5"/>
+<polygon points="860.5,160 857.5,154 863.5,154" fill="#7f8c8d" stroke="none" stroke-width="1"/>
+<polygon points="755,161 966,161 970,165 970,331 966,335 755,335 751,331 751,165" fill="#fef9e7" stroke="#f39c12" stroke-width="1"/>
+<text x="860.5" y="182" font-family="Arial, sans-serif" font-size="12px" font-weight="700" fill="#1f4e79" text-anchor="middle">ĐƠN VỊ VẬN HÀNH</text>
+<text x="860.5" y="201" font-family="Arial, sans-serif" font-size="10px" font-weight="400" fill="#404040" text-anchor="middle">• Xác nhận dữ liệu thực tế</text>
+<text x="860.5" y="216" font-family="Arial, sans-serif" font-size="10px" font-weight="400" fill="#404040" text-anchor="middle">• Xử lý chênh lệch đối soát</text>
+<text x="860.5" y="231" font-family="Arial, sans-serif" font-size="10px" font-weight="400" fill="#404040" text-anchor="middle">• Triển khai hành động cải tiến</text>
+<text x="860.5" y="246" font-family="Arial, sans-serif" font-size="10px" font-weight="400" fill="#404040" text-anchor="middle">• Phối hợp pilot và nhân rộng</text>
+</svg>

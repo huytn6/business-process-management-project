@@ -1,0 +1,616 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_quan_ly_hieu_suat_hoat_dong_van_hanh" targetNamespace="http://bpmn.io/schema/bpmn" exporter="bpmn-js (https://demo.bpmn.io)" exporterVersion="18.28.0">
+  <bpmn:collaboration id="Collaboration_quan_ly_hieu_suat_hoat_dong_van_hanh">
+    <bpmn:participant id="Participant_quan_ly_hieu_suat_hoat_dong_van_hanh" name="Quản lý hiệu suất hoạt động vận hành" processRef="operational_performance_management" />
+  </bpmn:collaboration>
+  <bpmn:process id="operational_performance_management" name="Quản lý hiệu suất hoạt động vận hành" isExecutable="true">
+    <bpmn:documentation>Quản lý hiệu suất hoạt động vận hành: chu trình xác định kỳ đo và KPI, thu nhận event log vào SSOT, kiểm soát chất lượng dữ liệu, tính KPI, phân tích chênh lệch, cải tiến và hậu kiểm.</bpmn:documentation>
+    <bpmn:laneSet id="LaneSet_performance_management">
+      <bpmn:lane id="Lane_5" name="Đơn vị vận hành">
+        <bpmn:flowNodeRef>t12</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>t17</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>t19</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_4" name="Điều phối hiệu suất &#38; BI">
+        <bpmn:flowNodeRef>g_quality_split</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>t10</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>t11</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>g_recon_join</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>t08</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>t09</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>g_quality_join</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>t13</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>g_kpi_parallel_split</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>g_recon_split</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>t14</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>t07</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>t06</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_3" name="Quản trị dữ liệu &#38; CNTT">
+        <bpmn:flowNodeRef>t04</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>t05</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_2" name="Lãnh đạo / Chủ KPI">
+        <bpmn:flowNodeRef>t03</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>t18</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>g_action_split</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_1" name="Chủ quy trình / Khối Vận hành">
+        <bpmn:flowNodeRef>start</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>t01</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>t02</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>t20</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>g_postcheck_split</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>t15</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>t16</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>g_kpi_parallel_join</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>end_deferred</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>end_success</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>end_transfer</bpmn:flowNodeRef>
+      </bpmn:lane>
+    </bpmn:laneSet>
+    <bpmn:startEvent id="start" name="Kỳ đo đến hạn">
+      <bpmn:outgoing>f01</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:userTask id="t01" name="Xác định kỳ đo và phạm vi">
+      <bpmn:incoming>f01</bpmn:incoming>
+      <bpmn:outgoing>f02</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:userTask id="t02" name="Rà soát mục tiêu và KPI register">
+      <bpmn:incoming>f02</bpmn:incoming>
+      <bpmn:outgoing>f03</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:userTask id="t20" name="Hậu kiểm kết quả cải tiến">
+      <bpmn:incoming>f28</bpmn:incoming>
+      <bpmn:outgoing>f29</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:exclusiveGateway id="g_postcheck_split" name="KPI hậu kiểm đạt?">
+      <bpmn:incoming>f29</bpmn:incoming>
+      <bpmn:outgoing>f30</bpmn:outgoing>
+      <bpmn:outgoing>f31</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:userTask id="t03" name="Phê duyệt KPI và ngưỡng">
+      <bpmn:incoming>f03</bpmn:incoming>
+      <bpmn:outgoing>f04</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:userTask id="t04" name="Trích xuất nhật ký sự kiện">
+      <bpmn:incoming>f04</bpmn:incoming>
+      <bpmn:outgoing>f05</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:userTask id="t05" name="Ghi dữ liệu vào SSOT">
+      <bpmn:incoming>f05</bpmn:incoming>
+      <bpmn:outgoing>f06</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:exclusiveGateway id="g_quality_split" name="Dữ liệu đạt quality gate?">
+      <bpmn:incoming>f08</bpmn:incoming>
+      <bpmn:outgoing>f09</bpmn:outgoing>
+      <bpmn:outgoing>f10</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:userTask id="t10" name="Chuẩn hóa và mapping dữ liệu">
+      <bpmn:incoming>f13</bpmn:incoming>
+      <bpmn:outgoing>f14</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:userTask id="t11" name="Đối chiếu với nguồn chuẩn">
+      <bpmn:incoming>f14</bpmn:incoming>
+      <bpmn:outgoing>f15</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:exclusiveGateway id="g_recon_join" name="Hợp nhất số liệu đối chiếu">
+      <bpmn:incoming>f16</bpmn:incoming>
+      <bpmn:incoming>f18</bpmn:incoming>
+      <bpmn:outgoing>f19</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:userTask id="t08" name="Gửi ticket xử lý dữ liệu">
+      <bpmn:incoming>f10</bpmn:incoming>
+      <bpmn:outgoing>f11</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:userTask id="t09" name="Hiệu chỉnh và nạp lại dữ liệu">
+      <bpmn:incoming>f11</bpmn:incoming>
+      <bpmn:outgoing>f12</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:exclusiveGateway id="g_quality_join" name="Hợp nhất dữ liệu đạt chuẩn">
+      <bpmn:incoming>f09</bpmn:incoming>
+      <bpmn:incoming>f12</bpmn:incoming>
+      <bpmn:outgoing>f13</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:userTask id="t13" name="Tính KPI và chỉ số dòng chảy">
+      <bpmn:incoming>f19</bpmn:incoming>
+      <bpmn:outgoing>f20</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:parallelGateway id="g_kpi_parallel_split" name="Tách báo cáo và phân tích" />
+    <bpmn:userTask id="t15" name="Phân tích chênh lệch hiệu suất">
+      <bpmn:incoming>f21</bpmn:incoming>
+      <bpmn:outgoing>f22</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:userTask id="t12" name="Hiệu chỉnh chênh lệch dữ liệu">
+      <bpmn:incoming>f17</bpmn:incoming>
+      <bpmn:outgoing>f18</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:exclusiveGateway id="g_recon_split" name="Đối chiếu khớp?">
+      <bpmn:incoming>f15</bpmn:incoming>
+      <bpmn:outgoing>f16</bpmn:outgoing>
+      <bpmn:outgoing>f17</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:userTask id="t16" name="Xác định nguyên nhân gốc và owner">
+      <bpmn:incoming>f22</bpmn:incoming>
+      <bpmn:outgoing>f23</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:userTask id="t14" name="Lập dashboard và báo cáo kỳ">
+      <bpmn:incoming>f20</bpmn:incoming>
+      <bpmn:outgoing>f21</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:parallelGateway id="g_kpi_parallel_join" name="Hợp nhất báo cáo và phân tích" />
+    <bpmn:userTask id="t17" name="Lập kế hoạch cải tiến">
+      <bpmn:incoming>f23</bpmn:incoming>
+      <bpmn:outgoing>f24</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:userTask id="t18" name="Phê duyệt hành động cải tiến">
+      <bpmn:incoming>f24</bpmn:incoming>
+      <bpmn:outgoing>f25</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:userTask id="t19" name="Triển khai hành động cải tiến">
+      <bpmn:incoming>f26</bpmn:incoming>
+      <bpmn:outgoing>f28</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:exclusiveGateway id="g_action_split" name="Hành động được phê duyệt?">
+      <bpmn:incoming>f25</bpmn:incoming>
+      <bpmn:outgoing>f26</bpmn:outgoing>
+      <bpmn:outgoing>f27</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:endEvent id="end_deferred" name="Action chưa phê duyệt đã ghi nhận">
+      <bpmn:incoming>f27</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:endEvent id="end_success" name="Kỳ đo và action đã đóng">
+      <bpmn:incoming>f30</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:endEvent id="end_transfer" name="Action đã chuyển sang kỳ sau">
+      <bpmn:incoming>f31</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:userTask id="t07" name="Kiểm tra chất lượng dữ liệu">
+      <bpmn:incoming>f07</bpmn:incoming>
+      <bpmn:outgoing>f08</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:userTask id="t06" name="Đọc dữ liệu từ SSOT">
+      <bpmn:incoming>f06</bpmn:incoming>
+      <bpmn:outgoing>f07</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="f01" sourceRef="start" targetRef="t01" />
+    <bpmn:sequenceFlow id="f02" name="" sourceRef="t01" targetRef="t02" />
+    <bpmn:sequenceFlow id="f03" name="" sourceRef="t02" targetRef="t03" />
+    <bpmn:sequenceFlow id="f28" name="" sourceRef="t19" targetRef="t20" />
+    <bpmn:sequenceFlow id="f29" sourceRef="t20" targetRef="g_postcheck_split" />
+    <bpmn:sequenceFlow id="f30" name="Đạt [84%]" sourceRef="g_postcheck_split" targetRef="end_success" />
+    <bpmn:sequenceFlow id="f31" name="Chưa đạt [16%]" sourceRef="g_postcheck_split" targetRef="end_transfer" />
+    <bpmn:sequenceFlow id="f04" name="" sourceRef="t03" targetRef="t04" />
+    <bpmn:sequenceFlow id="f05" name="" sourceRef="t04" targetRef="t05" />
+    <bpmn:sequenceFlow id="f06" name="" sourceRef="t05" targetRef="t06" />
+    <bpmn:sequenceFlow id="f08" name="" sourceRef="t07" targetRef="g_quality_split" />
+    <bpmn:sequenceFlow id="f09" name="Đạt [88%]" sourceRef="g_quality_split" targetRef="g_quality_join" />
+    <bpmn:sequenceFlow id="f10" name="Chưa đạt [12%]" sourceRef="g_quality_split" targetRef="t08" />
+    <bpmn:sequenceFlow id="f13" name="" sourceRef="g_quality_join" targetRef="t10" />
+    <bpmn:sequenceFlow id="f14" name="" sourceRef="t10" targetRef="t11" />
+    <bpmn:sequenceFlow id="f15" name="" sourceRef="t11" targetRef="g_recon_split" />
+    <bpmn:sequenceFlow id="f16" name="Khớp [94%]" sourceRef="g_recon_split" targetRef="g_recon_join" />
+    <bpmn:sequenceFlow id="f18" name="" sourceRef="t12" targetRef="g_recon_join" />
+    <bpmn:sequenceFlow id="f19" name="" sourceRef="g_recon_join" targetRef="t13" />
+    <bpmn:sequenceFlow id="f11" name="" sourceRef="t08" targetRef="t09" />
+    <bpmn:sequenceFlow id="f12" name="" sourceRef="t09" targetRef="g_quality_join" />
+    <bpmn:sequenceFlow id="f20" name="" sourceRef="t13" targetRef="g_kpi_parallel_split" />
+    <bpmn:sequenceFlow id="f32" name="Nhánh báo cáo" sourceRef="g_kpi_parallel_split" targetRef="t14" />
+    <bpmn:sequenceFlow id="f33" name="Nhánh phân tích" sourceRef="g_kpi_parallel_split" targetRef="t15" />
+    <bpmn:sequenceFlow id="f22" name="" sourceRef="t15" targetRef="g_kpi_parallel_join" />
+    <bpmn:sequenceFlow id="f17" name="Lệch [6%]" sourceRef="g_recon_split" targetRef="t12" />
+    <bpmn:sequenceFlow id="f34" name="Báo cáo và phân tích hoàn tất" sourceRef="g_kpi_parallel_join" targetRef="t16" />
+    <bpmn:sequenceFlow id="f23" name="" sourceRef="t16" targetRef="t17" />
+    <bpmn:sequenceFlow id="f21" name="" sourceRef="t14" targetRef="g_kpi_parallel_join" />
+    <bpmn:sequenceFlow id="f24" name="" sourceRef="t17" targetRef="t18" />
+    <bpmn:sequenceFlow id="f25" name="" sourceRef="t18" targetRef="g_action_split" />
+    <bpmn:sequenceFlow id="f26" name="Phê duyệt [92%]" sourceRef="g_action_split" targetRef="t19" />
+    <bpmn:sequenceFlow id="f27" name="Chưa phê duyệt [8%]" sourceRef="g_action_split" targetRef="end_deferred" />
+    <bpmn:sequenceFlow id="f07" name="" sourceRef="t06" targetRef="t07" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_quan_ly_hieu_suat_hoat_dong_van_hanh">
+    <bpmndi:BPMNPlane id="BPMNPlane_quan_ly_hieu_suat_hoat_dong_van_hanh" bpmnElement="Collaboration_quan_ly_hieu_suat_hoat_dong_van_hanh">
+      <bpmndi:BPMNShape id="Participant_quan_ly_hieu_suat_hoat_dong_van_hanh_di" bpmnElement="Participant_quan_ly_hieu_suat_hoat_dong_van_hanh" isHorizontal="true">
+        <dc:Bounds x="160" y="80" width="4130" height="1260" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_5_di" bpmnElement="Lane_5" isHorizontal="true">
+        <dc:Bounds x="190" y="1130" width="4100" height="210" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_4_di" bpmnElement="Lane_4" isHorizontal="true">
+        <dc:Bounds x="190" y="676" width="4100" height="454" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_3_di" bpmnElement="Lane_3" isHorizontal="true">
+        <dc:Bounds x="190" y="507" width="4100" height="169" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_2_di" bpmnElement="Lane_2" isHorizontal="true">
+        <dc:Bounds x="190" y="338" width="4100" height="169" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_1_di" bpmnElement="Lane_1" isHorizontal="true">
+        <dc:Bounds x="190" y="80" width="4100" height="258" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="start_di" bpmnElement="start">
+        <dc:Bounds x="240" y="147" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="223" y="183" width="71" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="t01_di" bpmnElement="t01">
+        <dc:Bounds x="306" y="131" width="230" height="68" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="t02_di" bpmnElement="t02">
+        <dc:Bounds x="566" y="131" width="230" height="68" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="t20_di" bpmnElement="t20">
+        <dc:Bounds x="3819" y="131" width="230" height="68" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="g_postcheck_split_di" bpmnElement="g_postcheck_split" isMarkerVisible="true">
+        <dc:Bounds x="4079" y="143" width="44" height="44" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="4056" y="119" width="90" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="t03_di" bpmnElement="t03">
+        <dc:Bounds x="285" y="389" width="230" height="68" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="t04_di" bpmnElement="t04">
+        <dc:Bounds x="285" y="558" width="230" height="68" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="t05_di" bpmnElement="t05">
+        <dc:Bounds x="562" y="558" width="215" height="68" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="g_quality_split_di" bpmnElement="g_quality_split" isMarkerVisible="true">
+        <dc:Bounds x="1098" y="748" width="44" height="44" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1088" y="710.5" width="63" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="t10_di" bpmnElement="t10">
+        <dc:Bounds x="1415" y="966" width="230" height="68" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="t11_di" bpmnElement="t11">
+        <dc:Bounds x="1685" y="966" width="230" height="68" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="g_recon_join_di" bpmnElement="g_recon_join" isMarkerVisible="true">
+        <dc:Bounds x="2218" y="748" width="44" height="44" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2199" y="710.5" width="81" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="t08_di" bpmnElement="t08">
+        <dc:Bounds x="1215" y="736" width="230" height="68" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="t09_di" bpmnElement="t09">
+        <dc:Bounds x="1215" y="846" width="230" height="68" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="g_quality_join_di" bpmnElement="g_quality_join" isMarkerVisible="true">
+        <dc:Bounds x="1308" y="978" width="44" height="44" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1289" y="1022" width="83" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="t13_di" bpmnElement="t13">
+        <dc:Bounds x="2375" y="736" width="230" height="68" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="g_kpi_parallel_split_di" bpmnElement="g_kpi_parallel_split">
+        <dc:Bounds x="2658" y="748" width="44" height="44" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2639" y="792" width="82" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="t15_di" bpmnElement="t15">
+        <dc:Bounds x="2565" y="131" width="230" height="68" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="t12_di" bpmnElement="t12">
+        <dc:Bounds x="2125" y="1186" width="230" height="68" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="g_recon_split_di" bpmnElement="g_recon_split" isMarkerVisible="true">
+        <dc:Bounds x="1998" y="978" width="44" height="44" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2052" y="993" width="80" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="t16_di" bpmnElement="t16">
+        <dc:Bounds x="3115" y="131" width="230" height="68" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="t14_di" bpmnElement="t14">
+        <dc:Bounds x="2815" y="736" width="230" height="68" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="g_kpi_parallel_join_di" bpmnElement="g_kpi_parallel_join">
+        <dc:Bounds x="2908" y="143" width="44" height="44" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2886" y="105.5" width="88" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="t17_di" bpmnElement="t17">
+        <dc:Bounds x="3122" y="1186" width="215" height="68" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="t18_di" bpmnElement="t18">
+        <dc:Bounds x="3365" y="389" width="230" height="68" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="t19_di" bpmnElement="t19">
+        <dc:Bounds x="3635" y="1186" width="230" height="68" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="g_action_split_di" bpmnElement="g_action_split" isMarkerVisible="true">
+        <dc:Bounds x="3728" y="401" width="44" height="44" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="3782" y="409" width="84" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="end_deferred_di" bpmnElement="end_deferred">
+        <dc:Bounds x="3802" y="262" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="3776" y="303" width="88" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="end_success_di" bpmnElement="end_success">
+        <dc:Bounds x="4172" y="147" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="4152" y="188" width="76" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="end_transfer_di" bpmnElement="end_transfer">
+        <dc:Bounds x="4172" y="236" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="4148" y="272" width="85" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="t07_di" bpmnElement="t07">
+        <dc:Bounds x="795" y="736" width="230" height="68" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="t06_di" bpmnElement="t06">
+        <dc:Bounds x="570" y="736" width="200" height="68" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="f01_di" bpmnElement="f01">
+        <di:waypoint x="276" y="164.5" />
+        <di:waypoint x="306" y="164.5" />
+        <bpmndi:BPMNLabel labelStyle="LabelStyle_14">
+          <dc:Bounds x="1196" y="613" width="68" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f02_di" bpmnElement="f02">
+        <di:waypoint x="536" y="164.5" />
+        <di:waypoint x="566" y="164.5" />
+        <bpmndi:BPMNLabel labelStyle="LabelStyle_14">
+          <dc:Bounds x="439" y="195.5" width="224" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f03_di" bpmnElement="f03">
+        <di:waypoint x="681" y="199" />
+        <di:waypoint x="681" y="423" />
+        <di:waypoint x="515" y="423" />
+        <bpmndi:BPMNLabel labelStyle="LabelStyle_14">
+          <dc:Bounds x="598.5" y="366.5" width="181" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f28_di" bpmnElement="f28">
+        <di:waypoint x="3865" y="1220" />
+        <di:waypoint x="3934" y="1220" />
+        <di:waypoint x="3934" y="199" />
+        <bpmndi:BPMNLabel labelStyle="LabelStyle_14">
+          <dc:Bounds x="3903.5" y="1049.5" width="311" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f29_di" bpmnElement="f29">
+        <di:waypoint x="4049" y="165" />
+        <di:waypoint x="4079" y="165" />
+        <bpmndi:BPMNLabel labelStyle="LabelStyle_14">
+          <dc:Bounds x="4026" y="82" width="86" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f30_di" bpmnElement="f30">
+        <di:waypoint x="4123" y="165" />
+        <di:waypoint x="4172" y="165" />
+        <bpmndi:BPMNLabel labelStyle="LabelStyle_14">
+          <dc:Bounds x="3614" y="144.5" width="49" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f31_di" bpmnElement="f31">
+        <di:waypoint x="4101" y="187" />
+        <di:waypoint x="4101" y="254" />
+        <di:waypoint x="4172" y="254" />
+        <bpmndi:BPMNLabel labelStyle="LabelStyle_14">
+          <dc:Bounds x="3611" y="234" width="78" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f04_di" bpmnElement="f04">
+        <di:waypoint x="400" y="457" />
+        <di:waypoint x="400" y="558" />
+        <bpmndi:BPMNLabel labelStyle="LabelStyle_14">
+          <dc:Bounds x="584" y="580" width="210" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f05_di" bpmnElement="f05">
+        <di:waypoint x="515" y="592" />
+        <di:waypoint x="562" y="592" />
+        <bpmndi:BPMNLabel labelStyle="LabelStyle_14">
+          <dc:Bounds x="742" y="622.5" width="138" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f06_di" bpmnElement="f06">
+        <di:waypoint x="670" y="626" />
+        <di:waypoint x="670" y="736" />
+        <bpmndi:BPMNLabel labelStyle="LabelStyle_14">
+          <dc:Bounds x="858" y="749" width="167" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f08_di" bpmnElement="f08">
+        <di:waypoint x="1025" y="770" />
+        <di:waypoint x="1098" y="770" />
+        <bpmndi:BPMNLabel labelStyle="LabelStyle_14">
+          <dc:Bounds x="1225.5" y="903.5" width="181" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f09_di" bpmnElement="f09">
+        <di:waypoint x="1120" y="792" />
+        <di:waypoint x="1120" y="1000" />
+        <di:waypoint x="1308" y="1000" />
+        <bpmndi:BPMNLabel labelStyle="LabelStyle_14">
+          <dc:Bounds x="1055" y="823" width="49" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f10_di" bpmnElement="f10">
+        <di:waypoint x="1142" y="770" />
+        <di:waypoint x="1215" y="770" />
+        <bpmndi:BPMNLabel labelStyle="LabelStyle_14">
+          <dc:Bounds x="1131" y="743" width="78" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f13_di" bpmnElement="f13">
+        <di:waypoint x="1352" y="1000" />
+        <di:waypoint x="1415" y="1000" />
+        <bpmndi:BPMNLabel labelStyle="LabelStyle_14">
+          <dc:Bounds x="1552.5" y="908.5" width="253" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f14_di" bpmnElement="f14">
+        <di:waypoint x="1645" y="1000" />
+        <di:waypoint x="1685" y="1000" />
+        <bpmndi:BPMNLabel labelStyle="LabelStyle_14">
+          <dc:Bounds x="1783.5" y="791.5" width="253" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f15_di" bpmnElement="f15">
+        <di:waypoint x="1915" y="1000" />
+        <di:waypoint x="1998" y="1000" />
+        <bpmndi:BPMNLabel labelStyle="LabelStyle_14">
+          <dc:Bounds x="2082.5" y="661.5" width="268" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f16_di" bpmnElement="f16">
+        <di:waypoint x="2020" y="978" />
+        <di:waypoint x="2020" y="770" />
+        <di:waypoint x="2218" y="770" />
+        <bpmndi:BPMNLabel labelStyle="LabelStyle_14">
+          <dc:Bounds x="1951" y="929" width="58" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f18_di" bpmnElement="f18">
+        <di:waypoint x="2240" y="1186" />
+        <di:waypoint x="2240" y="792" />
+        <bpmndi:BPMNLabel labelStyle="LabelStyle_14">
+          <dc:Bounds x="2357.5" y="1049.5" width="167" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f19_di" bpmnElement="f19">
+        <di:waypoint x="2262" y="770" />
+        <di:waypoint x="2375" y="770" />
+        <bpmndi:BPMNLabel labelStyle="LabelStyle_14">
+          <dc:Bounds x="2399" y="661.5" width="210" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f11_di" bpmnElement="f11">
+        <di:waypoint x="1330" y="804" />
+        <di:waypoint x="1330" y="846" />
+        <bpmndi:BPMNLabel labelStyle="LabelStyle_14">
+          <dc:Bounds x="1892" y="749" width="152" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f12_di" bpmnElement="f12">
+        <di:waypoint x="1330" y="914" />
+        <di:waypoint x="1330" y="978" />
+        <bpmndi:BPMNLabel labelStyle="LabelStyle_14">
+          <dc:Bounds x="829.5" y="578" width="152" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f20_di" bpmnElement="f20">
+        <di:waypoint x="2605" y="770" />
+        <di:waypoint x="2658" y="770" />
+        <bpmndi:BPMNLabel labelStyle="LabelStyle_14">
+          <dc:Bounds x="2763" y="819.5" width="95" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f32_di" bpmnElement="f32">
+        <di:waypoint x="2702" y="770" />
+        <di:waypoint x="2815" y="770" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2721" y="746" width="75" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f33_di" bpmnElement="f33">
+        <di:waypoint x="2680" y="748" />
+        <di:waypoint x="2680" y="199" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2589" y="451" width="81" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f22_di" bpmnElement="f22">
+        <di:waypoint x="2795" y="165" />
+        <di:waypoint x="2908" y="165" />
+        <bpmndi:BPMNLabel labelStyle="LabelStyle_14">
+          <dc:Bounds x="3008.5" y="223.5" width="124" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f17_di" bpmnElement="f17">
+        <di:waypoint x="2020" y="1022" />
+        <di:waypoint x="2020" y="1220" />
+        <di:waypoint x="2125" y="1220" />
+        <bpmndi:BPMNLabel labelStyle="LabelStyle_14">
+          <dc:Bounds x="2043" y="1187" width="49" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f34_di" bpmnElement="f34">
+        <di:waypoint x="2952" y="165" />
+        <di:waypoint x="3115" y="165" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2992" y="135" width="83" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f23_di" bpmnElement="f23">
+        <di:waypoint x="3230" y="199" />
+        <di:waypoint x="3230" y="693" />
+        <di:waypoint x="3229" y="693" />
+        <di:waypoint x="3229" y="1186" />
+        <bpmndi:BPMNLabel labelStyle="LabelStyle_14">
+          <dc:Bounds x="3331.5" y="664.5" width="181" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f21_di" bpmnElement="f21">
+        <di:waypoint x="2930" y="736" />
+        <di:waypoint x="2930" y="187" />
+        <bpmndi:BPMNLabel labelStyle="LabelStyle_14">
+          <dc:Bounds x="3093" y="529.5" width="138" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f24_di" bpmnElement="f24">
+        <di:waypoint x="3337" y="1220" />
+        <di:waypoint x="3480" y="1220" />
+        <di:waypoint x="3480" y="457" />
+        <bpmndi:BPMNLabel labelStyle="LabelStyle_14">
+          <dc:Bounds x="3532.25" y="1077.5" width="167" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f25_di" bpmnElement="f25">
+        <di:waypoint x="3595" y="423" />
+        <di:waypoint x="3728" y="423" />
+        <bpmndi:BPMNLabel labelStyle="LabelStyle_14">
+          <dc:Bounds x="3292.5" y="481.5" width="152" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f26_di" bpmnElement="f26">
+        <di:waypoint x="3750" y="445" />
+        <di:waypoint x="3750" y="1186" />
+        <bpmndi:BPMNLabel labelStyle="LabelStyle_14">
+          <dc:Bounds x="3759" y="483" width="81" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f27_di" bpmnElement="f27">
+        <di:waypoint x="3750" y="401" />
+        <di:waypoint x="3750" y="280" />
+        <di:waypoint x="3802" y="280" />
+        <bpmndi:BPMNLabel labelStyle="LabelStyle_14">
+          <dc:Bounds x="3758" y="368" width="104" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f07_di" bpmnElement="f07">
+        <di:waypoint x="770" y="770" />
+        <di:waypoint x="795" y="770" />
+        <bpmndi:BPMNLabel labelStyle="LabelStyle_14">
+          <dc:Bounds x="997.75" y="791.5" width="109" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+    <bpmndi:BPMNLabelStyle id="LabelStyle_14">
+      <dc:Font name="Arial" size="14" />
+    </bpmndi:BPMNLabelStyle>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

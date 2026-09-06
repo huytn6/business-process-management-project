@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1180" height="150" viewBox="0 0 1180 150">
+<polygon points="23,13 273,13 303,75 273,138 23,138" fill="#1f4e79" stroke="none" stroke-width="1"/>
+<text x="157" y="54" font-family="Arial, sans-serif" font-size="15px" font-weight="700" fill="#ffffff" text-anchor="middle">Chuẩn bị kỳ đo</text>
+<text x="157" y="76.5" font-family="Arial, sans-serif" font-size="15px" font-weight="700" fill="#ffffff" text-anchor="middle">&amp; KPI register</text>
+<text x="157" y="125" font-family="Arial, sans-serif" font-size="12px" font-weight="400" fill="#fce4a6" text-anchor="middle">[Chủ quy trình / Vận hành]</text>
+<polygon points="298,13 545,13 575,75 545,138 298,138 326,75" fill="#2e75b6" stroke="none" stroke-width="1"/>
+<text x="442.5" y="54" font-family="Arial, sans-serif" font-size="15px" font-weight="700" fill="#ffffff" text-anchor="middle">Thu nhận &amp; kiểm soát</text>
+<text x="442.5" y="76.5" font-family="Arial, sans-serif" font-size="15px" font-weight="700" fill="#ffffff" text-anchor="middle">dữ liệu kỳ đo</text>
+<text x="442.5" y="125" font-family="Arial, sans-serif" font-size="12px" font-weight="400" fill="#fce4a6" text-anchor="middle">[Quản trị dữ liệu &amp; CNTT]</text>
+<polygon points="571,13 818,13 848,75 818,138 571,138 599,75" fill="#5b9bd5" stroke="none" stroke-width="1"/>
+<text x="715.5" y="54" font-family="Arial, sans-serif" font-size="15px" font-weight="700" fill="#ffffff" text-anchor="middle">Tính KPI &amp; phân tích</text>
+<text x="715.5" y="76.5" font-family="Arial, sans-serif" font-size="15px" font-weight="700" fill="#ffffff" text-anchor="middle">chênh lệch hiệu suất</text>
+<text x="715.5" y="125" font-family="Arial, sans-serif" font-size="12px" font-weight="400" fill="#fce4a6" text-anchor="middle">[Điều phối hiệu suất &amp; BI]</text>
+<polygon points="844,13 1092,13 1122,75 1092,138 844,138 872,75" fill="#44729d" stroke="none" stroke-width="1"/>
+<text x="989" y="54" font-family="Arial, sans-serif" font-size="15px" font-weight="700" fill="#ffffff" text-anchor="middle">Cải tiến, hậu kiểm</text>
+<text x="989" y="76.5" font-family="Arial, sans-serif" font-size="15px" font-weight="700" fill="#ffffff" text-anchor="middle">&amp; đóng kỳ đo</text>
+<text x="989" y="125" font-family="Arial, sans-serif" font-size="12px" font-weight="400" fill="#fce4a6" text-anchor="middle">[Đơn vị vận hành / Lãnh đạo]</text>
+</svg>
