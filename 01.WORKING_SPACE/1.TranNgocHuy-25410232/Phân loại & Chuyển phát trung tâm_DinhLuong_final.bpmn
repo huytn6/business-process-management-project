@@ -240,10 +240,6 @@
     <bpmn:subProcess id="SUB_STAGE" name="Tập kết theo tuyến">
       <bpmn:incoming>Flow_OJ1_OT1</bpmn:incoming>
       <bpmn:outgoing>Flow_SUBSTAGE_OT2</bpmn:outgoing>
-      <bpmn:dataInputAssociation id="DataIn_DS2_SUBSTAGE">
-        <bpmn:documentation>Đọc "Kế hoạch chuyến kế tiếp" từ WMS/TMS (chi tiết ở bước Đọc kế hoạch chuyến kế tiếp từ TMS bên trong sub-process).</bpmn:documentation>
-        <bpmn:sourceRef>DS2</bpmn:sourceRef>
-      </bpmn:dataInputAssociation>
       <bpmn:startEvent id="STAGE_S" name="Lô hàng đã sẵn sàng tập kết">
         <bpmn:outgoing>Flow_STAGES_OT1</bpmn:outgoing>
       </bpmn:startEvent>
@@ -347,10 +343,6 @@
     <bpmn:subProcess id="SUB_RECON" name="Đối soát &amp; đóng manifest">
       <bpmn:incoming>Flow_OT2_OJ2</bpmn:incoming>
       <bpmn:outgoing>Flow_SUBRECON_OT6</bpmn:outgoing>
-      <bpmn:dataOutputAssociation id="DataOut_SUBRECON_DS2">
-        <bpmn:documentation>Ghi "Manifest lô hàng" vào WMS/TMS (chi tiết ở bước Ghi manifest vào WMS/TMS bên trong sub-process).</bpmn:documentation>
-        <bpmn:targetRef>DS2</bpmn:targetRef>
-      </bpmn:dataOutputAssociation>
       <bpmn:startEvent id="RECON_S" name="Bao/container đã đóng xong">
         <bpmn:outgoing>Flow_RECONS_JOIN</bpmn:outgoing>
       </bpmn:startEvent>
@@ -503,61 +495,52 @@
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${soLanDocMa &gt;= 3}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="Flow_EX4_EE4" sourceRef="EX4" targetRef="EE4" />
-    <bpmn:textAnnotation id="VA_B1">
-      <bpmn:text>BVA</bpmn:text>
+    <bpmn:textAnnotation id="QNT_PT_B1">
+      <bpmn:text>PT 1,0p</bpmn:text>
     </bpmn:textAnnotation>
-    <bpmn:textAnnotation id="VA_B2a">
-      <bpmn:text>BVA</bpmn:text>
+    <bpmn:textAnnotation id="QNT_PT_B23">
+      <bpmn:text>PT 1,0p</bpmn:text>
     </bpmn:textAnnotation>
-    <bpmn:textAnnotation id="VA_B2b">
-      <bpmn:text>NVA</bpmn:text>
+    <bpmn:textAnnotation id="QNT_PT_B4auto">
+      <bpmn:text>PT 0,4p</bpmn:text>
     </bpmn:textAnnotation>
-    <bpmn:textAnnotation id="VA_B3a">
-      <bpmn:text>BVA</bpmn:text>
+    <bpmn:textAnnotation id="QNT_PT_B4confirm">
+      <bpmn:text>PT 0,3p</bpmn:text>
     </bpmn:textAnnotation>
-    <bpmn:textAnnotation id="VA_B3b">
-      <bpmn:text>BVA</bpmn:text>
+    <bpmn:textAnnotation id="QNT_PT_B4manual">
+      <bpmn:text>PT 4,0p</bpmn:text>
     </bpmn:textAnnotation>
-    <bpmn:textAnnotation id="VA_B0logging">
-      <bpmn:text>BVA</bpmn:text>
+    <bpmn:textAnnotation id="QNT_PT_Excep">
+      <bpmn:text>PT 12,0p</bpmn:text>
     </bpmn:textAnnotation>
-    <bpmn:textAnnotation id="VA_B4a">
-      <bpmn:text>VA</bpmn:text>
+    <bpmn:textAnnotation id="QNT_WT_Stage">
+      <bpmn:text>WT 20,0p</bpmn:text>
     </bpmn:textAnnotation>
-    <bpmn:textAnnotation id="VA_B4b">
-      <bpmn:text>VA</bpmn:text>
+    <bpmn:textAnnotation id="QNT_PT_B6">
+      <bpmn:text>PT 1,0p</bpmn:text>
     </bpmn:textAnnotation>
-    <bpmn:textAnnotation id="VA_B4c">
-      <bpmn:text>NVA</bpmn:text>
+    <bpmn:textAnnotation id="QNT_PT_B78">
+      <bpmn:text>PT 1,3p</bpmn:text>
     </bpmn:textAnnotation>
-    <bpmn:textAnnotation id="VA_EX1">
-      <bpmn:text>BVA</bpmn:text>
+    <bpmn:textAnnotation id="QNT_G1">
+      <bpmn:text>99% / 1%</bpmn:text>
     </bpmn:textAnnotation>
-    <bpmn:textAnnotation id="VA_EX2">
-      <bpmn:text>BVA</bpmn:text>
+    <bpmn:textAnnotation id="QNT_G2">
+      <bpmn:text>98% / 2%</bpmn:text>
     </bpmn:textAnnotation>
-    <bpmn:textAnnotation id="VA_B5">
-      <bpmn:text>NVA</bpmn:text>
+    <bpmn:textAnnotation id="QNT_G3">
+      <bpmn:text>1% / 99%</bpmn:text>
     </bpmn:textAnnotation>
-    <bpmn:textAnnotation id="VA_B6">
-      <bpmn:text>VA</bpmn:text>
+    <bpmn:textAnnotation id="QNT_G4">
+      <bpmn:text>4,04% / 95,96%</bpmn:text>
     </bpmn:textAnnotation>
-    <bpmn:textAnnotation id="VA_B7">
-      <bpmn:text>BVA</bpmn:text>
+    <bpmn:textAnnotation id="QNT_Executive_Summary">
+      <bpmn:text>BẢNG TỔNG HỢP ĐỊNH LƯỢNG (Bảng 20-22)
+PT=5,22p | WT≈19,8p | CT≈25,02p | PCE≈6,11%
+First-read 98% | First-sort 97% | Đối soát khớp 97% | Straight-through 95%
+Chi phí ≈ 4.527 VNĐ/bưu gửi (nhân công trực tiếp)</bpmn:text>
     </bpmn:textAnnotation>
-    <bpmn:textAnnotation id="VA_B8a">
-      <bpmn:text>BVA</bpmn:text>
-    </bpmn:textAnnotation>
-    <bpmn:textAnnotation id="VA_B8b">
-      <bpmn:text>BVA</bpmn:text>
-    </bpmn:textAnnotation>
-    <bpmn:textAnnotation id="VA_Legend">
-      <bpmn:text>CHÚ THÍCH GIÁ TRỊ GIA TĂNG (Bảng 13-15)
-VA = tạo giá trị trực tiếp cho khách hàng
-BVA = cần cho kiểm soát/vận hành, KH không cảm nhận trực tiếp
-NVA = làm lại/chờ đợi, không tạo giá trị</bpmn:text>
-    </bpmn:textAnnotation>
-  <bpmn:boundaryEvent id="BE_STAGE_ERR" name="Quá hạn chờ xuất tuyến" attachedToRef="SUB_STAGE"><bpmn:outgoing>Flow_BESTAGE_EE5</bpmn:outgoing><bpmn:errorEventDefinition id="ErrDef_BE_STAGE" errorRef="Error_StageTimeout" /></bpmn:boundaryEvent><bpmn:endEvent id="EE5" name="Lô hàng đã hủy xuất tuyến do quá hạn chờ"><bpmn:incoming>Flow_BESTAGE_EE5</bpmn:incoming></bpmn:endEvent><bpmn:sequenceFlow id="Flow_BESTAGE_EE5" name="Hủy xuất tuyến" sourceRef="BE_STAGE_ERR" targetRef="EE5" /><bpmn:boundaryEvent id="BE_RECON_ERR" name="Sai lệch đối soát không khớp" attachedToRef="SUB_RECON"><bpmn:outgoing>Flow_BERECON_EE6</bpmn:outgoing><bpmn:errorEventDefinition id="ErrDef_BE_RECON" errorRef="Error_ReconMismatch" /></bpmn:boundaryEvent><bpmn:endEvent id="EE6" name="Lô hàng đã tạm dừng đóng manifest do sai lệch đối soát"><bpmn:incoming>Flow_BERECON_EE6</bpmn:incoming></bpmn:endEvent><bpmn:sequenceFlow id="Flow_BERECON_EE6" name="Tạm dừng manifest" sourceRef="BE_RECON_ERR" targetRef="EE6" /><bpmn:exclusiveGateway id="GWR_SORT" name="Đã vượt quá số lần thử chia chọn?"><bpmn:incoming>Flow_JOINDT4_GWRSORT</bpmn:incoming><bpmn:outgoing>Flow_GWRSORT_GWJ2</bpmn:outgoing><bpmn:outgoing>Flow_GWRSORT_DT3</bpmn:outgoing></bpmn:exclusiveGateway><bpmn:sequenceFlow id="Flow_JOINDT4_GWRSORT" sourceRef="JOIN_DT4" targetRef="GWR_SORT" /><bpmn:sequenceFlow id="Flow_GWRSORT_GWJ2" name="Chưa đủ 3 lần (90%*)" sourceRef="GWR_SORT" targetRef="GWJ2" /><bpmn:sequenceFlow id="Flow_GWRSORT_DT3" name="Đã đủ 3 lần (10%*)" sourceRef="GWR_SORT" targetRef="DT3" /><bpmn:association id="Assoc_VA_B1_IN2" sourceRef="IN2" targetRef="VA_B1" /><bpmn:association id="Assoc_VA_B2a_IN3" sourceRef="IN3" targetRef="VA_B2a" /><bpmn:association id="Assoc_VA_B2b_IN4" sourceRef="IN4" targetRef="VA_B2b" /><bpmn:association id="Assoc_VA_B0logging_IN5" sourceRef="IN5" targetRef="VA_B0logging" /><bpmn:association id="Assoc_VA_B3a_DT0" sourceRef="DT0" targetRef="VA_B3a" /><bpmn:association id="Assoc_VA_B3b_DT1" sourceRef="DT1" targetRef="VA_B3b" /><bpmn:association id="Assoc_VA_B4a_DT2" sourceRef="DT2" targetRef="VA_B4a" /><bpmn:association id="Assoc_VA_B4b_DT3" sourceRef="DT3" targetRef="VA_B4b" /><bpmn:association id="Assoc_VA_B4c_DT4_OPS" sourceRef="DT4_OPS" targetRef="VA_B4c" /><bpmn:association id="Assoc_VA_EX1_EX1" sourceRef="EX1" targetRef="VA_EX1" /><bpmn:association id="Assoc_VA_EX2_EX2" sourceRef="EX2" targetRef="VA_EX2" /><bpmn:association id="Assoc_VA_B5_SUB_STAGE" sourceRef="SUB_STAGE" targetRef="VA_B5" /><bpmn:association id="Assoc_VA_B6_OT2" sourceRef="OT2" targetRef="VA_B6" /><bpmn:association id="Assoc_VA_B7_SUB_RECON" sourceRef="SUB_RECON" targetRef="VA_B7" /><bpmn:association id="Assoc_VA_B8a_OT6" sourceRef="OT6" targetRef="VA_B8a" /><bpmn:association id="Assoc_VA_B8b_C2A" sourceRef="C2A" targetRef="VA_B8b" /></bpmn:process>
+  <bpmn:boundaryEvent id="BE_STAGE_ERR" name="Quá hạn chờ xuất tuyến" attachedToRef="SUB_STAGE"><bpmn:outgoing>Flow_BESTAGE_EE5</bpmn:outgoing><bpmn:errorEventDefinition id="ErrDef_BE_STAGE" errorRef="Error_StageTimeout" /></bpmn:boundaryEvent><bpmn:endEvent id="EE5" name="Lô hàng đã hủy xuất tuyến do quá hạn chờ"><bpmn:incoming>Flow_BESTAGE_EE5</bpmn:incoming></bpmn:endEvent><bpmn:sequenceFlow id="Flow_BESTAGE_EE5" name="Hủy xuất tuyến" sourceRef="BE_STAGE_ERR" targetRef="EE5" /><bpmn:boundaryEvent id="BE_RECON_ERR" name="Sai lệch đối soát không khớp" attachedToRef="SUB_RECON"><bpmn:outgoing>Flow_BERECON_EE6</bpmn:outgoing><bpmn:errorEventDefinition id="ErrDef_BE_RECON" errorRef="Error_ReconMismatch" /></bpmn:boundaryEvent><bpmn:endEvent id="EE6" name="Lô hàng đã tạm dừng đóng manifest do sai lệch đối soát"><bpmn:incoming>Flow_BERECON_EE6</bpmn:incoming></bpmn:endEvent><bpmn:sequenceFlow id="Flow_BERECON_EE6" name="Tạm dừng manifest" sourceRef="BE_RECON_ERR" targetRef="EE6" /><bpmn:exclusiveGateway id="GWR_SORT" name="Đã vượt quá số lần thử chia chọn?" isMarkerVisible="true"><bpmn:incoming>Flow_JOINDT4_GWRSORT</bpmn:incoming><bpmn:outgoing>Flow_GWRSORT_GWJ2</bpmn:outgoing><bpmn:outgoing>Flow_GWRSORT_DT3</bpmn:outgoing></bpmn:exclusiveGateway><bpmn:sequenceFlow id="Flow_JOINDT4_GWRSORT" sourceRef="JOIN_DT4" targetRef="GWR_SORT" /><bpmn:sequenceFlow id="Flow_GWRSORT_GWJ2" name="Chưa đủ 3 lần (90%*)" sourceRef="GWR_SORT" targetRef="GWJ2" /><bpmn:sequenceFlow id="Flow_GWRSORT_DT3" name="Đã đủ 3 lần (10%*)" sourceRef="GWR_SORT" targetRef="DT3" /><bpmn:association id="Assoc_QNT_PT_B1_IN2" sourceRef="IN2" targetRef="QNT_PT_B1" /><bpmn:association id="Assoc_QNT_PT_B23_DT1" sourceRef="DT1" targetRef="QNT_PT_B23" /><bpmn:association id="Assoc_QNT_PT_B4auto_DT2" sourceRef="DT2" targetRef="QNT_PT_B4auto" /><bpmn:association id="Assoc_QNT_PT_B4confirm_GW5" sourceRef="GW5" targetRef="QNT_PT_B4confirm" /><bpmn:association id="Assoc_QNT_PT_B4manual_DT3" sourceRef="DT3" targetRef="QNT_PT_B4manual" /><bpmn:association id="Assoc_QNT_PT_Excep_EX2" sourceRef="EX2" targetRef="QNT_PT_Excep" /><bpmn:association id="Assoc_QNT_WT_Stage_SUB_STAGE" sourceRef="SUB_STAGE" targetRef="QNT_WT_Stage" /><bpmn:association id="Assoc_QNT_PT_B6_OT2" sourceRef="OT2" targetRef="QNT_PT_B6" /><bpmn:association id="Assoc_QNT_PT_B78_SUB_RECON" sourceRef="SUB_RECON" targetRef="QNT_PT_B78" /><bpmn:association id="Assoc_QNT_G1_GW1" sourceRef="GW1" targetRef="QNT_G1" /><bpmn:association id="Assoc_QNT_G2_GW2" sourceRef="GW2" targetRef="QNT_G2" /><bpmn:association id="Assoc_QNT_G3_GW3" sourceRef="GW3" targetRef="QNT_G3" /><bpmn:association id="Assoc_QNT_G4_GW4" sourceRef="GW4" targetRef="QNT_G4" /></bpmn:process>
   <bpmn:process id="Process_CAR" isExecutable="false">
     <bpmn:dataStoreReference id="DS3" name="Hệ thống WMS/TMS" dataStoreRef="DataStore_WMS_TMS" />
     <bpmn:startEvent id="C1" name="Thông báo bàn giao đã được tiếp nhận">
@@ -572,11 +555,11 @@ NVA = làm lại/chờ đợi, không tạo giá trị</bpmn:text>
       <bpmn:incoming>Flow_C2A_C2G</bpmn:incoming>
       <bpmn:outgoing>Flow_C2G_C2B</bpmn:outgoing>
       <bpmn:property id="Property_C2G_ManifestInput" name="Manifest bàn giao" />
-      <bpmn:property id="Property_1mwd643" name="__targetRef_placeholder" />
+      <bpmn:property id="Property_0jaq3nh" name="__targetRef_placeholder" />
       <bpmn:dataInputAssociation id="DataIn_DS3_C2G">
         <bpmn:documentation>Đọc property "Manifest lô hàng" mà OT5A đã ghi (tham chiếu chung Data Store WMS/TMS, phía HUB gọi là DS2, phía đội vận tải gọi là DS3).</bpmn:documentation>
         <bpmn:sourceRef>DS3</bpmn:sourceRef>
-        <bpmn:targetRef>Property_1mwd643</bpmn:targetRef>
+        <bpmn:targetRef>Property_0jaq3nh</bpmn:targetRef>
       </bpmn:dataInputAssociation>
     </bpmn:serviceTask>
     <bpmn:userTask id="C2B" name="Đối chiếu lô hàng lần cuối">
@@ -617,7 +600,7 @@ NVA = làm lại/chờ đợi, không tạo giá trị</bpmn:text>
     <bpmn:sequenceFlow id="Flow_C2E_C2D" sourceRef="C2EW" targetRef="C2D" />
     <bpmn:sequenceFlow id="Flow_C2D_C3" sourceRef="C2D" targetRef="C3" />
   </bpmn:process>
-  <bpmndi:BPMNDiagram id="Diagram_1" name="Sơ đồ BPMN gắn nhãn giá trị gia tăng (VA/BVA/NVA) – Phân loại &amp; Chuyển phát trung tâm">
+  <bpmndi:BPMNDiagram id="Diagram_1" name="Sơ đồ BPMN định lượng thời gian và xác suất – Phân loại &amp; Chuyển phát trung tâm">
     <bpmndi:BPMNPlane id="Plane_1" bpmnElement="Collaboration_1">
       <bpmndi:BPMNShape id="Shape_Participant_FEE" bpmnElement="Participant_FEE" isHorizontal="true">
         <dc:Bounds x="40" y="60" width="3550" height="160" />
@@ -670,7 +653,7 @@ NVA = làm lại/chờ đợi, không tạo giá trị</bpmn:text>
       <bpmndi:BPMNShape id="Shape_DS1" bpmnElement="DS1">
         <dc:Bounds x="1020" y="440" width="90" height="60" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1115" y="445" width="95" height="27" />
+          <dc:Bounds x="1115" y="455" width="95" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Shape_DS2_main" bpmnElement="DS2">
@@ -841,7 +824,7 @@ NVA = làm lại/chờ đợi, không tạo giá trị</bpmn:text>
       <bpmndi:BPMNShape id="Shape_GWJ2" bpmnElement="GWJ2" isMarkerVisible="true">
         <dc:Bounds x="1601" y="555" width="50" height="50" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1556" y="445" width="140" height="27" />
+          <dc:Bounds x="1556" y="470" width="140" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Shape_SUB_STAGE" bpmnElement="SUB_STAGE">
@@ -853,56 +836,47 @@ NVA = làm lại/chờ đợi, không tạo giá trị</bpmn:text>
       <bpmndi:BPMNShape id="Shape_SUB_RECON" bpmnElement="SUB_RECON">
         <dc:Bounds x="2376" y="1215" width="150" height="70" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="VA_B1_di" bpmnElement="VA_B1" ns5:stroke="none" ns5:fill="none" ns6:background-color="none" ns6:border-color="#ea580c">
-        <dc:Bounds x="280" y="265" width="46" height="24" />
+      <bpmndi:BPMNShape id="QNT_PT_B1_di" bpmnElement="QNT_PT_B1" ns5:stroke="none" ns5:fill="none" ns6:background-color="none" ns6:border-color="#2563eb">
+        <dc:Bounds x="280" y="260" width="70" height="24" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="VA_B2a_di" bpmnElement="VA_B2a" ns5:stroke="none" ns5:fill="none" ns6:background-color="none" ns6:border-color="#ea580c">
-        <dc:Bounds x="650" y="265" width="46" height="24" />
+      <bpmndi:BPMNShape id="QNT_PT_B23_di" bpmnElement="QNT_PT_B23" ns5:stroke="none" ns5:fill="none" ns6:background-color="none" ns6:border-color="#2563eb">
+        <dc:Bounds x="1120" y="505" width="70" height="24" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="VA_B2b_di" bpmnElement="VA_B2b" ns5:stroke="none" ns5:fill="none" ns6:background-color="none" ns6:border-color="#ea580c">
-        <dc:Bounds x="820" y="475" width="46" height="24" />
+      <bpmndi:BPMNShape id="QNT_PT_B4auto_di" bpmnElement="QNT_PT_B4auto" ns5:stroke="none" ns5:fill="none" ns6:background-color="none" ns6:border-color="#2563eb">
+        <dc:Bounds x="1780" y="505" width="70" height="24" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="VA_B3a_di" bpmnElement="VA_B3a" ns5:stroke="none" ns5:fill="none" ns6:background-color="none" ns6:border-color="#ea580c">
-        <dc:Bounds x="925" y="625" width="46" height="24" />
+      <bpmndi:BPMNShape id="QNT_PT_B4confirm_di" bpmnElement="QNT_PT_B4confirm" ns5:stroke="none" ns5:fill="none" ns6:background-color="none" ns6:border-color="#2563eb">
+        <dc:Bounds x="1970" y="580" width="70" height="24" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="VA_B3b_di" bpmnElement="VA_B3b" ns5:stroke="none" ns5:fill="none" ns6:background-color="none" ns6:border-color="#ea580c">
-        <dc:Bounds x="1120" y="505" width="46" height="24" />
+      <bpmndi:BPMNShape id="QNT_PT_B4manual_di" bpmnElement="QNT_PT_B4manual" ns5:stroke="none" ns5:fill="none" ns6:background-color="none" ns6:border-color="#2563eb">
+        <dc:Bounds x="1430" y="770" width="70" height="24" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="VA_B0logging_di" bpmnElement="VA_B0logging" ns5:stroke="none" ns5:fill="none" ns6:background-color="none" ns6:border-color="#ea580c">
-        <dc:Bounds x="980" y="265" width="46" height="24" />
+      <bpmndi:BPMNShape id="QNT_PT_Excep_di" bpmnElement="QNT_PT_Excep" ns5:stroke="none" ns5:fill="none" ns6:background-color="none" ns6:border-color="#2563eb">
+        <dc:Bounds x="1350" y="960" width="76" height="24" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="VA_B4a_di" bpmnElement="VA_B4a" ns5:stroke="none" ns5:fill="none" ns6:background-color="none" ns6:border-color="#ea580c">
-        <dc:Bounds x="1780" y="505" width="46" height="24" />
+      <bpmndi:BPMNShape id="QNT_WT_Stage_di" bpmnElement="QNT_WT_Stage" ns5:stroke="none" ns5:fill="none" ns6:background-color="none" ns6:border-color="#dc2626">
+        <dc:Bounds x="2010" y="1175" width="76" height="24" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="VA_B4b_di" bpmnElement="VA_B4b" ns5:stroke="none" ns5:fill="none" ns6:background-color="none" ns6:border-color="#ea580c">
-        <dc:Bounds x="1430" y="770" width="46" height="24" />
+      <bpmndi:BPMNShape id="QNT_PT_B6_di" bpmnElement="QNT_PT_B6" ns5:stroke="none" ns5:fill="none" ns6:background-color="none" ns6:border-color="#2563eb">
+        <dc:Bounds x="2200" y="1295" width="70" height="24" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="VA_B4c_di" bpmnElement="VA_B4c" ns5:stroke="none" ns5:fill="none" ns6:background-color="none" ns6:border-color="#ea580c">
-        <dc:Bounds x="2135" y="855" width="46" height="24" />
+      <bpmndi:BPMNShape id="QNT_PT_B78_di" bpmnElement="QNT_PT_B78" ns5:stroke="none" ns5:fill="none" ns6:background-color="none" ns6:border-color="#2563eb">
+        <dc:Bounds x="2385" y="1175" width="70" height="24" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="VA_EX1_di" bpmnElement="VA_EX1" ns5:stroke="none" ns5:fill="none" ns6:background-color="none" ns6:border-color="#ea580c">
-        <dc:Bounds x="400" y="960" width="46" height="24" />
+      <bpmndi:BPMNShape id="QNT_G1_di" bpmnElement="QNT_G1" ns5:stroke="none" ns5:fill="none" ns6:background-color="none" ns6:border-color="#dc2626">
+        <dc:Bounds x="475" y="365" width="76" height="24" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="VA_EX2_di" bpmnElement="VA_EX2" ns5:stroke="none" ns5:fill="none" ns6:background-color="none" ns6:border-color="#ea580c">
-        <dc:Bounds x="1280" y="960" width="46" height="24" />
+      <bpmndi:BPMNShape id="QNT_G2_di" bpmnElement="QNT_G2" ns5:stroke="none" ns5:fill="none" ns6:background-color="none" ns6:border-color="#dc2626">
+        <dc:Bounds x="735" y="345" width="76" height="24" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="VA_B5_di" bpmnElement="VA_B5" ns5:stroke="none" ns5:fill="none" ns6:background-color="none" ns6:border-color="#ea580c">
-        <dc:Bounds x="2010" y="1175" width="46" height="24" />
+      <bpmndi:BPMNShape id="QNT_G3_di" bpmnElement="QNT_G3" ns5:stroke="none" ns5:fill="none" ns6:background-color="none" ns6:border-color="#dc2626">
+        <dc:Bounds x="1230" y="615" width="60" height="24" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="VA_B6_di" bpmnElement="VA_B6" ns5:stroke="none" ns5:fill="none" ns6:background-color="none" ns6:border-color="#ea580c">
-        <dc:Bounds x="2200" y="1295" width="46" height="24" />
+      <bpmndi:BPMNShape id="QNT_G4_di" bpmnElement="QNT_G4" ns5:stroke="none" ns5:fill="none" ns6:background-color="none" ns6:border-color="#dc2626">
+        <dc:Bounds x="1505" y="605" width="110" height="24" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="VA_B7_di" bpmnElement="VA_B7" ns5:stroke="none" ns5:fill="none" ns6:background-color="none" ns6:border-color="#ea580c">
-        <dc:Bounds x="2385" y="1175" width="46" height="24" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="VA_B8a_di" bpmnElement="VA_B8a" ns5:stroke="none" ns5:fill="none" ns6:background-color="none" ns6:border-color="#ea580c">
-        <dc:Bounds x="2575" y="1175" width="46" height="24" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="VA_B8b_di" bpmnElement="VA_B8b" ns5:stroke="none" ns5:fill="none" ns6:background-color="none" ns6:border-color="#ea580c">
-        <dc:Bounds x="2220" y="1580" width="46" height="24" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="VA_Legend_di" bpmnElement="VA_Legend" ns5:stroke="#ea580c" ns5:fill="#fff7ed" ns6:background-color="#fff7ed" ns6:border-color="#ea580c">
-        <dc:Bounds x="1200" y="260" width="422" height="84" />
+      <bpmndi:BPMNShape id="QNT_Executive_Summary_di" bpmnElement="QNT_Executive_Summary" ns5:stroke="#6b7280" ns5:fill="#f9fafb" ns6:background-color="#f9fafb" ns6:border-color="#6b7280">
+        <dc:Bounds x="678" y="70" width="508" height="84" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Edge_Flow_IN1_IN2" bpmnElement="Flow_IN1_IN2">
         <di:waypoint x="186" y="335" />
@@ -991,7 +965,7 @@ NVA = làm lại/chờ đợi, không tạo giá trị</bpmn:text>
         <di:waypoint x="1911" y="580" />
         </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Edge_Flow_GW5_OJ1" bpmnElement="Flow_GW5_OJ1">
-        <di:waypoint x="1961" y="580" /><di:waypoint x="1961" y="630" /><di:waypoint x="1790" y="630" /><di:waypoint x="1790" y="1190" /><di:waypoint x="1936" y="1190" /><di:waypoint x="1936" y="1225" /><bpmndi:BPMNLabel>
+        <di:waypoint x="1936" y="605" /><di:waypoint x="1936" y="630" /><di:waypoint x="1790" y="630" /><di:waypoint x="1790" y="1190" /><di:waypoint x="1936" y="1190" /><di:waypoint x="1936" y="1225" /><bpmndi:BPMNLabel>
           <dc:Bounds x="1795" y="1120" width="75" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
@@ -1194,13 +1168,7 @@ NVA = làm lại/chờ đợi, không tạo giá trị</bpmn:text>
         <di:waypoint x="2421" y="1617" />
         <di:waypoint x="2421" y="1620" />
       </bpmndi:BPMNEdge>
-    <bpmndi:BPMNShape id="Shape_BE_STAGE_ERR" bpmnElement="BE_STAGE_ERR"><dc:Bounds x="2058" y="1267" width="36" height="36" /></bpmndi:BPMNShape><bpmndi:BPMNShape id="Shape_EE5" bpmnElement="EE5"><dc:Bounds x="2058" y="1370" width="36" height="36" /><bpmndi:BPMNLabel><dc:Bounds x="2005" y="1415" width="140" height="27" /></bpmndi:BPMNLabel></bpmndi:BPMNShape><bpmndi:BPMNEdge id="Edge_Flow_BESTAGE_EE5" bpmnElement="Flow_BESTAGE_EE5"><di:waypoint x="2076" y="1303" /><di:waypoint x="2076" y="1370" /><bpmndi:BPMNLabel><dc:Bounds x="2120" y="1325" width="85" height="20" /></bpmndi:BPMNLabel></bpmndi:BPMNEdge><bpmndi:BPMNShape id="Shape_BE_RECON_ERR" bpmnElement="BE_RECON_ERR"><dc:Bounds x="2433" y="1267" width="36" height="36" /></bpmndi:BPMNShape><bpmndi:BPMNShape id="Shape_EE6" bpmnElement="EE6"><dc:Bounds x="2433" y="1370" width="36" height="36" /><bpmndi:BPMNLabel><dc:Bounds x="2375" y="1415" width="150" height="27" /></bpmndi:BPMNLabel></bpmndi:BPMNShape><bpmndi:BPMNEdge id="Edge_Flow_BERECON_EE6" bpmnElement="Flow_BERECON_EE6"><di:waypoint x="2451" y="1303" /><di:waypoint x="2451" y="1370" /><bpmndi:BPMNLabel><dc:Bounds x="2500" y="1325" width="105" height="20" /></bpmndi:BPMNLabel></bpmndi:BPMNEdge><bpmndi:BPMNShape id="Shape_GWR_SORT" bpmnElement="GWR_SORT" isMarkerVisible="true"><dc:Bounds x="2325" y="690" width="50" height="50" /><bpmndi:BPMNLabel><dc:Bounds x="2385" y="700" width="140" height="27" /></bpmndi:BPMNLabel></bpmndi:BPMNShape><bpmndi:BPMNEdge id="Edge_Flow_JOINDT4_GWRSORT" bpmnElement="Flow_JOINDT4_GWRSORT"><di:waypoint x="2375" y="860" /><di:waypoint x="2375" y="715" /></bpmndi:BPMNEdge><bpmndi:BPMNEdge id="Edge_Flow_GWRSORT_GWJ2" bpmnElement="Flow_GWRSORT_GWJ2"><di:waypoint x="2350" y="690" /><di:waypoint x="2350" y="505" /><di:waypoint x="1626" y="505" /><di:waypoint x="1626" y="555" /><bpmndi:BPMNLabel><dc:Bounds x="2180" y="485" width="125" height="20" /></bpmndi:BPMNLabel></bpmndi:BPMNEdge><bpmndi:BPMNEdge id="Edge_Flow_GWRSORT_DT3" bpmnElement="Flow_GWRSORT_DT3"><di:waypoint x="2325" y="715" /><di:waypoint x="2300" y="715" /><di:waypoint x="2300" y="645" /><di:waypoint x="1616" y="645" /><di:waypoint x="1616" y="710" /><bpmndi:BPMNLabel><dc:Bounds x="2180" y="622" width="115" height="20" /></bpmndi:BPMNLabel></bpmndi:BPMNEdge><bpmndi:BPMNEdge id="Edge_Assoc_VA_B1_IN2" bpmnElement="Assoc_VA_B1_IN2"><di:waypoint x="303" y="300" /><di:waypoint x="303" y="289" /></bpmndi:BPMNEdge><bpmndi:BPMNEdge id="Edge_Assoc_VA_B2a_IN3" bpmnElement="Assoc_VA_B2a_IN3"><di:waypoint x="673" y="300" /><di:waypoint x="673" y="289" /></bpmndi:BPMNEdge><bpmndi:BPMNEdge id="Edge_Assoc_VA_B2b_IN4" bpmnElement="Assoc_VA_B2b_IN4"><di:waypoint x="843" y="465" /><di:waypoint x="843" y="475" /></bpmndi:BPMNEdge><bpmndi:BPMNEdge id="Edge_Assoc_VA_B0logging_IN5" bpmnElement="Assoc_VA_B0logging_IN5"><di:waypoint x="1003" y="300" /><di:waypoint x="1003" y="289" /></bpmndi:BPMNEdge><bpmndi:BPMNEdge id="Edge_Assoc_VA_B3a_DT0" bpmnElement="Assoc_VA_B3a_DT0"><di:waypoint x="948" y="615" /><di:waypoint x="948" y="625" /></bpmndi:BPMNEdge><bpmndi:BPMNEdge id="Edge_Assoc_VA_B3b_DT1" bpmnElement="Assoc_VA_B3b_DT1"><di:waypoint x="1143" y="545" /><di:waypoint x="1143" y="529" /></bpmndi:BPMNEdge><bpmndi:BPMNEdge id="Edge_Assoc_VA_B4a_DT2" bpmnElement="Assoc_VA_B4a_DT2"><di:waypoint x="1803" y="545" /><di:waypoint x="1803" y="529" /></bpmndi:BPMNEdge><bpmndi:BPMNEdge id="Edge_Assoc_VA_B4b_DT3" bpmnElement="Assoc_VA_B4b_DT3"><di:waypoint x="1453" y="760" /><di:waypoint x="1453" y="770" /></bpmndi:BPMNEdge><bpmndi:BPMNEdge id="Edge_Assoc_VA_B4c_DT4_OPS" bpmnElement="Assoc_VA_B4c_DT4_OPS"><di:waypoint x="2158" y="895" /><di:waypoint x="2158" y="879" /></bpmndi:BPMNEdge><bpmndi:BPMNEdge id="Edge_Assoc_VA_EX1_EX1" bpmnElement="Assoc_VA_EX1_EX1"><di:waypoint x="423" y="1000" /><di:waypoint x="423" y="984" /></bpmndi:BPMNEdge><bpmndi:BPMNEdge id="Edge_Assoc_VA_EX2_EX2" bpmnElement="Assoc_VA_EX2_EX2"><di:waypoint x="1303" y="1000" /><di:waypoint x="1303" y="984" /></bpmndi:BPMNEdge><bpmndi:BPMNEdge id="Edge_Assoc_VA_B5_SUB_STAGE" bpmnElement="Assoc_VA_B5_SUB_STAGE"><di:waypoint x="2033" y="1215" /><di:waypoint x="2033" y="1199" /></bpmndi:BPMNEdge><bpmndi:BPMNEdge id="Edge_Assoc_VA_B6_OT2" bpmnElement="Assoc_VA_B6_OT2"><di:waypoint x="2223" y="1285" /><di:waypoint x="2223" y="1295" /></bpmndi:BPMNEdge><bpmndi:BPMNEdge id="Edge_Assoc_VA_B7_SUB_RECON" bpmnElement="Assoc_VA_B7_SUB_RECON"><di:waypoint x="2408" y="1215" /><di:waypoint x="2408" y="1199" /></bpmndi:BPMNEdge><bpmndi:BPMNEdge id="Edge_Assoc_VA_B8a_OT6" bpmnElement="Assoc_VA_B8a_OT6"><di:waypoint x="2598" y="1215" /><di:waypoint x="2598" y="1199" /></bpmndi:BPMNEdge><bpmndi:BPMNEdge id="Edge_Assoc_VA_B8b_C2A" bpmnElement="Assoc_VA_B8b_C2A"><di:waypoint x="2243" y="1620" /><di:waypoint x="2243" y="1604" /></bpmndi:BPMNEdge><bpmndi:BPMNEdge id="Edge_DataIn_DS2_SUBSTAGE" bpmnElement="DataIn_DS2_SUBSTAGE">
-        <di:waypoint x="2280" y="1205" /><di:waypoint x="2280" y="1210" /><di:waypoint x="2076" y="1210" /><di:waypoint x="2076" y="1215" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Edge_DataOut_SUBRECON_DS2" bpmnElement="DataOut_SUBRECON_DS2">
-        <di:waypoint x="2376" y="1215" /><di:waypoint x="2376" y="1210" /><di:waypoint x="2350" y="1210" /><di:waypoint x="2350" y="1205" />
-      </bpmndi:BPMNEdge>
-      </bpmndi:BPMNPlane>
+    <bpmndi:BPMNShape id="Shape_BE_STAGE_ERR" bpmnElement="BE_STAGE_ERR"><dc:Bounds x="2058" y="1267" width="36" height="36" /></bpmndi:BPMNShape><bpmndi:BPMNShape id="Shape_EE5" bpmnElement="EE5"><dc:Bounds x="2058" y="1370" width="36" height="36" /><bpmndi:BPMNLabel><dc:Bounds x="2005" y="1415" width="140" height="27" /></bpmndi:BPMNLabel></bpmndi:BPMNShape><bpmndi:BPMNEdge id="Edge_Flow_BESTAGE_EE5" bpmnElement="Flow_BESTAGE_EE5"><di:waypoint x="2076" y="1303" /><di:waypoint x="2076" y="1370" /><bpmndi:BPMNLabel><dc:Bounds x="2085" y="1325" width="85" height="20" /></bpmndi:BPMNLabel></bpmndi:BPMNEdge><bpmndi:BPMNShape id="Shape_BE_RECON_ERR" bpmnElement="BE_RECON_ERR"><dc:Bounds x="2433" y="1267" width="36" height="36" /></bpmndi:BPMNShape><bpmndi:BPMNShape id="Shape_EE6" bpmnElement="EE6"><dc:Bounds x="2433" y="1370" width="36" height="36" /><bpmndi:BPMNLabel><dc:Bounds x="2375" y="1415" width="150" height="27" /></bpmndi:BPMNLabel></bpmndi:BPMNShape><bpmndi:BPMNEdge id="Edge_Flow_BERECON_EE6" bpmnElement="Flow_BERECON_EE6"><di:waypoint x="2451" y="1303" /><di:waypoint x="2451" y="1370" /><bpmndi:BPMNLabel><dc:Bounds x="2460" y="1325" width="105" height="20" /></bpmndi:BPMNLabel></bpmndi:BPMNEdge><bpmndi:BPMNShape id="Shape_GWR_SORT" bpmnElement="GWR_SORT" isMarkerVisible="true"><dc:Bounds x="2325" y="690" width="50" height="50" /><bpmndi:BPMNLabel><dc:Bounds x="2385" y="700" width="140" height="27" /></bpmndi:BPMNLabel></bpmndi:BPMNShape><bpmndi:BPMNEdge id="Edge_Flow_JOINDT4_GWRSORT" bpmnElement="Flow_JOINDT4_GWRSORT"><di:waypoint x="2350" y="835" /><di:waypoint x="2350" y="740" /></bpmndi:BPMNEdge><bpmndi:BPMNEdge id="Edge_Flow_GWRSORT_GWJ2" bpmnElement="Flow_GWRSORT_GWJ2"><di:waypoint x="2350" y="690" /><di:waypoint x="2350" y="505" /><di:waypoint x="1626" y="505" /><di:waypoint x="1626" y="555" /><bpmndi:BPMNLabel><dc:Bounds x="2180" y="485" width="125" height="20" /></bpmndi:BPMNLabel></bpmndi:BPMNEdge><bpmndi:BPMNEdge id="Edge_Flow_GWRSORT_DT3" bpmnElement="Flow_GWRSORT_DT3"><di:waypoint x="2325" y="715" /><di:waypoint x="2300" y="715" /><di:waypoint x="2300" y="645" /><di:waypoint x="1616" y="645" /><di:waypoint x="1616" y="710" /><bpmndi:BPMNLabel><dc:Bounds x="2180" y="622" width="115" height="20" /></bpmndi:BPMNLabel></bpmndi:BPMNEdge><bpmndi:BPMNEdge id="Edge_Assoc_QNT_PT_B1_IN2" bpmnElement="Assoc_QNT_PT_B1_IN2"><di:waypoint x="315" y="300" /><di:waypoint x="315" y="284" /></bpmndi:BPMNEdge><bpmndi:BPMNEdge id="Edge_Assoc_QNT_PT_B23_DT1" bpmnElement="Assoc_QNT_PT_B23_DT1"><di:waypoint x="1155" y="545" /><di:waypoint x="1155" y="529" /></bpmndi:BPMNEdge><bpmndi:BPMNEdge id="Edge_Assoc_QNT_PT_B4auto_DT2" bpmnElement="Assoc_QNT_PT_B4auto_DT2"><di:waypoint x="1815" y="545" /><di:waypoint x="1815" y="529" /></bpmndi:BPMNEdge><bpmndi:BPMNEdge id="Edge_Assoc_QNT_PT_B4confirm_GW5" bpmnElement="Assoc_QNT_PT_B4confirm_GW5"><di:waypoint x="1961" y="590" /><di:waypoint x="1970" y="590" /></bpmndi:BPMNEdge><bpmndi:BPMNEdge id="Edge_Assoc_QNT_PT_B4manual_DT3" bpmnElement="Assoc_QNT_PT_B4manual_DT3"><di:waypoint x="1465" y="760" /><di:waypoint x="1465" y="770" /></bpmndi:BPMNEdge><bpmndi:BPMNEdge id="Edge_Assoc_QNT_PT_Excep_EX2" bpmnElement="Assoc_QNT_PT_Excep_EX2"><di:waypoint x="1388" y="1000" /><di:waypoint x="1388" y="984" /></bpmndi:BPMNEdge><bpmndi:BPMNEdge id="Edge_Assoc_QNT_WT_Stage_SUB_STAGE" bpmnElement="Assoc_QNT_WT_Stage_SUB_STAGE"><di:waypoint x="2048" y="1215" /><di:waypoint x="2048" y="1199" /></bpmndi:BPMNEdge><bpmndi:BPMNEdge id="Edge_Assoc_QNT_PT_B6_OT2" bpmnElement="Assoc_QNT_PT_B6_OT2"><di:waypoint x="2235" y="1285" /><di:waypoint x="2235" y="1295" /></bpmndi:BPMNEdge><bpmndi:BPMNEdge id="Edge_Assoc_QNT_PT_B78_SUB_RECON" bpmnElement="Assoc_QNT_PT_B78_SUB_RECON"><di:waypoint x="2420" y="1215" /><di:waypoint x="2420" y="1199" /></bpmndi:BPMNEdge><bpmndi:BPMNEdge id="Edge_Assoc_QNT_G1_GW1" bpmnElement="Assoc_QNT_G1_GW1"><di:waypoint x="455" y="355" /><di:waypoint x="475" y="375" /></bpmndi:BPMNEdge><bpmndi:BPMNEdge id="Edge_Assoc_QNT_G2_GW2" bpmnElement="Assoc_QNT_G2_GW2"><di:waypoint x="826" y="335" /><di:waypoint x="811" y="345" /></bpmndi:BPMNEdge><bpmndi:BPMNEdge id="Edge_Assoc_QNT_G3_GW3" bpmnElement="Assoc_QNT_G3_GW3"><di:waypoint x="1301" y="595" /><di:waypoint x="1290" y="615" /></bpmndi:BPMNEdge><bpmndi:BPMNEdge id="Edge_Assoc_QNT_G4_GW4" bpmnElement="Assoc_QNT_G4_GW4"><di:waypoint x="1501" y="580" /><di:waypoint x="1505" y="605" /></bpmndi:BPMNEdge></bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
   <bpmndi:BPMNDiagram id="Diagram_DT1" name="Chi tiết subprocess – Kiểm tra bưu gửi bằng DWS">
     <bpmndi:BPMNPlane id="Plane_DT1" bpmnElement="DT1">
@@ -1353,6 +1321,8 @@ NVA = làm lại/chờ đợi, không tạo giá trị</bpmn:text>
         <di:waypoint x="270" y="130" />
         <di:waypoint x="310" y="130" />
         </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge_DataIn_DS2_OTPLAN_Diagram_SUB_STAGE_Plane" bpmnElement="DataIn_DS2_OTPLAN">
+        <di:waypoint x="475" y="70" /><di:waypoint x="475" y="95" /></bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Edge_Flow_OTPLAN_GW6_Diagram_SUB_STAGE_Plane" bpmnElement="Flow_OTPLAN_GW6">
         <di:waypoint x="550" y="130" />
         <di:waypoint x="590" y="130" />
@@ -1456,6 +1426,8 @@ NVA = làm lại/chờ đợi, không tạo giá trị</bpmn:text>
           <dc:Bounds x="530" y="500" width="81" height="53" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Edge_DataOut_OT5A_DS2_Diagram_SUB_RECON_Plane" bpmnElement="DataOut_OT5A_DS2">
+        <di:waypoint x="745" y="95" /><di:waypoint x="745" y="70" /></bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Edge_Flow_OT3_GW7_Diagram_SUB_RECON_Plane" bpmnElement="Flow_OT3_GW7">
         <di:waypoint x="370" y="130" />
         <di:waypoint x="410" y="130" />
