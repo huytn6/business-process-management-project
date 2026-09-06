@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1480" height="700" viewBox="0 0 1480 700">
+<rect x="20" y="16" width="180" height="24" rx="4" fill="#c0392b" stroke="#c0392b" stroke-width="1"/>
+<text x="110" y="29" font-family="Arial, sans-serif" font-size="10px" font-weight="700" fill="#ffffff" text-anchor="middle">VẤN ĐỀ (ISSUE)</text>
+<rect x="220" y="16" width="190" height="24" rx="4" fill="#2980b9" stroke="#2980b9" stroke-width="1"/>
+<text x="315" y="29" font-family="Arial, sans-serif" font-size="10px" font-weight="700" fill="#ffffff" text-anchor="middle">CẤP 1 (WHY 1)</text>
+<rect x="430" y="16" width="190" height="24" rx="4" fill="#2980b9" stroke="#2980b9" stroke-width="1"/>
+<text x="525" y="29" font-family="Arial, sans-serif" font-size="10px" font-weight="700" fill="#ffffff" text-anchor="middle">CẤP 2 (WHY 2)</text>
+<rect x="640" y="16" width="200" height="24" rx="4" fill="#2980b9" stroke="#2980b9" stroke-width="1"/>
+<text x="740" y="29" font-family="Arial, sans-serif" font-size="10px" font-weight="700" fill="#ffffff" text-anchor="middle">CẤP 3 (WHY 3)</text>
+<rect x="860" y="16" width="210" height="24" rx="4" fill="#2980b9" stroke="#2980b9" stroke-width="1"/>
+<text x="965" y="29" font-family="Arial, sans-serif" font-size="10px" font-weight="700" fill="#ffffff" text-anchor="middle">CẤP 4 &amp; 5 (WHY 4-5)</text>
+<rect x="1090" y="16" width="365" height="24" rx="4" fill="#27ae60" stroke="#27ae60" stroke-width="1"/>
+<text x="1272.5" y="29" font-family="Arial, sans-serif" font-size="10px" font-weight="700" fill="#ffffff" text-anchor="middle">NGUYÊN NHÂN GỐC RỄ (ROOT CAUSE)</text>
+<rect x="20" y="281" width="180" height="109" rx="4" fill="#fadbd8" stroke="#c0392b" stroke-width="1"/>
+<text x="110" y="296" font-family="Arial, sans-serif" font-size="10px" font-weight="700" fill="#922b21" text-anchor="middle">VẤN ĐỀ TRỌNG TÂM</text>
+<text x="110" y="310" font-family="Arial, sans-serif" font-size="9px" font-weight="400" fill="#404040" text-anchor="middle">Thời gian chu kỳ onboard</text>
+<text x="110" y="322.15" font-family="Arial, sans-serif" font-size="9px" font-weight="400" fill="#404040" text-anchor="middle">kéo dài (CT: 51,50h / 6,44 ngày)</text>
+<text x="110" y="334.3" font-family="Arial, sans-serif" font-size="9px" font-weight="400" fill="#404040" text-anchor="middle">và tỷ lệ lỗi hồ sơ đầu vào (30%)</text>
+<polyline points="200,336 210,336" fill="none" stroke="#e74c3c" stroke-width="1"/>
+<polyline points="210,106 210,536" fill="none" stroke="#e74c3c" stroke-width="1"/>
+<polyline points="210,106 220,106" fill="none" stroke="#e74c3c" stroke-width="1"/>
+<polygon points="220,106 214,103 214,109" fill="#e74c3c" stroke="none" stroke-width="1"/>
+<rect x="220" y="66" width="190" height="80" rx="4" fill="#ebf5fb" stroke="#2980b9" stroke-width="1"/>
+<text x="315" y="81" font-family="Arial, sans-serif" font-size="10px" font-weight="700" fill="#1f4e79" text-anchor="middle">Tại sao 1 (Chờ đợi lâu)</text>
+<text x="315" y="95" font-family="Arial, sans-serif" font-size="9px" font-weight="400" fill="#404040" text-anchor="middle">Thời gian chờ duyệt (8h) &amp;</text>
+<text x="315" y="106.7" font-family="Arial, sans-serif" font-size="9px" font-weight="400" fill="#404040" text-anchor="middle">chờ ký hợp đồng (16h)</text>
+<text x="315" y="118.4" font-family="Arial, sans-serif" font-size="9px" font-weight="400" fill="#404040" text-anchor="middle">chiếm 55,9% thời gian chu kỳ</text>
+<polyline points="410,106 430,106" fill="none" stroke="#2980b9" stroke-width="1"/>
+<polygon points="430,106 424,103 424,109" fill="#2980b9" stroke="none" stroke-width="1"/>
+<rect x="430" y="66" width="190" height="80" rx="4" fill="#ebf5fb" stroke="#2980b9" stroke-width="1"/>
+<text x="525" y="81" font-family="Arial, sans-serif" font-size="10px" font-weight="700" fill="#404040" text-anchor="middle">Tại sao 2 (Thủ công)</text>
+<text x="525" y="95" font-family="Arial, sans-serif" font-size="9px" font-weight="400" fill="#404040" text-anchor="middle">Tờ trình phương án và hợp đồng</text>
+<text x="525" y="106.7" font-family="Arial, sans-serif" font-size="9px" font-weight="400" fill="#404040" text-anchor="middle">luân chuyển thủ công qua giấy tờ</text>
+<text x="525" y="118.4" font-family="Arial, sans-serif" font-size="9px" font-weight="400" fill="#404040" text-anchor="middle">và đường chuyển phát bưu chính</text>
+<polyline points="620,106 640,106" fill="none" stroke="#2980b9" stroke-width="1"/>
+<polygon points="640,106 634,103 634,109" fill="#2980b9" stroke="none" stroke-width="1"/>
+<rect x="640" y="66" width="200" height="80" rx="4" fill="#ebf5fb" stroke="#2980b9" stroke-width="1"/>
+<text x="740" y="81" font-family="Arial, sans-serif" font-size="10px" font-weight="700" fill="#404040" text-anchor="middle">Tại sao 3 (Chưa có e-Contract)</text>
+<text x="740" y="95" font-family="Arial, sans-serif" font-size="9px" font-weight="400" fill="#404040" text-anchor="middle">Chưa triển khai ký số điện tử</text>
+<text x="740" y="106.7" font-family="Arial, sans-serif" font-size="9px" font-weight="400" fill="#404040" text-anchor="middle">(e-Contract) và chưa số hóa</text>
+<text x="740" y="118.4" font-family="Arial, sans-serif" font-size="9px" font-weight="400" fill="#404040" text-anchor="middle">luồng trình duyệt tờ trình</text>
+<polyline points="840,106 860,106" fill="none" stroke="#2980b9" stroke-width="1"/>
+<polygon points="860,106 854,103 854,109" fill="#2980b9" stroke="none" stroke-width="1"/>
+<rect x="860" y="66" width="210" height="80" rx="4" fill="#ebf5fb" stroke="#2980b9" stroke-width="1"/>
+<text x="965" y="81" font-family="Arial, sans-serif" font-size="10px" font-weight="700" fill="#404040" text-anchor="middle">Tại sao 4-5 (Hệ thống rời rạc)</text>
+<text x="965" y="95" font-family="Arial, sans-serif" font-size="9px" font-weight="400" fill="#404040" text-anchor="middle">Why 4: Phần mềm các phòng rời rạc.</text>
+<text x="965" y="106.7" font-family="Arial, sans-serif" font-size="9px" font-weight="400" fill="#404040" text-anchor="middle">Why 5: Chưa chuẩn hóa quy trình</text>
+<text x="965" y="118.4" font-family="Arial, sans-serif" font-size="9px" font-weight="400" fill="#404040" text-anchor="middle">onboarding số hóa toàn trình.</text>
+<polyline points="1070,106 1090,106" fill="none" stroke="#2980b9" stroke-width="1"/>
+<polygon points="1090,106 1084,103 1084,109" fill="#2980b9" stroke="none" stroke-width="1"/>
+<rect x="1090" y="61" width="365" height="89" rx="4" fill="#d5efdf" stroke="#27ae60" stroke-width="1"/>
+<text x="1272.5" y="76" font-family="Arial, sans-serif" font-size="10px" font-weight="700" fill="#196f3d" text-anchor="middle">NGUYÊN NHÂN GỐC RỄ 1 (RC-01)</text>
+<text x="1272.5" y="90" font-family="Arial, sans-serif" font-size="9px" font-weight="400" fill="#404040" text-anchor="middle">Thiếu nền tảng số hóa tập trung (Partner Portal)</text>
+<text x="1272.5" y="101.7" font-family="Arial, sans-serif" font-size="9px" font-weight="400" fill="#404040" text-anchor="middle">tích hợp ký hợp đồng điện tử (e-Contract)</text>
+<text x="1272.5" y="113.4" font-family="Arial, sans-serif" font-size="9px" font-weight="400" fill="#404040" text-anchor="middle">và luồng phê duyệt tờ trình số lên thẳng TMS.</text>
+<polyline points="210,321 220,321" fill="none" stroke="#e74c3c" stroke-width="1"/>
+<polygon points="220,321 214,318 214,324" fill="#e74c3c" stroke="none" stroke-width="1"/>
+<rect x="220" y="281" width="190" height="80" rx="4" fill="#fef9e7" stroke="#f39c12" stroke-width="1"/>
+<text x="315" y="296" font-family="Arial, sans-serif" font-size="10px" font-weight="700" fill="#404040" text-anchor="middle">Tại sao 1 (Hồ sơ lỗi cao)</text>
+<text x="315" y="310" font-family="Arial, sans-serif" font-size="9px" font-weight="400" fill="#404040" text-anchor="middle">30% đối tác nộp thiếu chứng từ</text>
+<text x="315" y="321.7" font-family="Arial, sans-serif" font-size="9px" font-weight="400" fill="#404040" text-anchor="middle">(đăng kiểm, bảo hiểm TNDS, GPS),</text>
+<text x="315" y="333.4" font-family="Arial, sans-serif" font-size="9px" font-weight="400" fill="#404040" text-anchor="middle">gây trễ 4,8h xử lý bổ sung</text>
+<polyline points="410,321 430,321" fill="none" stroke="#f39c12" stroke-width="1"/>
+<polygon points="430,321 424,318 424,324" fill="#f39c12" stroke="none" stroke-width="1"/>
+<rect x="430" y="281" width="190" height="80" rx="4" fill="#fef9e7" stroke="#f39c12" stroke-width="1"/>
+<text x="525" y="296" font-family="Arial, sans-serif" font-size="10px" font-weight="700" fill="#404040" text-anchor="middle">Tại sao 2 (Biểu mẫu rời)</text>
+<text x="525" y="310" font-family="Arial, sans-serif" font-size="9px" font-weight="400" fill="#404040" text-anchor="middle">Phiếu đăng ký nộp qua file rời,</text>
+<text x="525" y="321.7" font-family="Arial, sans-serif" font-size="9px" font-weight="400" fill="#404040" text-anchor="middle">chưa có cơ chế kiểm tra định dạng</text>
+<text x="525" y="333.4" font-family="Arial, sans-serif" font-size="9px" font-weight="400" fill="#404040" text-anchor="middle">và tính hợp lệ của tài liệu</text>
+<polyline points="620,321 640,321" fill="none" stroke="#f39c12" stroke-width="1"/>
+<polygon points="640,321 634,318 634,324" fill="#f39c12" stroke="none" stroke-width="1"/>
+<rect x="640" y="281" width="200" height="80" rx="4" fill="#fef9e7" stroke="#f39c12" stroke-width="1"/>
+<text x="740" y="296" font-family="Arial, sans-serif" font-size="10px" font-weight="700" fill="#404040" text-anchor="middle">Tại sao 3 (Thiếu Validation)</text>
+<text x="740" y="310" font-family="Arial, sans-serif" font-size="9px" font-weight="400" fill="#404040" text-anchor="middle">Checklist tiếp nhận chưa được</text>
+<text x="740" y="321.7" font-family="Arial, sans-serif" font-size="9px" font-weight="400" fill="#404040" text-anchor="middle">số hóa thành các trường bắt buộc</text>
+<text x="740" y="333.4" font-family="Arial, sans-serif" font-size="9px" font-weight="400" fill="#404040" text-anchor="middle">trên hệ thống tiếp nhận online</text>
+<polyline points="840,321 860,321" fill="none" stroke="#f39c12" stroke-width="1"/>
+<polygon points="860,321 854,318 854,324" fill="#f39c12" stroke="none" stroke-width="1"/>
+<rect x="860" y="281" width="210" height="80" rx="4" fill="#fef9e7" stroke="#f39c12" stroke-width="1"/>
+<text x="965" y="296" font-family="Arial, sans-serif" font-size="10px" font-weight="700" fill="#404040" text-anchor="middle">Tại sao 4-5 (Thiếu Poka-Yoke)</text>
+<text x="965" y="310" font-family="Arial, sans-serif" font-size="9px" font-weight="400" fill="#404040" text-anchor="middle">Why 4: Thiếu công cụ chống lỗi Poka-Yoke.</text>
+<text x="965" y="321.7" font-family="Arial, sans-serif" font-size="9px" font-weight="400" fill="#404040" text-anchor="middle">Why 5: Quy chế đăng ký đối tác chưa</text>
+<text x="965" y="333.4" font-family="Arial, sans-serif" font-size="9px" font-weight="400" fill="#404040" text-anchor="middle">bắt buộc nộp hồ sơ qua cổng số.</text>
+<polyline points="1070,321 1090,321" fill="none" stroke="#f39c12" stroke-width="1"/>
+<polygon points="1090,321 1084,318 1084,324" fill="#f39c12" stroke="none" stroke-width="1"/>
+<rect x="1090" y="276" width="365" height="89" rx="4" fill="#d5efdf" stroke="#27ae60" stroke-width="1"/>
+<text x="1272.5" y="291" font-family="Arial, sans-serif" font-size="10px" font-weight="700" fill="#196f3d" text-anchor="middle">NGUYÊN NHÂN GỐC RỄ 2 (RC-02)</text>
+<text x="1272.5" y="305" font-family="Arial, sans-serif" font-size="9px" font-weight="400" fill="#404040" text-anchor="middle">Thiếu cổng nộp hồ sơ trực tuyến có tính năng</text>
+<text x="1272.5" y="316.7" font-family="Arial, sans-serif" font-size="9px" font-weight="400" fill="#404040" text-anchor="middle">Form Validation (Poka-Yoke) bắt buộc tải đủ</text>
+<text x="1272.5" y="328.4" font-family="Arial, sans-serif" font-size="9px" font-weight="400" fill="#404040" text-anchor="middle">chứng từ đăng kiểm, bảo hiểm trước khi nộp.</text>
+<polyline points="210,536 220,536" fill="none" stroke="#e74c3c" stroke-width="1"/>
+<polygon points="220,536 214,533 214,539" fill="#e74c3c" stroke="none" stroke-width="1"/>
+<rect x="220" y="496" width="190" height="80" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+<text x="315" y="511" font-family="Arial, sans-serif" font-size="10px" font-weight="700" fill="#404040" text-anchor="middle">Tại sao 1 (Khảo sát xe lâu)</text>
+<text x="315" y="525" font-family="Arial, sans-serif" font-size="9px" font-weight="400" fill="#404040" text-anchor="middle">Khâu thẩm định thực tế xe mất 6,0h</text>
+<text x="315" y="536.7" font-family="Arial, sans-serif" font-size="9px" font-weight="400" fill="#404040" text-anchor="middle">do chuyên viên phải di chuyển nhiều</text>
+<text x="315" y="548.4" font-family="Arial, sans-serif" font-size="9px" font-weight="400" fill="#404040" text-anchor="middle">lần đến bãi xe phân tán của chủ xe</text>
+<polyline points="410,536 430,536" fill="none" stroke="#27ae60" stroke-width="1"/>
+<polygon points="430,536 424,533 424,539" fill="#27ae60" stroke="none" stroke-width="1"/>
+<rect x="430" y="496" width="190" height="80" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+<text x="525" y="511" font-family="Arial, sans-serif" font-size="10px" font-weight="700" fill="#404040" text-anchor="middle">Tại sao 2 (Phân tán bãi xe)</text>
+<text x="525" y="525" font-family="Arial, sans-serif" font-size="9px" font-weight="400" fill="#404040" text-anchor="middle">Chưa quy định địa điểm và lịch</text>
+<text x="525" y="536.7" font-family="Arial, sans-serif" font-size="9px" font-weight="400" fill="#404040" text-anchor="middle">kiểm tra phương tiện cố định</text>
+<text x="525" y="548.4" font-family="Arial, sans-serif" font-size="9px" font-weight="400" fill="#404040" text-anchor="middle">tập trung tại Hub trung tâm</text>
+<polyline points="620,536 640,536" fill="none" stroke="#27ae60" stroke-width="1"/>
+<polygon points="640,536 634,533 634,539" fill="#27ae60" stroke="none" stroke-width="1"/>
+<rect x="640" y="496" width="200" height="80" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+<text x="740" y="511" font-family="Arial, sans-serif" font-size="10px" font-weight="700" fill="#404040" text-anchor="middle">Tại sao 3 (Khảo sát đơn lẻ)</text>
+<text x="740" y="525" font-family="Arial, sans-serif" font-size="9px" font-weight="400" fill="#404040" text-anchor="middle">Mỗi xe thẩm định theo lịch hẹn riêng,</text>
+<text x="740" y="536.7" font-family="Arial, sans-serif" font-size="9px" font-weight="400" fill="#404040" text-anchor="middle">chưa gom đợt kiểm tra theo lô</text>
+<text x="740" y="548.4" font-family="Arial, sans-serif" font-size="9px" font-weight="400" fill="#404040" text-anchor="middle">phương tiện cùng tuyến</text>
+<polyline points="840,536 860,536" fill="none" stroke="#27ae60" stroke-width="1"/>
+<polygon points="860,536 854,533 854,539" fill="#27ae60" stroke="none" stroke-width="1"/>
+<rect x="860" y="496" width="210" height="80" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+<text x="965" y="511" font-family="Arial, sans-serif" font-size="10px" font-weight="700" fill="#404040" text-anchor="middle">Tại sao 4-5 (Chưa chuẩn hóa)</text>
+<text x="965" y="525" font-family="Arial, sans-serif" font-size="9px" font-weight="400" fill="#404040" text-anchor="middle">Why 4: Thiếu lịch kiểm tra định kỳ tại Hub.</text>
+<text x="965" y="536.7" font-family="Arial, sans-serif" font-size="9px" font-weight="400" fill="#404040" text-anchor="middle">Why 5: Sổ tay thẩm định xe ST-04 chưa</text>
+<text x="965" y="548.4" font-family="Arial, sans-serif" font-size="9px" font-weight="400" fill="#404040" text-anchor="middle">quy định cơ chế kiểm định tập trung.</text>
+<polyline points="1070,536 1090,536" fill="none" stroke="#27ae60" stroke-width="1"/>
+<polygon points="1090,536 1084,533 1084,539" fill="#27ae60" stroke="none" stroke-width="1"/>
+<rect x="1090" y="491" width="365" height="89" rx="4" fill="#d5efdf" stroke="#27ae60" stroke-width="1"/>
+<text x="1272.5" y="506" font-family="Arial, sans-serif" font-size="10px" font-weight="700" fill="#196f3d" text-anchor="middle">NGUYÊN NHÂN GỐC RỄ 3 (RC-03)</text>
+<text x="1272.5" y="520" font-family="Arial, sans-serif" font-size="9px" font-weight="400" fill="#404040" text-anchor="middle">Chưa chuẩn hóa quy chế kiểm định phương tiện</text>
+<text x="1272.5" y="531.7" font-family="Arial, sans-serif" font-size="9px" font-weight="400" fill="#404040" text-anchor="middle">tập trung theo lô tại các Hub trung tâm của</text>
+<text x="1272.5" y="543.4" font-family="Arial, sans-serif" font-size="9px" font-weight="400" fill="#404040" text-anchor="middle">Viettel Post theo khung giờ cố định.</text>
+</svg>
