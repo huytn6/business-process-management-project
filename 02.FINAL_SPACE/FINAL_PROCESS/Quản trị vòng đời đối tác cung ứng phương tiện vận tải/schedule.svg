@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="380" viewBox="0 0 1100 380">
+<rect x="25" y="16" width="260" height="42" rx="0" fill="#24557f" stroke="#fff" stroke-width="1"/>
+<text x="37" y="42" font-family="Arial, sans-serif" font-size="11px" font-weight="700" fill="#fff" text-anchor="start">Giai đoạn / Công việc</text>
+<rect x="285" y="16" width="210" height="42" rx="0" fill="#24557f" stroke="#fff" stroke-width="1"/>
+<text x="297" y="42" font-family="Arial, sans-serif" font-size="11px" font-weight="700" fill="#fff" text-anchor="start">Đơn vị chủ trì</text>
+<rect x="495" y="16" width="210" height="42" rx="0" fill="#24557f" stroke="#fff" stroke-width="1"/>
+<text x="507" y="42" font-family="Arial, sans-serif" font-size="11px" font-weight="700" fill="#fff" text-anchor="start">Đơn vị phối hợp</text>
+<rect x="705" y="16" width="160" height="42" rx="0" fill="#24557f" stroke="#fff" stroke-width="1"/>
+<text x="717" y="42" font-family="Arial, sans-serif" font-size="11px" font-weight="700" fill="#fff" text-anchor="start">SLA tiến độ</text>
+<rect x="865" y="16" width="210" height="42" rx="0" fill="#24557f" stroke="#fff" stroke-width="1"/>
+<text x="877" y="42" font-family="Arial, sans-serif" font-size="11px" font-weight="700" fill="#fff" text-anchor="start">RACI Matrix</text>
+<rect x="25" y="58" width="260" height="60" rx="0" fill="#f8f9fa" stroke="#b9c2c8" stroke-width="0.7"/>
+<text x="37" y="93" font-family="Arial, sans-serif" font-size="10px" font-weight="400" fill="#333" text-anchor="start">1. Đánh giá nhu cầu &amp; Mời hợp tác</text>
+<rect x="285" y="58" width="210" height="60" rx="0" fill="#f8f9fa" stroke="#b9c2c8" stroke-width="0.7"/>
+<text x="297" y="93" font-family="Arial, sans-serif" font-size="10px" font-weight="400" fill="#333" text-anchor="start">Khai thác vận tải</text>
+<rect x="495" y="58" width="210" height="60" rx="0" fill="#f8f9fa" stroke="#b9c2c8" stroke-width="0.7"/>
+<text x="507" y="93" font-family="Arial, sans-serif" font-size="10px" font-weight="400" fill="#333" text-anchor="start">Ban Mua sắm</text>
+<rect x="705" y="58" width="160" height="60" rx="0" fill="#f8f9fa" stroke="#b9c2c8" stroke-width="0.7"/>
+<text x="717" y="93" font-family="Arial, sans-serif" font-size="10px" font-weight="400" fill="#333" text-anchor="start">1 - 2 ngày</text>
+<rect x="865" y="58" width="210" height="60" rx="0" fill="#f8f9fa" stroke="#b9c2c8" stroke-width="0.7"/>
+<text x="877" y="93" font-family="Arial, sans-serif" font-size="10px" font-weight="400" fill="#333" text-anchor="start">Khai thác: A/R | Mua sắm: C</text>
+<rect x="25" y="118" width="260" height="60" rx="0" fill="#fff" stroke="#b9c2c8" stroke-width="0.7"/>
+<text x="37" y="153" font-family="Arial, sans-serif" font-size="10px" font-weight="400" fill="#333" text-anchor="start">2. Tiếp nhận &amp; Thẩm định sơ bộ</text>
+<rect x="285" y="118" width="210" height="60" rx="0" fill="#fff" stroke="#b9c2c8" stroke-width="0.7"/>
+<text x="297" y="153" font-family="Arial, sans-serif" font-size="10px" font-weight="400" fill="#333" text-anchor="start">Ban Mua sắm</text>
+<rect x="495" y="118" width="210" height="60" rx="0" fill="#fff" stroke="#b9c2c8" stroke-width="0.7"/>
+<text x="507" y="153" font-family="Arial, sans-serif" font-size="10px" font-weight="400" fill="#333" text-anchor="start">Đối tác</text>
+<rect x="705" y="118" width="160" height="60" rx="0" fill="#fff" stroke="#b9c2c8" stroke-width="0.7"/>
+<text x="717" y="153" font-family="Arial, sans-serif" font-size="10px" font-weight="400" fill="#333" text-anchor="start">1 ngày</text>
+<rect x="865" y="118" width="210" height="60" rx="0" fill="#fff" stroke="#b9c2c8" stroke-width="0.7"/>
+<text x="877" y="153" font-family="Arial, sans-serif" font-size="10px" font-weight="400" fill="#333" text-anchor="start">Mua sắm: A/R | Đối tác: I</text>
+<rect x="25" y="178" width="260" height="60" rx="0" fill="#f8f9fa" stroke="#b9c2c8" stroke-width="0.7"/>
+<text x="37" y="213" font-family="Arial, sans-serif" font-size="10px" font-weight="400" fill="#333" text-anchor="start">3. Thẩm định chuyên sâu xe &amp; GPS</text>
+<rect x="285" y="178" width="210" height="60" rx="0" fill="#f8f9fa" stroke="#b9c2c8" stroke-width="0.7"/>
+<text x="297" y="213" font-family="Arial, sans-serif" font-size="10px" font-weight="400" fill="#333" text-anchor="start">Ban Mua sắm</text>
+<rect x="495" y="178" width="210" height="60" rx="0" fill="#f8f9fa" stroke="#b9c2c8" stroke-width="0.7"/>
+<text x="507" y="213" font-family="Arial, sans-serif" font-size="10px" font-weight="400" fill="#333" text-anchor="start">Khai thác vận tải</text>
+<rect x="705" y="178" width="160" height="60" rx="0" fill="#f8f9fa" stroke="#b9c2c8" stroke-width="0.7"/>
+<text x="717" y="213" font-family="Arial, sans-serif" font-size="10px" font-weight="400" fill="#333" text-anchor="start">2 ngày</text>
+<rect x="865" y="178" width="210" height="60" rx="0" fill="#f8f9fa" stroke="#b9c2c8" stroke-width="0.7"/>
+<text x="877" y="213" font-family="Arial, sans-serif" font-size="10px" font-weight="400" fill="#333" text-anchor="start">Mua sắm: A/R | Khai thác: C</text>
+<rect x="25" y="238" width="260" height="60" rx="0" fill="#fff" stroke="#b9c2c8" stroke-width="0.7"/>
+<text x="37" y="273" font-family="Arial, sans-serif" font-size="10px" font-weight="400" fill="#333" text-anchor="start">4. Đàm phán cước &amp; Trình phê duyệt</text>
+<rect x="285" y="238" width="210" height="60" rx="0" fill="#fff" stroke="#b9c2c8" stroke-width="0.7"/>
+<text x="297" y="273" font-family="Arial, sans-serif" font-size="10px" font-weight="400" fill="#333" text-anchor="start">Ban Mua sắm</text>
+<rect x="495" y="238" width="210" height="60" rx="0" fill="#fff" stroke="#b9c2c8" stroke-width="0.7"/>
+<text x="507" y="273" font-family="Arial, sans-serif" font-size="10px" font-weight="400" fill="#333" text-anchor="start">Pháp chế, Ban TGĐ</text>
+<rect x="705" y="238" width="160" height="60" rx="0" fill="#fff" stroke="#b9c2c8" stroke-width="0.7"/>
+<text x="717" y="273" font-family="Arial, sans-serif" font-size="10px" font-weight="400" fill="#333" text-anchor="start">1 - 2 ngày</text>
+<rect x="865" y="238" width="210" height="60" rx="0" fill="#fff" stroke="#b9c2c8" stroke-width="0.7"/>
+<text x="877" y="273" font-family="Arial, sans-serif" font-size="10px" font-weight="400" fill="#333" text-anchor="start">Mua sắm: R | TGĐ: A | PC: C</text>
+<rect x="25" y="298" width="260" height="60" rx="0" fill="#f8f9fa" stroke="#b9c2c8" stroke-width="0.7"/>
+<text x="37" y="333" font-family="Arial, sans-serif" font-size="10px" font-weight="400" fill="#333" text-anchor="start">5. Ký hợp đồng &amp; Kích hoạt TMS</text>
+<rect x="285" y="298" width="210" height="60" rx="0" fill="#f8f9fa" stroke="#b9c2c8" stroke-width="0.7"/>
+<text x="297" y="333" font-family="Arial, sans-serif" font-size="10px" font-weight="400" fill="#333" text-anchor="start">Pháp chế - TC</text>
+<rect x="495" y="298" width="210" height="60" rx="0" fill="#f8f9fa" stroke="#b9c2c8" stroke-width="0.7"/>
+<text x="507" y="333" font-family="Arial, sans-serif" font-size="10px" font-weight="400" fill="#333" text-anchor="start">Ban Mua sắm, Đối tác</text>
+<rect x="705" y="298" width="160" height="60" rx="0" fill="#f8f9fa" stroke="#b9c2c8" stroke-width="0.7"/>
+<text x="717" y="333" font-family="Arial, sans-serif" font-size="10px" font-weight="400" fill="#333" text-anchor="start">1 ngày</text>
+<rect x="865" y="298" width="210" height="60" rx="0" fill="#f8f9fa" stroke="#b9c2c8" stroke-width="0.7"/>
+<text x="877" y="333" font-family="Arial, sans-serif" font-size="10px" font-weight="400" fill="#333" text-anchor="start">Pháp chế: R | Mua sắm: A | ĐT: I</text>
+</svg>

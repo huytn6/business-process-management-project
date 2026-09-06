@@ -1,0 +1,890 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_ViettelPost_PureLinear" targetNamespace="http://bpmn.io/schema/bpmn" exporter="bpmn-js (https://demo.bpmn.io)" exporterVersion="18.28.0">
+  <bpmn:message id="Message_ProposalReject" name="Thông báo từ chối / hết lượt" />
+  <bpmn:message id="Message_Invite" name="Thư mời hợp tác" />
+  <bpmn:message id="Message_DossierSubmit" name="Hồ sơ xe và năng lực" />
+  <bpmn:message id="Message_NotifyReject" name="Thông báo từ chối đối tác" />
+  <bpmn:message id="Message_SupplierScoreReject" name="Thông báo điểm đánh giá không đạt" />
+  <bpmn:message id="Message_SendContract" name="Hợp đồng nguyên tắc" />
+  <bpmn:message id="Message_ReturnSignedContract" name="Hợp đồng đã ký" />
+  <bpmn:collaboration id="Collaboration_TransportOnboarding">
+    <bpmn:participant id="Participant_Partner" name="Đơn vị cung ứng phương tiện vận tải" />
+    <bpmn:participant id="Participant_ViettelPost" name="Tổng Công ty Cổ phần Bưu chính Viettel (Viettel Post)" processRef="Process_TransportOnboarding" />
+    <bpmn:messageFlow id="MsgFlow_SubmitDossier" sourceRef="Participant_Partner" targetRef="Event_DossierReceived" messageRef="Message_DossierSubmit" />
+    <bpmn:messageFlow id="MsgFlow_NotifyReject" sourceRef="Event_NotifyRejectSent" targetRef="Participant_Partner" messageRef="Message_NotifyReject" />
+    <bpmn:messageFlow id="MsgFlow_SendContract" sourceRef="Event_ContractSent" targetRef="Participant_Partner" messageRef="Message_SendContract" />
+    <bpmn:messageFlow id="MsgFlow_ReturnSignedContract" sourceRef="Participant_Partner" targetRef="Event_SignedContractReceived" messageRef="Message_ReturnSignedContract" />
+    <bpmn:messageFlow id="MsgFlow_SupplierScoreReject" sourceRef="Event_SupplierScoreRejectSent" targetRef="Participant_Partner" messageRef="Message_SupplierScoreReject" />
+    <bpmn:messageFlow id="MsgFlow_ProposalReject" sourceRef="Event_ProposalRejectSent" targetRef="Participant_Partner" messageRef="Message_ProposalReject" />
+    <bpmn:messageFlow id="MsgFlow_Invite" sourceRef="Event_InviteSent" targetRef="Participant_Partner" messageRef="Message_Invite" />
+    <bpmn:textAnnotation id="TextAnnotation_ProposalRevisionLimit">
+      <bpmn:text>Giới hạn chỉnh sửa phương án:
+Tối đa 3 lần chỉnh sửa lại.
+Trước lần trình đầu tiên: số lượt chỉnh sửa = 0.
+Sau mỗi lần chỉnh sửa: tăng số lượt lên 1.
+Nếu số lượt &lt; 3: cho phép chỉnh sửa lại.
+Khi số lượt = 3: chuyển đến “Từ chối / hết lượt”.</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_ProposalRevisionLimit" associationDirection="None" sourceRef="Task_RecordProposalRevision" targetRef="TextAnnotation_ProposalRevisionLimit" />
+  </bpmn:collaboration>
+  <bpmn:process id="Process_TransportOnboarding" name="Quản trị vòng đời đối tác cung ứng phương tiện vận tải V2" isExecutable="true">
+    <bpmn:documentation>Mô hình To-Be đã tinh giản còn đúng 8 gateway. supplierScoreThreshold là tham số chính sách nội bộ đã được phê duyệt, không phải ngưỡng pháp luật. proposalRevisionAttempts là bộ đếm chỉnh sửa lại phương án, khởi tạo bằng 0 và giới hạn tối đa 3 lần chỉnh sửa.</bpmn:documentation>
+    <bpmn:laneSet id="LaneSet_ViettelPost">
+      <bpmn:lane id="Lane_TransportOperations" name="Bộ phận Khai thác vận tải">
+        <bpmn:flowNodeRef>StartEvent_NeedVehicle</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_AssessInternalFleet</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>GW_NeedOutsource</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>EndEvent_InternalFleetSufficient</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_DefineStandard</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_PublishInvite</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Event_InviteSent</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_Procurement" name="Bộ phận Quản lý đối tác / Mua sắm">
+        <bpmn:flowNodeRef>Task_ComprehensiveAppraisal</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>GW_AppraisalPass</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_EvaluateSupplierScore</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>GW_SupplierScore</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_NegotiateCommercial</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_NotifyScoreReject</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Event_SupplierScoreRejectSent</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_NotifyReject</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Event_NotifyRejectSent</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>GW_Join_Rejection</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>EndEvent_PartnerRejected</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>EndEvent_SupplierScoreRejected</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>GW_CommercialAgreed</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>GW_DossierValid</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_ReceiveDossier</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Event_DossierReceived</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_ActivateTMS</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>EndEvent_PartnerActivated</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_ManagementApprover" name="Cấp quản lý phê duyệt">
+        <bpmn:flowNodeRef>Task_ReworkProposal</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_RecordProposalRevision</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>GW_ProposalApproved</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>GW_Join_ProposalEntry</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_SubmitProposal</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>EndEvent_ProposalRejected</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Event_ProposalRejectSent</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_NotifyProposalReject</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_LegalFinance" name="Bộ phận Pháp chế - Tài chính">
+        <bpmn:flowNodeRef>Task_SendContract</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_ReviewContract</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_ReceiveSignedContract</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Event_SignedContractReceived</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Event_ContractSent</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_DraftContract</bpmn:flowNodeRef>
+      </bpmn:lane>
+    </bpmn:laneSet>
+    <bpmn:startEvent id="StartEvent_NeedVehicle" name="Nhu cầu xe phát sinh">
+      <bpmn:outgoing>Flow_01</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:userTask id="Task_AssessInternalFleet" name="Đánh giá&#10;năng lực đội xe&#10;nội bộ">
+      <bpmn:incoming>Flow_01</bpmn:incoming>
+      <bpmn:outgoing>Flow_02</bpmn:outgoing>
+      <bpmn:ioSpecification id="IOSpec_AssessFleet">
+        <bpmn:dataInput id="DataInput_FleetAssessment" name="Hồ sơ &#38; năng lực đối tác (từ TMS)" />
+        <bpmn:inputSet id="InputSet_AssessFleet">
+          <bpmn:dataInputRefs>DataInput_FleetAssessment</bpmn:dataInputRefs>
+        </bpmn:inputSet>
+        <bpmn:outputSet id="OutputSet_AssessFleet" />
+      </bpmn:ioSpecification>
+      <bpmn:dataInputAssociation id="DataInputAssoc_TMS_Read">
+        <bpmn:sourceRef>DataStore_TMS</bpmn:sourceRef>
+        <bpmn:targetRef>DataInput_FleetAssessment</bpmn:targetRef>
+      </bpmn:dataInputAssociation>
+    </bpmn:userTask>
+    <bpmn:exclusiveGateway id="GW_NeedOutsource" name="Cần thuê ngoài?">
+      <bpmn:incoming>Flow_02</bpmn:incoming>
+      <bpmn:outgoing>Flow_NeedOutsourceYes</bpmn:outgoing>
+      <bpmn:outgoing>Flow_InternalFleetOk</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:endEvent id="EndEvent_InternalFleetSufficient" name="Nội bộ đáp ứng (Đóng)">
+      <bpmn:incoming>Flow_InternalFleetOk</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:userTask id="Task_DefineStandard" name="Xác định&#10;tiêu chuẩn xe&#10;và tuyến chạy">
+      <bpmn:incoming>Flow_NeedOutsourceYes</bpmn:incoming>
+      <bpmn:outgoing>Flow_03</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:userTask id="Task_PublishInvite" name="Phát hành&#10;thông báo mời&#10;hợp tác xe">
+      <bpmn:incoming>Flow_03</bpmn:incoming>
+      <bpmn:outgoing>Flow_PublishInviteSent</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:intermediateThrowEvent id="Event_InviteSent" name="Thư mời hợp tác đã phát hành">
+      <bpmn:incoming>Flow_PublishInviteSent</bpmn:incoming>
+      <bpmn:outgoing>Flow_04</bpmn:outgoing>
+      <bpmn:messageEventDefinition messageRef="Message_Invite" />
+    </bpmn:intermediateThrowEvent>
+    <bpmn:userTask id="Task_ComprehensiveAppraisal" name="Thẩm định&#10;thực địa xe &#38;&#10;thiết bị GPS">
+      <bpmn:incoming>Flow_DossierValidYes</bpmn:incoming>
+      <bpmn:outgoing>Flow_06</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:exclusiveGateway id="GW_AppraisalPass" name="Thẩm định đạt?">
+      <bpmn:incoming>Flow_06</bpmn:incoming>
+      <bpmn:outgoing>Flow_AppraisalPassYes</bpmn:outgoing>
+      <bpmn:outgoing>Flow_AppraisalPassNo</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:userTask id="Task_EvaluateSupplierScore" name="Đánh giá&#10;điểm nhà cung ứng">
+      <bpmn:incoming>Flow_AppraisalPassYes</bpmn:incoming>
+      <bpmn:outgoing>Flow_SupplierEvaluation</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:exclusiveGateway id="GW_SupplierScore" name="Đạt ngưỡng đánh giá?">
+      <bpmn:incoming>Flow_SupplierEvaluation</bpmn:incoming>
+      <bpmn:outgoing>Flow_SupplierScorePass</bpmn:outgoing>
+      <bpmn:outgoing>Flow_SupplierScoreFail</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:userTask id="Task_NegotiateCommercial" name="Đàm phán&#10;thương mại &#38;&#10;đơn giá cước">
+      <bpmn:incoming>Flow_SupplierScorePass</bpmn:incoming>
+      <bpmn:outgoing>Flow_07</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:userTask id="Task_ReworkProposal" name="Hoàn thiện phương án&#10;theo ý kiến chỉ đạo">
+      <bpmn:incoming>Flow_ProposalNeedRework</bpmn:incoming>
+      <bpmn:outgoing>Flow_RecordProposalRevision</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:serviceTask id="Task_RecordProposalRevision" name="Cập nhật số lượt&#10;chỉnh sửa phương án">
+      <bpmn:documentation>Khởi tạo proposalRevisionAttempts = 0 trước lần trình phương án đầu tiên. Sau mỗi lần hoàn thiện lại phương án, tăng proposalRevisionAttempts lên 1. Chỉ cho phép chỉnh sửa khi proposalRevisionAttempts &lt; 3; nếu không yêu cầu chỉnh sửa hoặc proposalRevisionAttempts &gt;= 3 thì đi tới nhánh từ chối/hết lượt.</bpmn:documentation>
+      <bpmn:incoming>Flow_RecordProposalRevision</bpmn:incoming>
+      <bpmn:outgoing>Flow_ProposalReworkLoopBack</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:exclusiveGateway id="GW_ProposalApproved" name="Phê duyệt phương án?" default="Flow_ProposalApprovedNo">
+      <bpmn:incoming>Flow_09</bpmn:incoming>
+      <bpmn:outgoing>Flow_ProposalApprovedNo</bpmn:outgoing>
+      <bpmn:outgoing>Flow_ProposalNeedRework</bpmn:outgoing>
+      <bpmn:outgoing>Flow_ProposalApprovedYes</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:userTask id="Task_NotifyScoreReject" name="Gửi thông báo&#10;điểm đánh giá không đạt">
+      <bpmn:incoming>Flow_SupplierScoreFail</bpmn:incoming>
+      <bpmn:outgoing>Flow_SupplierScoreRejectSent</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:intermediateThrowEvent id="Event_SupplierScoreRejectSent" name="Thông báo điểm đánh giá không đạt đã gửi">
+      <bpmn:incoming>Flow_SupplierScoreRejectSent</bpmn:incoming>
+      <bpmn:outgoing>Flow_SupplierScoreRejectNotice</bpmn:outgoing>
+      <bpmn:messageEventDefinition messageRef="Message_SupplierScoreReject" />
+    </bpmn:intermediateThrowEvent>
+    <bpmn:userTask id="Task_NotifyReject" name="Gửi thông báo&#10;từ chối đối tác">
+      <bpmn:incoming>Flow_ToRejectNotice</bpmn:incoming>
+      <bpmn:outgoing>Flow_NotifyRejectSent</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:intermediateThrowEvent id="Event_NotifyRejectSent" name="Thông báo từ chối đối tác đã gửi">
+      <bpmn:incoming>Flow_NotifyRejectSent</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToRejectEnd</bpmn:outgoing>
+      <bpmn:messageEventDefinition messageRef="Message_NotifyReject" />
+    </bpmn:intermediateThrowEvent>
+    <bpmn:exclusiveGateway id="GW_Join_Rejection" name="Hợp nhất luồng loại">
+      <bpmn:incoming>Flow_DossierValidNo</bpmn:incoming>
+      <bpmn:incoming>Flow_AppraisalPassNo</bpmn:incoming>
+      <bpmn:incoming>Flow_CommercialAgreedNo</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToRejectNotice</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:endEvent id="EndEvent_PartnerRejected" name="Đối tác bị loại">
+      <bpmn:incoming>Flow_ToRejectEnd</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:endEvent id="EndEvent_SupplierScoreRejected" name="Đối tác không đạt&#10;ngưỡng đánh giá">
+      <bpmn:incoming>Flow_SupplierScoreRejectNotice</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:exclusiveGateway id="GW_Join_ProposalEntry" name="Hợp nhất trình duyệt">
+      <bpmn:incoming>Flow_CommercialAgreedYes</bpmn:incoming>
+      <bpmn:incoming>Flow_ProposalReworkLoopBack</bpmn:incoming>
+      <bpmn:outgoing>Flow_08</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:exclusiveGateway id="GW_CommercialAgreed" name="Thống nhất cước?">
+      <bpmn:incoming>Flow_07</bpmn:incoming>
+      <bpmn:outgoing>Flow_CommercialAgreedYes</bpmn:outgoing>
+      <bpmn:outgoing>Flow_CommercialAgreedNo</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:userTask id="Task_SubmitProposal" name="Xem xét&#10;phương án">
+      <bpmn:incoming>Flow_08</bpmn:incoming>
+      <bpmn:outgoing>Flow_09</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:userTask id="Task_SendContract" name="Chuyển giao&#10;hợp đồng&#10;nguyên tắc">
+      <bpmn:incoming>Flow_11a</bpmn:incoming>
+      <bpmn:outgoing>Flow_ContractSent</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="Flow_01" sourceRef="StartEvent_NeedVehicle" targetRef="Task_AssessInternalFleet" />
+    <bpmn:sequenceFlow id="Flow_02" sourceRef="Task_AssessInternalFleet" targetRef="GW_NeedOutsource" />
+    <bpmn:sequenceFlow id="Flow_NeedOutsourceYes" name="Có [70%]" sourceRef="GW_NeedOutsource" targetRef="Task_DefineStandard">
+      <bpmn:conditionExpression>needOutsource == true</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_InternalFleetOk" name="Không [30%]" sourceRef="GW_NeedOutsource" targetRef="EndEvent_InternalFleetSufficient">
+      <bpmn:conditionExpression>needOutsource == false</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_03" sourceRef="Task_DefineStandard" targetRef="Task_PublishInvite" />
+    <bpmn:sequenceFlow id="Flow_PublishInviteSent" sourceRef="Task_PublishInvite" targetRef="Event_InviteSent" />
+    <bpmn:sequenceFlow id="Flow_04" sourceRef="Event_InviteSent" targetRef="Event_DossierReceived" />
+    <bpmn:sequenceFlow id="Flow_DossierReceived" sourceRef="Event_DossierReceived" targetRef="Task_ReceiveDossier" />
+    <bpmn:sequenceFlow id="Flow_05" sourceRef="Task_ReceiveDossier" targetRef="GW_DossierValid" />
+    <bpmn:sequenceFlow id="Flow_DossierValidYes" name="Hợp lệ [75%]" sourceRef="GW_DossierValid" targetRef="Task_ComprehensiveAppraisal">
+      <bpmn:conditionExpression>dossierValid == true</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_06" sourceRef="Task_ComprehensiveAppraisal" targetRef="GW_AppraisalPass" />
+    <bpmn:sequenceFlow id="Flow_DossierValidNo" name="Không đạt [25%]" sourceRef="GW_DossierValid" targetRef="GW_Join_Rejection">
+      <bpmn:conditionExpression>dossierValid == false</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_AppraisalPassYes" name="Đạt [85%]" sourceRef="GW_AppraisalPass" targetRef="Task_EvaluateSupplierScore">
+      <bpmn:conditionExpression>appraisalPass == true</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_AppraisalPassNo" name="Không đạt [15%]" sourceRef="GW_AppraisalPass" targetRef="GW_Join_Rejection">
+      <bpmn:conditionExpression>appraisalPass == false</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_SupplierEvaluation" name="" sourceRef="Task_EvaluateSupplierScore" targetRef="GW_SupplierScore" />
+    <bpmn:sequenceFlow id="Flow_SupplierScorePass" name="Đạt [80%]" sourceRef="GW_SupplierScore" targetRef="Task_NegotiateCommercial">
+      <bpmn:conditionExpression>supplierScore &gt;= supplierScoreThreshold</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_SupplierScoreFail" name="Chưa đạt [20%]" sourceRef="GW_SupplierScore" targetRef="Task_NotifyScoreReject">
+      <bpmn:conditionExpression>supplierScore &lt; supplierScoreThreshold</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_07" sourceRef="Task_NegotiateCommercial" targetRef="GW_CommercialAgreed" />
+    <bpmn:sequenceFlow id="Flow_ProposalNeedRework" name="Chỉnh sửa còn lượt [15%]" sourceRef="GW_ProposalApproved" targetRef="Task_ReworkProposal">
+      <bpmn:conditionExpression>proposalApproved == false &amp;&amp; proposalNeedsRevision == true &amp;&amp; proposalRevisionAttempts &lt; 3</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_RecordProposalRevision" name="Ghi nhận lượt chỉnh sửa" sourceRef="Task_ReworkProposal" targetRef="Task_RecordProposalRevision" />
+    <bpmn:sequenceFlow id="Flow_ProposalReworkLoopBack" sourceRef="Task_RecordProposalRevision" targetRef="GW_Join_ProposalEntry" />
+    <bpmn:sequenceFlow id="Flow_09" sourceRef="Task_SubmitProposal" targetRef="GW_ProposalApproved" />
+    <bpmn:sequenceFlow id="Flow_ProposalApprovedNo" name="Từ chối/hết lượt [5%]" sourceRef="GW_ProposalApproved" targetRef="Task_NotifyProposalReject" />
+    <bpmn:sequenceFlow id="Flow_ProposalApprovedYes" name="Phê duyệt [80%]" sourceRef="GW_ProposalApproved" targetRef="Task_DraftContract">
+      <bpmn:conditionExpression>proposalApproved == true</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_SupplierScoreRejectSent" sourceRef="Task_NotifyScoreReject" targetRef="Event_SupplierScoreRejectSent" />
+    <bpmn:sequenceFlow id="Flow_SupplierScoreRejectNotice" name="" sourceRef="Event_SupplierScoreRejectSent" targetRef="EndEvent_SupplierScoreRejected" />
+    <bpmn:sequenceFlow id="Flow_ProposalRejectSent" sourceRef="Task_NotifyProposalReject" targetRef="Event_ProposalRejectSent" />
+    <bpmn:sequenceFlow id="Flow_ProposalRejectNotice" sourceRef="Event_ProposalRejectSent" targetRef="EndEvent_ProposalRejected" />
+    <bpmn:sequenceFlow id="Flow_ToRejectNotice" sourceRef="GW_Join_Rejection" targetRef="Task_NotifyReject" />
+    <bpmn:sequenceFlow id="Flow_NotifyRejectSent" sourceRef="Task_NotifyReject" targetRef="Event_NotifyRejectSent" />
+    <bpmn:sequenceFlow id="Flow_ToRejectEnd" sourceRef="Event_NotifyRejectSent" targetRef="EndEvent_PartnerRejected" />
+    <bpmn:sequenceFlow id="Flow_CommercialAgreedNo" name="Không đạt [10%]" sourceRef="GW_CommercialAgreed" targetRef="GW_Join_Rejection">
+      <bpmn:conditionExpression>commercialAgreed == false</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_CommercialAgreedYes" name="Thống nhất [90%]" sourceRef="GW_CommercialAgreed" targetRef="GW_Join_ProposalEntry">
+      <bpmn:conditionExpression>commercialAgreed == true</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_08" sourceRef="GW_Join_ProposalEntry" targetRef="Task_SubmitProposal" />
+    <bpmn:sequenceFlow id="Flow_ContractSent" sourceRef="Task_SendContract" targetRef="Event_ContractSent" />
+    <bpmn:sequenceFlow id="Flow_11" sourceRef="Event_ContractSent" targetRef="Event_SignedContractReceived" />
+    <bpmn:sequenceFlow id="Flow_11a" sourceRef="Task_DraftContract" targetRef="Task_SendContract" />
+    <bpmn:sequenceFlow id="Flow_SignedContractReceived" sourceRef="Event_SignedContractReceived" targetRef="Task_ReceiveSignedContract" />
+    <bpmn:sequenceFlow id="Flow_11b" sourceRef="Task_ReceiveSignedContract" targetRef="Task_ReviewContract" />
+    <bpmn:exclusiveGateway id="GW_DossierValid" name="Hồ sơ hợp lệ?">
+      <bpmn:incoming>Flow_05</bpmn:incoming>
+      <bpmn:outgoing>Flow_DossierValidYes</bpmn:outgoing>
+      <bpmn:outgoing>Flow_DossierValidNo</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:userTask id="Task_ReceiveDossier" name="Kiểm tra&#10;hồ sơ đối tác">
+      <bpmn:incoming>Flow_DossierReceived</bpmn:incoming>
+      <bpmn:outgoing>Flow_05</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:intermediateCatchEvent id="Event_DossierReceived" name="Hồ sơ xe và năng lực đã nhận">
+      <bpmn:incoming>Flow_04</bpmn:incoming>
+      <bpmn:outgoing>Flow_DossierReceived</bpmn:outgoing>
+      <bpmn:messageEventDefinition messageRef="Message_DossierSubmit" />
+    </bpmn:intermediateCatchEvent>
+    <bpmn:sequenceFlow id="Flow_12" name="Kích hoạt sau khi ký hợp đồng" sourceRef="Task_ReviewContract" targetRef="Task_ActivateTMS" />
+    <bpmn:sequenceFlow id="Flow_ToActiveEnd" sourceRef="Task_ActivateTMS" targetRef="EndEvent_PartnerActivated" />
+    <bpmn:userTask id="Task_ReviewContract" name="Rà soát hợp đồng&#10;đã ký">
+      <bpmn:incoming>Flow_11b</bpmn:incoming>
+      <bpmn:outgoing>Flow_12</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:serviceTask id="Task_ActivateTMS" name="Kích hoạt đối tác&#10;trên hệ thống TMS">
+      <bpmn:incoming>Flow_12</bpmn:incoming>
+      <bpmn:outgoing>Flow_ToActiveEnd</bpmn:outgoing>
+      <bpmn:ioSpecification id="IOSpec_ActivateTMS">
+        <bpmn:dataOutput id="DataOutput_PartnerRecord" name="Bản ghi đối tác đã kích hoạt" />
+        <bpmn:inputSet id="InputSet_ActivateTMS" />
+        <bpmn:outputSet id="OutputSet_ActivateTMS">
+          <bpmn:dataOutputRefs>DataOutput_PartnerRecord</bpmn:dataOutputRefs>
+        </bpmn:outputSet>
+      </bpmn:ioSpecification>
+      <bpmn:dataOutputAssociation id="DataOutputAssoc_TMS_Write">
+        <bpmn:sourceRef>DataOutput_PartnerRecord</bpmn:sourceRef>
+        <bpmn:targetRef>DataStore_TMS</bpmn:targetRef>
+      </bpmn:dataOutputAssociation>
+    </bpmn:serviceTask>
+    <bpmn:endEvent id="EndEvent_PartnerActivated" name="Đối tác kích hoạt&#10;thành công">
+      <bpmn:incoming>Flow_ToActiveEnd</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:dataStoreReference id="DataStore_TMS" name="Hệ thống TMS &#38; CSDL Đối tác" />
+    <bpmn:userTask id="Task_ReceiveSignedContract" name="Lưu trữ&#10;hợp đồng đã ký">
+      <bpmn:incoming>Flow_SignedContractReceived</bpmn:incoming>
+      <bpmn:outgoing>Flow_11b</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:intermediateCatchEvent id="Event_SignedContractReceived" name="Hợp đồng đã ký được tiếp nhận">
+      <bpmn:incoming>Flow_11</bpmn:incoming>
+      <bpmn:outgoing>Flow_SignedContractReceived</bpmn:outgoing>
+      <bpmn:messageEventDefinition messageRef="Message_ReturnSignedContract" />
+    </bpmn:intermediateCatchEvent>
+    <bpmn:intermediateThrowEvent id="Event_ContractSent" name="Hợp đồng nguyên tắc đã gửi">
+      <bpmn:incoming>Flow_ContractSent</bpmn:incoming>
+      <bpmn:outgoing>Flow_11</bpmn:outgoing>
+      <bpmn:messageEventDefinition messageRef="Message_SendContract" />
+    </bpmn:intermediateThrowEvent>
+    <bpmn:endEvent id="EndEvent_ProposalRejected" name="Tờ trình bị từ chối&#10;/ hết lượt chỉnh sửa">
+      <bpmn:incoming>Flow_ProposalRejectNotice</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:intermediateThrowEvent id="Event_ProposalRejectSent" name="Thông báo từ chối hoặc hết lượt đã gửi">
+      <bpmn:incoming>Flow_ProposalRejectSent</bpmn:incoming>
+      <bpmn:outgoing>Flow_ProposalRejectNotice</bpmn:outgoing>
+      <bpmn:messageEventDefinition messageRef="Message_ProposalReject" />
+    </bpmn:intermediateThrowEvent>
+    <bpmn:userTask id="Task_NotifyProposalReject" name="Gửi thông báo&#10;từ chối / hết lượt">
+      <bpmn:incoming>Flow_ProposalApprovedNo</bpmn:incoming>
+      <bpmn:outgoing>Flow_ProposalRejectSent</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:userTask id="Task_DraftContract" name="Soạn thảo&#10;hợp đồng&#10;nguyên tắc">
+      <bpmn:incoming>Flow_ProposalApprovedYes</bpmn:incoming>
+      <bpmn:outgoing>Flow_11a</bpmn:outgoing>
+    </bpmn:userTask>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_TransportOnboarding_PureLinear">
+    <bpmndi:BPMNPlane id="BPMNPlane_TransportOnboarding_PureLinear" bpmnElement="Collaboration_TransportOnboarding">
+      <bpmndi:BPMNShape id="Participant_Partner_di" bpmnElement="Participant_Partner" isHorizontal="true">
+        <dc:Bounds x="160" y="80" width="2770" height="90" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Participant_ViettelPost_di" bpmnElement="Participant_ViettelPost" isHorizontal="true">
+        <dc:Bounds x="160" y="215" width="2770" height="1045" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_LegalFinance_di" bpmnElement="Lane_LegalFinance" isHorizontal="true">
+        <dc:Bounds x="190" y="1140" width="2740" height="120" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_ManagementApprover_di" bpmnElement="Lane_ManagementApprover" isHorizontal="true">
+        <dc:Bounds x="190" y="890" width="2740" height="250" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_Procurement_di" bpmnElement="Lane_Procurement" isHorizontal="true">
+        <dc:Bounds x="190" y="455" width="2740" height="435" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_TransportOperations_di" bpmnElement="Lane_TransportOperations" isHorizontal="true">
+        <dc:Bounds x="190" y="215" width="2740" height="240" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="StartEvent_NeedVehicle_di" bpmnElement="StartEvent_NeedVehicle">
+        <dc:Bounds x="238" y="296" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="216" y="332" width="81" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_AssessInternalFleet_di" bpmnElement="Task_AssessInternalFleet">
+        <dc:Bounds x="305" y="280" width="140" height="68" />
+        <bpmndi:BPMNLabel labelStyle="LabelStyle_14">
+          <dc:Bounds x="312" y="287" width="126" height="54" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="GW_NeedOutsource_di" bpmnElement="GW_NeedOutsource" isMarkerVisible="true">
+        <dc:Bounds x="480" y="292" width="44" height="44" />
+        <bpmndi:BPMNLabel labelStyle="LabelStyle_14">
+          <dc:Bounds x="459" y="268" width="81" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_InternalFleetSufficient_di" bpmnElement="EndEvent_InternalFleetSufficient">
+        <dc:Bounds x="484" y="385" width="36" height="36" />
+        <bpmndi:BPMNLabel labelStyle="LabelStyle_14">
+          <dc:Bounds x="443" y="428" width="113" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_DefineStandard_di" bpmnElement="Task_DefineStandard">
+        <dc:Bounds x="577" y="280" width="145" height="68" />
+        <bpmndi:BPMNLabel labelStyle="LabelStyle_14">
+          <dc:Bounds x="584" y="287" width="131" height="54" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_PublishInvite_di" bpmnElement="Task_PublishInvite">
+        <dc:Bounds x="757" y="280" width="145" height="68" />
+        <bpmndi:BPMNLabel labelStyle="LabelStyle_14">
+          <dc:Bounds x="764" y="287" width="131" height="54" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_InviteSent_di" bpmnElement="Event_InviteSent">
+        <dc:Bounds x="811" y="385" width="36" height="36" />
+        <bpmndi:BPMNLabel labelStyle="LabelStyle_14">
+          <dc:Bounds x="788" y="428" width="123" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_ComprehensiveAppraisal_di" bpmnElement="Task_ComprehensiveAppraisal">
+        <dc:Bounds x="742" y="556" width="155" height="68" />
+        <bpmndi:BPMNLabel labelStyle="LabelStyle_14">
+          <dc:Bounds x="749" y="563" width="141" height="54" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="GW_AppraisalPass_di" bpmnElement="GW_AppraisalPass" isMarkerVisible="true">
+        <dc:Bounds x="938" y="568" width="44" height="44" />
+        <bpmndi:BPMNLabel labelStyle="LabelStyle_14">
+          <dc:Bounds x="921.5" y="544" width="77" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_EvaluateSupplierScore_di" bpmnElement="Task_EvaluateSupplierScore">
+        <dc:Bounds x="1042" y="556" width="155" height="68" />
+        <bpmndi:BPMNLabel labelStyle="LabelStyle_14">
+          <dc:Bounds x="1049" y="563" width="141" height="54" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="GW_RubricScore_di" bpmnElement="GW_SupplierScore" isMarkerVisible="true">
+        <dc:Bounds x="1318" y="568" width="44" height="44" />
+        <bpmndi:BPMNLabel labelStyle="LabelStyle_14">
+          <dc:Bounds x="1284" y="533" width="111" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_NegotiateCommercial_di" bpmnElement="Task_NegotiateCommercial">
+        <dc:Bounds x="1442" y="556" width="155" height="68" />
+        <bpmndi:BPMNLabel labelStyle="LabelStyle_14">
+          <dc:Bounds x="1449" y="563" width="141" height="54" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_ReworkProposal_di" bpmnElement="Task_ReworkProposal">
+        <dc:Bounds x="1442" y="1041" width="155" height="68" />
+        <bpmndi:BPMNLabel labelStyle="LabelStyle_14">
+          <dc:Bounds x="1449" y="1048" width="141" height="54" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_RecordProposalRevision_di" bpmnElement="Task_RecordProposalRevision">
+        <dc:Bounds x="1132" y="1041" width="155" height="68" />
+        <bpmndi:BPMNLabel labelStyle="LabelStyle_14">
+          <dc:Bounds x="1139" y="1048" width="141" height="54" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="GW_ProposalApproved_di" bpmnElement="GW_ProposalApproved" isMarkerVisible="true">
+        <dc:Bounds x="1698" y="1053" width="44" height="44" />
+        <bpmndi:BPMNLabel labelStyle="LabelStyle_14">
+          <dc:Bounds x="1603" y="1103" width="114" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_NotifyScoreReject_di" bpmnElement="Task_NotifyScoreReject">
+        <dc:Bounds x="1262" y="651" width="155" height="68" />
+        <bpmndi:BPMNLabel labelStyle="LabelStyle_14">
+          <dc:Bounds x="1269" y="658" width="141" height="54" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_SupplierScoreRejectSent_di" bpmnElement="Event_SupplierScoreRejectSent">
+        <dc:Bounds x="1450" y="667" width="36" height="36" />
+        <bpmndi:BPMNLabel labelStyle="LabelStyle_14">
+          <dc:Bounds x="1398" y="735" width="150" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_NotifyReject_di" bpmnElement="Task_NotifyReject">
+        <dc:Bounds x="1042" y="651" width="155" height="68" />
+        <bpmndi:BPMNLabel labelStyle="LabelStyle_14">
+          <dc:Bounds x="1049" y="658" width="141" height="54" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_NotifyRejectSent_di" bpmnElement="Event_NotifyRejectSent">
+        <dc:Bounds x="1215" y="667" width="36" height="36" />
+        <bpmndi:BPMNLabel labelStyle="LabelStyle_14">
+          <dc:Bounds x="1260.5" y="671" width="125" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="GW_Join_Rejection_di" bpmnElement="GW_Join_Rejection" isMarkerVisible="true">
+        <dc:Bounds x="938" y="663" width="44" height="44" />
+        <bpmndi:BPMNLabel labelStyle="LabelStyle_14">
+          <dc:Bounds x="842" y="706" width="96" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_PartnerRejected_di" bpmnElement="EndEvent_PartnerRejected">
+        <dc:Bounds x="1102" y="753" width="36" height="36" />
+        <bpmndi:BPMNLabel labelStyle="LabelStyle_14">
+          <dc:Bounds x="1073" y="799" width="94" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_SupplierScoreRejected_di" bpmnElement="EndEvent_SupplierScoreRejected">
+        <dc:Bounds x="1322" y="753" width="36" height="36" />
+        <bpmndi:BPMNLabel labelStyle="LabelStyle_14">
+          <dc:Bounds x="1303" y="797" width="86" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="GW_Join_ProposalEntry_di" bpmnElement="GW_Join_ProposalEntry" isMarkerVisible="true">
+        <dc:Bounds x="1498" y="922" width="44" height="44" />
+        <bpmndi:BPMNLabel labelStyle="LabelStyle_14">
+          <dc:Bounds x="1459" y="977" width="101" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="GW_CommercialAgreed_di" bpmnElement="GW_CommercialAgreed" isMarkerVisible="true">
+        <dc:Bounds x="1498" y="820" width="44" height="44" />
+        <bpmndi:BPMNLabel labelStyle="LabelStyle_14">
+          <dc:Bounds x="1551.5" y="835" width="91" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_SubmitProposal_di" bpmnElement="Task_SubmitProposal">
+        <dc:Bounds x="1642" y="910" width="155" height="68" />
+        <bpmndi:BPMNLabel labelStyle="LabelStyle_14">
+          <dc:Bounds x="1649" y="917" width="141" height="54" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_SendContract_di" bpmnElement="Task_SendContract">
+        <dc:Bounds x="1950" y="1166" width="140" height="68" />
+        <bpmndi:BPMNLabel labelStyle="LabelStyle_14">
+          <dc:Bounds x="1957" y="1173" width="126" height="54" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="GW_DossierValid_di" bpmnElement="GW_DossierValid" isMarkerVisible="true">
+        <dc:Bounds x="578" y="568" width="44" height="44" />
+        <bpmndi:BPMNLabel labelStyle="LabelStyle_14">
+          <dc:Bounds x="502" y="583" width="71" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_ReceiveDossier_di" bpmnElement="Task_ReceiveDossier">
+        <dc:Bounds x="525" y="466" width="150" height="68" />
+        <bpmndi:BPMNLabel labelStyle="LabelStyle_14">
+          <dc:Bounds x="532" y="473" width="136" height="54" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_DossierReceived_di" bpmnElement="Event_DossierReceived">
+        <dc:Bounds x="760" y="482" width="36" height="36" />
+        <bpmndi:BPMNLabel labelStyle="LabelStyle_14">
+          <dc:Bounds x="699" y="523" width="161" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_ReviewContract_di" bpmnElement="Task_ReviewContract">
+        <dc:Bounds x="2644" y="1166" width="140" height="68" />
+        <bpmndi:BPMNLabel labelStyle="LabelStyle_14">
+          <dc:Bounds x="2651" y="1177" width="126" height="34" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_ActivateTMS_di" bpmnElement="Task_ActivateTMS">
+        <dc:Bounds x="2636" y="701" width="155" height="68" />
+        <bpmndi:BPMNLabel labelStyle="LabelStyle_14">
+          <dc:Bounds x="2643" y="708" width="141" height="54" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_PartnerActivated_di" bpmnElement="EndEvent_PartnerActivated">
+        <dc:Bounds x="2842" y="717" width="36" height="36" />
+        <bpmndi:BPMNLabel labelStyle="LabelStyle_14">
+          <dc:Bounds x="2829" y="766" width="82" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="DataStore_TMS_di" bpmnElement="DataStore_TMS">
+        <dc:Bounds x="2690" y="366" width="48" height="48" />
+        <bpmndi:BPMNLabel labelStyle="LabelStyle_14">
+          <dc:Bounds x="2638" y="342" width="152" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_ReceiveSignedContract_di" bpmnElement="Task_ReceiveSignedContract">
+        <dc:Bounds x="2460" y="1166" width="140" height="68" />
+        <bpmndi:BPMNLabel labelStyle="LabelStyle_14">
+          <dc:Bounds x="2467" y="1173" width="126" height="54" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_SignedContractReceived_di" bpmnElement="Event_SignedContractReceived">
+        <dc:Bounds x="2385" y="1182" width="36" height="36" />
+        <bpmndi:BPMNLabel labelStyle="LabelStyle_14">
+          <dc:Bounds x="2370" y="1226" width="79" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_ContractSent_di" bpmnElement="Event_ContractSent">
+        <dc:Bounds x="2263" y="1182" width="36" height="36" />
+        <bpmndi:BPMNLabel labelStyle="LabelStyle_14">
+          <dc:Bounds x="2236" y="1226" width="88" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_ProposalRejected_di" bpmnElement="EndEvent_ProposalRejected">
+        <dc:Bounds x="2178" y="1057" width="36" height="36" />
+        <bpmndi:BPMNLabel labelStyle="LabelStyle_14">
+          <dc:Bounds x="2150" y="1016" width="96" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_ProposalRejectSent_di" bpmnElement="Event_ProposalRejectSent">
+        <dc:Bounds x="2092" y="1057" width="36" height="36" />
+        <bpmndi:BPMNLabel labelStyle="LabelStyle_14">
+          <dc:Bounds x="2042" y="1102.5" width="135" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_NotifyProposalReject_di" bpmnElement="Task_NotifyProposalReject">
+        <dc:Bounds x="1862" y="1041" width="170" height="68" />
+        <bpmndi:BPMNLabel labelStyle="LabelStyle_14">
+          <dc:Bounds x="1869" y="1048" width="156" height="54" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_DraftContract_di" bpmnElement="Task_DraftContract">
+        <dc:Bounds x="1777" y="1166" width="140" height="68" />
+        <bpmndi:BPMNLabel labelStyle="LabelStyle_14">
+          <dc:Bounds x="1784" y="1173" width="126" height="54" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_01_di" bpmnElement="Flow_01">
+        <di:waypoint x="274" y="314" />
+        <di:waypoint x="305" y="314" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_02_di" bpmnElement="Flow_02">
+        <di:waypoint x="445" y="314" />
+        <di:waypoint x="480" y="314" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_NeedOutsourceYes_di" bpmnElement="Flow_NeedOutsourceYes">
+        <di:waypoint x="524" y="314" />
+        <di:waypoint x="577" y="314" />
+        <bpmndi:BPMNLabel labelStyle="LabelStyle_14">
+          <dc:Bounds x="519" y="293" width="46" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_InternalFleetOk_di" bpmnElement="Flow_InternalFleetOk">
+        <di:waypoint x="502" y="336" />
+        <di:waypoint x="502" y="385" />
+        <bpmndi:BPMNLabel labelStyle="LabelStyle_14">
+          <dc:Bounds x="508" y="348" width="63" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_03_di" bpmnElement="Flow_03">
+        <di:waypoint x="722" y="314" />
+        <di:waypoint x="757" y="314" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_PublishInviteSent_di" bpmnElement="Flow_PublishInviteSent">
+        <di:waypoint x="829" y="348" />
+        <di:waypoint x="829" y="385" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_04_di" bpmnElement="Flow_04">
+        <di:waypoint x="810" y="403" />
+        <di:waypoint x="778" y="403" />
+        <di:waypoint x="778" y="482" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_DossierReceived_di" bpmnElement="Flow_DossierReceived">
+        <di:waypoint x="760" y="500" />
+        <di:waypoint x="675" y="500" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_05_di" bpmnElement="Flow_05">
+        <di:waypoint x="600" y="534" />
+        <di:waypoint x="600" y="568" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_DossierValidYes_di" bpmnElement="Flow_DossierValidYes">
+        <di:waypoint x="622" y="590" />
+        <di:waypoint x="742" y="590" />
+        <bpmndi:BPMNLabel labelStyle="LabelStyle_14">
+          <dc:Bounds x="640" y="569" width="65" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_06_di" bpmnElement="Flow_06">
+        <di:waypoint x="897" y="590" />
+        <di:waypoint x="938" y="590" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_DossierValidNo_di" bpmnElement="Flow_DossierValidNo">
+        <di:waypoint x="600" y="612" />
+        <di:waypoint x="600" y="685" />
+        <di:waypoint x="938" y="685" />
+        <bpmndi:BPMNLabel labelStyle="LabelStyle_14">
+          <dc:Bounds x="509" y="643" width="82" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_AppraisalPassYes_di" bpmnElement="Flow_AppraisalPassYes">
+        <di:waypoint x="982" y="590" />
+        <di:waypoint x="1042" y="590" />
+        <bpmndi:BPMNLabel labelStyle="LabelStyle_14">
+          <dc:Bounds x="983" y="569" width="49" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_AppraisalPassNo_di" bpmnElement="Flow_AppraisalPassNo">
+        <di:waypoint x="960" y="612" />
+        <di:waypoint x="960" y="663" />
+        <bpmndi:BPMNLabel labelStyle="LabelStyle_14">
+          <dc:Bounds x="869" y="631" width="82" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_SupplierEvaluation_di" bpmnElement="Flow_SupplierEvaluation">
+        <di:waypoint x="1197" y="590" />
+        <di:waypoint x="1318" y="590" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_RubricPass_di" bpmnElement="Flow_SupplierScorePass">
+        <di:waypoint x="1362" y="590" />
+        <di:waypoint x="1442" y="590" />
+        <bpmndi:BPMNLabel labelStyle="LabelStyle_14">
+          <dc:Bounds x="1377" y="570" width="49" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_RubricFail_di" bpmnElement="Flow_SupplierScoreFail">
+        <di:waypoint x="1340" y="612" />
+        <di:waypoint x="1340" y="651" />
+        <bpmndi:BPMNLabel labelStyle="LabelStyle_14">
+          <dc:Bounds x="1259" y="616" width="78" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_07_di" bpmnElement="Flow_07">
+        <di:waypoint x="1520" y="624" />
+        <di:waypoint x="1520" y="820" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_ProposalNeedRework_di" bpmnElement="Flow_ProposalNeedRework">
+        <di:waypoint x="1698" y="1075" />
+        <di:waypoint x="1597" y="1075" />
+        <bpmndi:BPMNLabel labelStyle="LabelStyle_14">
+          <dc:Bounds x="1530" y="1015" width="140" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_RecordProposalRevision_di" bpmnElement="Flow_RecordProposalRevision">
+        <di:waypoint x="1442" y="1075" />
+        <di:waypoint x="1287" y="1075" />
+        <bpmndi:BPMNLabel labelStyle="LabelStyle_14">
+          <dc:Bounds x="1305" y="1058" width="120" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_ProposalReworkLoopBack_di" bpmnElement="Flow_ProposalReworkLoopBack">
+        <di:waypoint x="1210" y="1041" />
+        <di:waypoint x="1210" y="944" />
+        <di:waypoint x="1498" y="944" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_09_di" bpmnElement="Flow_09">
+        <di:waypoint x="1720" y="978" />
+        <di:waypoint x="1720" y="1053" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_ProposalApprovedNo_di" bpmnElement="Flow_ProposalApprovedNo">
+        <di:waypoint x="1742" y="1075" />
+        <di:waypoint x="1862" y="1075" />
+        <bpmndi:BPMNLabel labelStyle="LabelStyle_14">
+          <dc:Bounds x="1748" y="1047" width="104" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_ProposalApprovedYes_di" bpmnElement="Flow_ProposalApprovedYes">
+        <di:waypoint x="1720" y="1097" />
+        <di:waypoint x="1720" y="1200" />
+        <di:waypoint x="1777" y="1200" />
+        <bpmndi:BPMNLabel labelStyle="LabelStyle_14">
+          <dc:Bounds x="1631" y="1163" width="81" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_SupplierScoreRejectSent_di" bpmnElement="Flow_SupplierScoreRejectSent">
+        <di:waypoint x="1417" y="685" />
+        <di:waypoint x="1450" y="685" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_SupplierScoreRejectNotice_di" bpmnElement="Flow_SupplierScoreRejectNotice">
+        <di:waypoint x="1468" y="703" />
+        <di:waypoint x="1468" y="735" />
+        <di:waypoint x="1340" y="735" />
+        <di:waypoint x="1340" y="753" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_ProposalRejectSent_di" bpmnElement="Flow_ProposalRejectSent">
+        <di:waypoint x="2032" y="1075" />
+        <di:waypoint x="2092" y="1075" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_ProposalRejectNotice_di" bpmnElement="Flow_ProposalRejectNotice">
+        <di:waypoint x="2128" y="1075" />
+        <di:waypoint x="2178" y="1075" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_ToRejectNotice_di" bpmnElement="Flow_ToRejectNotice">
+        <di:waypoint x="982" y="685" />
+        <di:waypoint x="1042" y="685" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_NotifyRejectSent_di" bpmnElement="Flow_NotifyRejectSent">
+        <di:waypoint x="1197" y="685" />
+        <di:waypoint x="1215" y="685" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_ToRejectEnd_di" bpmnElement="Flow_ToRejectEnd">
+        <di:waypoint x="1233" y="703" />
+        <di:waypoint x="1233" y="735" />
+        <di:waypoint x="1120" y="735" />
+        <di:waypoint x="1120" y="753" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_CommercialAgreedNo_di" bpmnElement="Flow_CommercialAgreedNo">
+        <di:waypoint x="1498" y="842" />
+        <di:waypoint x="960" y="842" />
+        <di:waypoint x="960" y="707" />
+        <bpmndi:BPMNLabel labelStyle="LabelStyle_14">
+          <dc:Bounds x="1414" y="825" width="82" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_CommercialAgreedYes_di" bpmnElement="Flow_CommercialAgreedYes">
+        <di:waypoint x="1520" y="864" />
+        <di:waypoint x="1520" y="922" />
+        <bpmndi:BPMNLabel labelStyle="LabelStyle_14">
+          <dc:Bounds x="1526" y="867" width="87" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_08_di" bpmnElement="Flow_08">
+        <di:waypoint x="1542" y="944" />
+        <di:waypoint x="1642" y="944" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_ContractSent_di" bpmnElement="Flow_ContractSent">
+        <di:waypoint x="2090" y="1200" />
+        <di:waypoint x="2263" y="1200" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_11_di" bpmnElement="Flow_11">
+        <di:waypoint x="2299" y="1200" />
+        <di:waypoint x="2385" y="1200" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_11a_di" bpmnElement="Flow_11a">
+        <di:waypoint x="1917" y="1200" />
+        <di:waypoint x="1950" y="1200" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_SignedContractReceived_di" bpmnElement="Flow_SignedContractReceived">
+        <di:waypoint x="2421" y="1200" />
+        <di:waypoint x="2460" y="1200" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_11b_di" bpmnElement="Flow_11b">
+        <di:waypoint x="2600" y="1200" />
+        <di:waypoint x="2644" y="1200" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_12_di" bpmnElement="Flow_12">
+        <di:waypoint x="2714" y="1166" />
+        <di:waypoint x="2714" y="769" />
+        <bpmndi:BPMNLabel labelStyle="LabelStyle_14">
+          <dc:Bounds x="2639" y="1047" width="149" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_ToActiveEnd_di" bpmnElement="Flow_ToActiveEnd">
+        <di:waypoint x="2791" y="735" />
+        <di:waypoint x="2842" y="735" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Association_ProposalRevisionLimit_di" bpmnElement="Association_ProposalRevisionLimit">
+        <di:waypoint x="1132" y="1075" />
+        <di:waypoint x="1090" y="1075" />
+        <di:waypoint x="1040" y="1028" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataInputAssoc_TMS_Read_di" bpmnElement="DataInputAssoc_TMS_Read">
+        <di:waypoint x="2690" y="379" />
+        <di:waypoint x="2390" y="240" />
+        <di:waypoint x="375" y="240" />
+        <di:waypoint x="375" y="280" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="MsgFlow_Invite_di" bpmnElement="MsgFlow_Invite">
+        <di:waypoint x="847" y="403" />
+        <di:waypoint x="950" y="403" />
+        <di:waypoint x="950" y="170" />
+        <bpmndi:BPMNLabel labelStyle="LabelStyle_14">
+          <dc:Bounds x="858" y="187" width="83" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="MsgFlow_SubmitDossier_di" bpmnElement="MsgFlow_SubmitDossier">
+        <di:waypoint x="1120" y="170" />
+        <di:waypoint x="1120" y="500" />
+        <di:waypoint x="796" y="500" />
+        <bpmndi:BPMNLabel labelStyle="LabelStyle_14">
+          <dc:Bounds x="999" y="185" width="101" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="MsgFlow_NotifyReject_di" bpmnElement="MsgFlow_NotifyReject">
+        <di:waypoint x="1233" y="667" />
+        <di:waypoint x="1233" y="170" />
+        <bpmndi:BPMNLabel labelStyle="LabelStyle_14">
+          <dc:Bounds x="1157" y="187" width="125" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="MsgFlow_SendContract_di" bpmnElement="MsgFlow_SendContract">
+        <di:waypoint x="2281" y="1182" />
+        <di:waypoint x="2281" y="170" />
+        <bpmndi:BPMNLabel labelStyle="LabelStyle_14">
+          <dc:Bounds x="1967" y="185" width="106" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="MsgFlow_ReturnSignedContract_di" bpmnElement="MsgFlow_ReturnSignedContract">
+        <di:waypoint x="2403" y="170" />
+        <di:waypoint x="2403" y="1182" />
+        <bpmndi:BPMNLabel labelStyle="LabelStyle_14">
+          <dc:Bounds x="2081" y="185" width="79" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="MsgFlow_SupplierScoreReject_di" bpmnElement="MsgFlow_SupplierScoreReject">
+        <di:waypoint x="1468" y="667" />
+        <di:waypoint x="1468" y="170" />
+        <bpmndi:BPMNLabel labelStyle="LabelStyle_14">
+          <dc:Bounds x="1428" y="185.00000000000063" width="190" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="MsgFlow_ProposalReject_di" bpmnElement="MsgFlow_ProposalReject">
+        <di:waypoint x="2110" y="1057" />
+        <di:waypoint x="2110" y="170" />
+        <bpmndi:BPMNLabel labelStyle="LabelStyle_14">
+          <dc:Bounds x="1827" y="185" width="137" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="TextAnnotation_ProposalRevisionLimit_di" bpmnElement="TextAnnotation_ProposalRevisionLimit">
+        <dc:Bounds x="770" y="960" width="270" height="100" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="DataOutputAssoc_TMS_Write_di" bpmnElement="DataOutputAssoc_TMS_Write">
+        <di:waypoint x="2714" y="701" />
+        <di:waypoint x="2714" y="414" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+    <bpmndi:BPMNLabelStyle id="LabelStyle_14">
+      <dc:Font name="Arial" size="14" />
+    </bpmndi:BPMNLabelStyle>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

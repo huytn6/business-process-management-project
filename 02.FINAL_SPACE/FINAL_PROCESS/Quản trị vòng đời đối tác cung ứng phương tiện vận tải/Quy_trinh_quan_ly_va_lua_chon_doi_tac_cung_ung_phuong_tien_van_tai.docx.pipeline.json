@@ -1,0 +1,137 @@
+{
+  "schema_version": "1.0",
+  "source_json_sha256": "6eec674ae718107374aae658b6f3e690a2b00e6a810fd919435e3041010e322e",
+  "rasterizer": "playwright-chromium",
+  "renderer_profile": {
+    "engine": "Chromium SVG rasterizer",
+    "dimensions": "native SVG canvas; DOCX extent from process.json docx_extent"
+  },
+  "generated_figures": [
+    {
+      "figure_id": "figure_01",
+      "caption": "Hình 1.1. Sơ đồ kiến trúc quy trình",
+      "generator": "generate_architecture.py",
+      "svg_path": "architecture.svg",
+      "png_path": "_raster\\architecture.png",
+      "svg_sha256": "5ca8222e48ec80a1b6a1d49974433cbdfb455974f7edd755700cda8bf6941ac0",
+      "png_sha256": "8025d40ea2a1c59eb6e3585036cd790482dfa35453ad952f4d8f1c373dbff092",
+      "block_id": "paragraph_005",
+      "image_block_id": "paragraph_004",
+      "docx_media_target": "word/media/image1.png",
+      "media_sha256": "8025d40ea2a1c59eb6e3585036cd790482dfa35453ad952f4d8f1c373dbff092"
+    },
+    {
+      "figure_id": "figure_02",
+      "caption": "Hình 2.1. Sơ đồ tổ chức bộ phận thực hiện quy trình tại Viettel Post",
+      "generator": "generate_organization.py",
+      "svg_path": "organization.svg",
+      "png_path": "_raster\\organization.png",
+      "svg_sha256": "080fe255ce0b2ee9e78e8415dc1d115c1e348619c1be508fd8bec31f0074d8d2",
+      "png_sha256": "c1507330ee55cd35a6efcd1808133049c95f3297d63f3101fb763530977b83c1",
+      "block_id": "paragraph_016",
+      "image_block_id": "paragraph_015",
+      "docx_media_target": "word/media/image2.png",
+      "media_sha256": "c1507330ee55cd35a6efcd1808133049c95f3297d63f3101fb763530977b83c1"
+    },
+    {
+      "figure_id": "figure_03",
+      "caption": "Hình 2.2. Kế hoạch làm việc và phân công nhiệm vụ trong quy trình",
+      "generator": "generate_schedule.py",
+      "svg_path": "schedule.svg",
+      "png_path": "_raster\\schedule.png",
+      "svg_sha256": "81e550e73403dc4064c6179edb679fa376bca368b988096962e4ca54888da4a3",
+      "png_sha256": "7229ea13c005b0ceed1252a5cfb4a0612045f02b7598bff550d9e517e682152d",
+      "block_id": "paragraph_020",
+      "image_block_id": "paragraph_019",
+      "docx_media_target": "word/media/image3.png",
+      "media_sha256": "7229ea13c005b0ceed1252a5cfb4a0612045f02b7598bff550d9e517e682152d"
+    },
+    {
+      "figure_id": "figure_04",
+      "caption": "Hình 3.1. Sơ đồ BPMN V2 - Quản trị vòng đời đối tác cung ứng phương tiện vận tải",
+      "generator": "generate_bpmn.py",
+      "svg_path": "Quy_trinh_quan_ly_va_lua_chon_doi_tac_cung_ung_phuong_tien_van_tai.svg",
+      "png_path": "_raster\\Quy_trinh_quan_ly_va_lua_chon_doi_tac_cung_ung_phuong_tien_van_tai.png",
+      "svg_sha256": "8195a19ad1701f83f591d7a78b85b2692bc709b4f276ded65d4ca74b6d9bb74c",
+      "png_sha256": "26d36aa4e0e11336bd082ed9f1c155b56716cd51e110e36261ccd82eb358441d",
+      "block_id": "paragraph_041",
+      "image_block_id": "paragraph_040",
+      "source_graph": {
+        "path": "Quy_trinh_quan_ly_va_lua_chon_doi_tac_cung_ung_phuong_tien_van_tai.bpmn",
+        "sha256": "292ea232239346c6d5b7578da787819eeeb9bb771429d4f056b74f595abb4878"
+      },
+      "docx_media_target": "word/media/image4.png",
+      "media_sha256": "26d36aa4e0e11336bd082ed9f1c155b56716cd51e110e36261ccd82eb358441d"
+    },
+    {
+      "figure_id": "figure_05",
+      "caption": "Hình 4.1. Sơ đồ BPMN - Phân tích giá trị gia tăng",
+      "generator": "generate_vaa.py",
+      "svg_path": "Quy_trinh_quan_ly_va_lua_chon_doi_tac_cung_ung_phuong_tien_van_tai_VAA.svg",
+      "png_path": "_raster\\Quy_trinh_quan_ly_va_lua_chon_doi_tac_cung_ung_phuong_tien_van_tai_VAA.png",
+      "svg_sha256": "79cb2913217f1ba86253ed1bbd6b0a9816b8c609f5a0f5281aa0ddf830b8cc78",
+      "png_sha256": "cd8a5c52d18108ac1854f6423b18b16352c03b3fc232559e9127f265079233dc",
+      "block_id": "paragraph_050",
+      "image_block_id": "paragraph_049",
+      "source_graph": {
+        "path": "Quy_trinh_quan_ly_va_lua_chon_doi_tac_cung_ung_phuong_tien_van_tai_VAA.bpmn",
+        "sha256": "ebe70d6c087a42ce62e3feb6c50e50a22aa052b503eaaf5ed05017431482bf67"
+      },
+      "docx_media_target": "word/media/image5.png",
+      "media_sha256": "cd8a5c52d18108ac1854f6423b18b16352c03b3fc232559e9127f265079233dc"
+    },
+    {
+      "figure_id": "figure_06",
+      "caption": "Hình 4.2. Sơ đồ BPMN - Phân tích lãng phí",
+      "generator": "generate_waste.py",
+      "svg_path": "Quy_trinh_quan_ly_va_lua_chon_doi_tac_cung_ung_phuong_tien_van_tai_Waste.svg",
+      "png_path": "_raster\\Quy_trinh_quan_ly_va_lua_chon_doi_tac_cung_ung_phuong_tien_van_tai_Waste.png",
+      "svg_sha256": "1485bbe0c7dd8e48d810343317f1c5d9985a3451d946c8f4c81f8a0f18e238e5",
+      "png_sha256": "9bd91ebadc56cc64a1db9e0e757b4c600ef5ff0986856ef4622b311815cf9025",
+      "block_id": "paragraph_054",
+      "image_block_id": "paragraph_053",
+      "source_graph": {
+        "path": "Quy_trinh_quan_ly_va_lua_chon_doi_tac_cung_ung_phuong_tien_van_tai_Waste.bpmn",
+        "sha256": "e10ef012303ed2cde88e3dbebd5319f8443fe8393ac352c8eb55606487f18e61"
+      },
+      "docx_media_target": "word/media/image6.png",
+      "media_sha256": "9bd91ebadc56cc64a1db9e0e757b4c600ef5ff0986856ef4622b311815cf9025"
+    },
+    {
+      "figure_id": "figure_07",
+      "caption": "Hình 4.3. Sơ đồ cây nguyên nhân gốc rễ",
+      "generator": "generate_root_cause.py",
+      "svg_path": "root_cause.svg",
+      "png_path": "_raster\\root_cause.png",
+      "svg_sha256": "d99c68c946699bd5378bf696457ad74b4ebb846453b5bb9035874bcd85293728",
+      "png_sha256": "9f1aae4014804c12ac2c81f1af5047f4f5492448d6a6c4cc0e6f6d66f1528287",
+      "block_id": "paragraph_062",
+      "image_block_id": "paragraph_061",
+      "docx_media_target": "word/media/image7.png",
+      "media_sha256": "9f1aae4014804c12ac2c81f1af5047f4f5492448d6a6c4cc0e6f6d66f1528287"
+    },
+    {
+      "figure_id": "figure_08",
+      "caption": "Hình 4.4. Sơ đồ BPMN - Phân tích định lượng quy trình",
+      "generator": "generate_quantitative.py",
+      "svg_path": "Quy_trinh_quan_ly_va_lua_chon_doi_tac_cung_ung_phuong_tien_van_tai_Quantitative.svg",
+      "png_path": "_raster\\Quy_trinh_quan_ly_va_lua_chon_doi_tac_cung_ung_phuong_tien_van_tai_Quantitative.png",
+      "svg_sha256": "2e5b967aad0d4308604feedf0492a8164329238d40f0016d4c5f9f3e1e321201",
+      "png_sha256": "dc60e2a6c52bdb241cb1735ee0c8f5ffbddbb4229c2e01e5824c8850ade0b33f",
+      "block_id": "paragraph_067",
+      "image_block_id": "paragraph_066",
+      "source_graph": {
+        "path": "Quy_trinh_quan_ly_va_lua_chon_doi_tac_cung_ung_phuong_tien_van_tai_Quantitative.bpmn",
+        "sha256": "c825015d213fb00f59ccf88571090b65cb930c74b34ffd2a36a705f796c4003b"
+      },
+      "docx_media_target": "word/media/image8.png",
+      "media_sha256": "dc60e2a6c52bdb241cb1735ee0c8f5ffbddbb4229c2e01e5824c8850ade0b33f"
+    }
+  ],
+  "document_counts": {
+    "paragraphs": 88,
+    "tables": 22,
+    "inline_shapes": 8,
+    "media_assets": 8
+  }
+}
