@@ -1,0 +1,108 @@
+{
+  "schema_version": "1.0",
+  "source_json_sha256": "d11b4eba7f1e519cd4bd064275e950aefdb60bb95528e0dc1f1c4752440f9975",
+  "rasterizer": "playwright-chromium",
+  "generated_figures": [
+    {
+      "figure_id": "figure_01",
+      "caption": "Hình 1.1. Sơ đồ kiến trúc quy trình",
+      "generator": "generate_architecture.py",
+      "svg_path": "architecture.svg",
+      "svg_sha256": "3b29d7effb2517e3cd0ae7c019681ae6766335449fa24bfe16083ee6c63dc85b",
+      "png_sha256": "d861fa6b8e646494cffb6bac500532c60be917796f3aa952a9caeec20532dbd7",
+      "docx_width_inches": 6.2,
+      "image_block_id": "bp_fig_1_1",
+      "docx_media_target": "word/media/image1.png",
+      "media_sha256": "d861fa6b8e646494cffb6bac500532c60be917796f3aa952a9caeec20532dbd7"
+    },
+    {
+      "figure_id": "figure_02",
+      "caption": "Hình 2.1. Sơ đồ tổ chức bộ phận thực hiện quy trình tại Viettel Post",
+      "generator": "generate_organization.py",
+      "svg_path": "organization.svg",
+      "svg_sha256": "f52aa77f3fb1ed6e40cb820cfd76d82957ff1a1e634e83dfaf67a35faec2f2e4",
+      "png_sha256": "d232e2ec2a575860fb0bcfa9fb0bb735b930302236a1ee7489eeee06f93d1c01",
+      "docx_width_inches": 6.2,
+      "image_block_id": "bp_fig_2_1",
+      "docx_media_target": "word/media/image2.png",
+      "media_sha256": "d232e2ec2a575860fb0bcfa9fb0bb735b930302236a1ee7489eeee06f93d1c01"
+    },
+    {
+      "figure_id": "figure_03",
+      "caption": "Hình 2.2. Kế hoạch làm việc và phân công nhiệm vụ trong quy trình",
+      "generator": "generate_schedule.py",
+      "svg_path": "schedule.svg",
+      "svg_sha256": "fee25074a21fbf32d9182754de180c078b22b295a9968b11a70ab882580ecd55",
+      "png_sha256": "ecd73c4ab59a009a7d8ccd4c6417363af9941691d1c590e6c7165165c45c5193",
+      "docx_width_inches": 6.2,
+      "image_block_id": "bp_fig_2_2",
+      "docx_media_target": "word/media/image3.png",
+      "media_sha256": "ecd73c4ab59a009a7d8ccd4c6417363af9941691d1c590e6c7165165c45c5193"
+    },
+    {
+      "figure_id": "figure_04",
+      "caption": "Hình 3.1. Sơ đồ BPMN - Quản lý hiệu suất hoạt động vận hành",
+      "generator": "generate_bpmn.py",
+      "svg_path": "Quan_ly_hieu_suat_hoat_dong_van_hanh.svg",
+      "svg_sha256": "218cc4ffa24bc3e758649e75fd4dbc5ee821727c9476575fd019b5fd7f71e05d",
+      "png_sha256": "af423ef3aabad896e9e170fee8aec334a59259baa6e31cc2cdfa2b6949f99f73",
+      "docx_width_inches": 6.45,
+      "image_block_id": "bp_fig_3_1",
+      "docx_media_target": "word/media/image4.png",
+      "media_sha256": "af423ef3aabad896e9e170fee8aec334a59259baa6e31cc2cdfa2b6949f99f73"
+    },
+    {
+      "figure_id": "figure_05",
+      "caption": "Hình 4.1. Sơ đồ BPMN - Phân tích giá trị gia tăng",
+      "generator": "generate_vaa.py",
+      "svg_path": "Quan_ly_hieu_suat_hoat_dong_van_hanh_VAA.svg",
+      "svg_sha256": "76398cd14c256a71d4f095352d217b94aae9d44915b7f937cf29c9b66b25afcd",
+      "png_sha256": "e29c2577f8c3cbd22e71a970a4759d4141f61ff21bddbfa6fc6d92f38f45c1e4",
+      "docx_width_inches": 6.4,
+      "image_block_id": "bp_fig_4_1",
+      "docx_media_target": "word/media/image5.png",
+      "media_sha256": "e29c2577f8c3cbd22e71a970a4759d4141f61ff21bddbfa6fc6d92f38f45c1e4"
+    },
+    {
+      "figure_id": "figure_06",
+      "caption": "Hình 4.2. Sơ đồ BPMN - Phân tích lãng phí",
+      "generator": "generate_waste.py",
+      "svg_path": "Quan_ly_hieu_suat_hoat_dong_van_hanh_Waste.svg",
+      "svg_sha256": "6b2e3fd69404fc3693d65d57ab22e79e5173b80000f6654ee108033c02a3bcc3",
+      "png_sha256": "6ff100bec59369fd4166897087f274b46ffd17bc4518340597588cfc35f3a8ff",
+      "docx_width_inches": 6.4,
+      "image_block_id": "bp_fig_4_2",
+      "docx_media_target": "word/media/image6.png",
+      "media_sha256": "6ff100bec59369fd4166897087f274b46ffd17bc4518340597588cfc35f3a8ff"
+    },
+    {
+      "figure_id": "figure_07",
+      "caption": "Hình 4.3. Sơ đồ cây nguyên nhân gốc rễ",
+      "generator": "generate_root_cause.py",
+      "svg_path": "root_cause.svg",
+      "svg_sha256": "d00a80775d71931dc86b10f10fbe3b8e45fc6ee099d37071c8f3fb846abc2325",
+      "png_sha256": "cf669bdba849bc64daed5ec1d9bb20b7f009755972aaf05a9990160de9ada121",
+      "docx_width_inches": 6.2,
+      "image_block_id": "bp_fig_4_3",
+      "docx_media_target": "word/media/image7.png",
+      "media_sha256": "cf669bdba849bc64daed5ec1d9bb20b7f009755972aaf05a9990160de9ada121"
+    },
+    {
+      "figure_id": "figure_08",
+      "caption": "Hình 4.4. Sơ đồ BPMN - Phân tích định lượng quy trình",
+      "generator": "generate_quantitative.py",
+      "svg_path": "Quan_ly_hieu_suat_hoat_dong_van_hanh_Quantitative.svg",
+      "svg_sha256": "621869ac5d1edc6babd02e37697affd245ae6f95711c122139d3c6f16af59f96",
+      "png_sha256": "f1d1fc43ea3392a4ee54db65b33a310e06662fbb87f46f16b9fb64592dd303f2",
+      "docx_width_inches": 6.4,
+      "image_block_id": "bp_fig_4_4",
+      "docx_media_target": "word/media/image8.png",
+      "media_sha256": "f1d1fc43ea3392a4ee54db65b33a310e06662fbb87f46f16b9fb64592dd303f2"
+    }
+  ],
+  "document_counts": {
+    "paragraphs": 84,
+    "tables": 22,
+    "figures": 8
+  }
+}
